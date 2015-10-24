@@ -1,0 +1,186 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=euc-jp">
+<title>eZ430U MacOSX/Linux</title>
+<style type="text/css">
+BODY { background: #f8f8f8; color: black; width: 40em; font-family: sans-serif; }
+H1   { color: green; text-align: center;}
+H2   { color: navy;  text-width: 40em; text-align: left; 
+       border-bottom: solid;
+       border-bottom-width: medium; }
+H3   { text-align: center; border-width: thin;}
+H4   { text-align: right }
+pre { margin-left: 2em;
+      margin-right: 2em;
+      font-family: monospace;
+      background-color: #ddeeee;
+      border: solid thin #aacccc;
+}
+</style>
+</head>
+<body>
+<h1>D/FW installation</h1>
+<p align=CENTER>a step by step guide to install D/FW into eZ430U</p>
+
+<h2>Introduction</h2>
+<p>
+<a href="index.html">D/FW</a> is an open source, experimental, and unofficial firmware for
+eZ430U debug interface. By installing this firmware
+you can use eZ430U natively on MacOSX, Linux, or other popular
+Unix systems.  Note that once you install this firmware, your
+eZ430U is no longer usable with TI's official tools, but
+once you have D/FW equipped 4 wire FET (such as FET430UIF),
+you should be able to backup/restore the TI's original firmware
+from another untouched FET.
+</p>
+<p>Please <a href="README.txt">README</a> how to make backup files
+for eZ430U with D/FW equipped FET.</a>
+
+<h2>Overview</h2>
+<p>First of all, please examine the circuit diagram for eZ430U carefully, and
+make sure you understand what you are about to do.
+Figure 4-25 of
+<a href="http://focus.ti.com.cn/cn/lit/ug/slau292a/slau292a.pdf">SLAU292A</a>
+is the circuit diagram for eZ430U.</p>
+
+<p>eZ430U consists of two programmable device, one is 
+<a href="http://focus.ti.com/docs/prod/folders/print/msp430f1612.html">MSP430F1612</a> and the other is 
+<a href="http://focus.ti.com/docs/prod/folders/print/tusb3410.html">TUSB3410</a>.
+<p>
+TUSB3410 takes care of communication between host computer (Unix system) 
+and MSP430F1612 through USB and the firmware for this device is stored
+in EEPROM (24LC128, 16KBytes).  This EEPROM is programmed by MSP430F1612
+at the time when D/FW equipped FET is powered up for the first time.
+D/FW includes an implementation of USB CDC ACM, this means that eZ430U
+can be accessed through traditional /dev/tty* interface on most of modern
+Unix systems.  In MacOSX, eZ430U appears as /dev/cu.usbmodem001 for most cases.
+In Linux, eZ430U appears as /dev/ttyACM0 for most cases.
+The firmware is programmed to interface /dev/tty and
+MSP430F1612's USART. Any data written to corresponding /dev/tty goes
+to RXD of MSP430F1612 and any data read from /dev/tty comes from
+TXD of MSP430F1612.  The host operating system and the firmware takes 
+care of low level USB protocol and TUSB3410 is transparent for host
+programs and the firmware for MSP430F1612.
+</p>
+
+<p>
+MSP430F1612 takes commands from the host programs, and does actual
+JTAG/SBW manipulation to the target device. Commands are defined in 
+dfw/cmds.c, and usually accessed by host side library, dfw/libdfw.c.
+All of host side utility programs, (dmwt, bufet and gdbproxy) use libdfw to 
+communicate D/FW equipped FET.
+This MSP430F1612 can be programmed through TP1...TP7 of the eZ430U
+circuit board, by 4 wire JTAG programmer such as FET430UIF.
+dfw/dfw.ez430u.ihex is the D/FW firmware for MSP430F1612 on eZ430U.
+As mentioned above, the first time eZ430U is powered up, D/FW
+will write the firmware for TUSB3410. This will take about 10 seconds or so.
+Be patient. Once EEPROM is programmed successfully, 
+/dev/tty* will appear in your host Unix system.
+</p>
+
+<h2>Preparation</h2>
+<p>To program MSP430F1612 on eZ430U, you have to make TP1...TP7
+available for the 4 wire FET you are going to use to program eZ430U.
+</p>
+<table border=1>
+<tr><td><img src="dfw-step00.jpg"><td><img src="dfw-step01.jpg"></tr>
+</table>
+<p>I attached a socket like above photos, because 
+I was planning to use JTAG interface
+a lot (to debug D/FW :-). But D/FW can be upgraded from USB port,
+so once your eZ430U gets D/FW, it is rare that you have to use JTAG to 
+program MSP430F1612 on eZ430. You need JTAG interface only when things
+really messed up.
+<a href="http://processors.wiki.ti.com/index.php/EZ430_Emulator_Upgrade">
+This way</a> might be easier for most of you.
+</p>
+
+The followings are the instructions to build host side tools.
+<ul>
+<li> edit Makefile in dfw directory and correct your BFD library's location. 
+<li> make will make dmwt command and other utilities.
+<li>  examples/*/Makefile contains examples how to use dmwt.
+<li> (cd gdbproxy; ./configure && make)
+    will make gdbproxy. (optional)
+</ul>
+
+<h2>Step1</h2>
+<p>The photo below shows what you will need.</p>
+<table border=1>
+<tr><td><img src="dfw-step1.jpg"></tr>
+</table>
+<ul>
+  <li> 4 wire JTAG programmer (FET430UIF). ``mother FET''
+  <li> eZ430U (target FET).
+  <li> USB charger to supply power for eZ430U.
+  <li> USB cable to connect charger and eZ430U. (optional)
+</ul>
+
+<h2>Step2</h2>
+<table border=1>
+<tr><td><img src="dfw-step2.jpg"></tr>
+</table>
+<ul>
+  <li> Connect mother FET to whatever host computer which
+    you can use mother FET to program MSP430.
+  <li> Connect USB charger to AC to power eZ430U up.
+  <li> Use mother FET's tool to program dfw.ez430u.ihex.
+</ul>
+
+<h2>Step3</h2>
+<table border=1>
+<tr><td><img src="dfw-step3.jpg"></tr>
+</table>
+<ul>
+  <li> Disconnect JTAG from eZ430U.
+  <li> Connect eZ430U to your host Unix system.
+  <li> /dev/cu.usbmodem001 (MacOSX) or /dev/ttyACM0 (Linux) will appear.
+  <li> It might take about 10 seconds after you plug your eZ430U
+    into your host before these device node appears in the file system.
+    (EEPROM is being programmed)
+  <li> To check if D/FW is installed successfully, you can try to update
+firmware by using dmwt command, like follows.
+<pre>
+$ ../dmwt -p /dev/cu.usbmodem001 -f dfw.ez430u.ihex 
+examining firmware version...
+program matches with the target, no need to update
+$ 
+</pre>
+  <li> dmwt compares the specified firmware and the content of the flash,
+    before it updates the flash.
+    In this case, you have already written the same firmware by mother FET.
+    dmwt will not update eZ430U's firmware.
+</ul>
+
+<h2>Step4</h2>
+<table border=1>
+<tr><td><img src="dfw-step4.jpg"></tr>
+</table>
+<ul>
+  <li> You likely want to install dmwt and gdbproxy into your /usr/local/bin
+<pre>
+$ sudo cp dmwt /usr/local/bin
+$ cd gdbproxy
+$ ./configure
+$ make
+$ sudo cp gdbproxy /usr/local/bin/msp430-gdbproxy
+</pre>
+  <li> Now you can enjoy development MSP430 system under your favorite
+    operating systems.
+<pre>
+$ dmwt -p /dev/cu.usbmodem001 -c "SBW" demo2
+examining current version of the target device.......
+It took 2.226083 seconds
+OK, the program needs to be updated.
+Erasing flash..
+It took 0.298997 seconds
+programming............ done
+It took 9.391335 seconds
+$
+</pre>
+<li> <a href="http://homepage.mac.com/skimu/msp430/rf2500-0.2.tgz">This</a>
+contains a few small examples for RF2500T.
+</ul>
+<h4 align=RIGHT>skimu@mac.com</h4>
+</body>
+</html>

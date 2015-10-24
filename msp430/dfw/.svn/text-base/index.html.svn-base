@@ -1,0 +1,347 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=euc-jp">
+<title>FET430UIF/eZ430U for MacOSX/Linux</title>
+<style type="text/css">
+BODY { background: #f8f8f8; color: black; width: 40em; font-family: sans-serif; }
+H1   { color: green; text-align: center;}
+H2   { color: navy;  text-width: 40em; text-align: left; 
+       border-bottom: solid;
+       border-bottom-width: medium; }
+H3   { text-align: center; border-width: thin;}
+H4   { text-align: right }
+pre { margin-left: 2em;
+      margin-right: 2em;
+      font-family: monospace;
+      background-color: #ddeeee;
+      border: solid thin #aacccc;
+}
+</style>
+</head>
+<body>
+<h1>D/FW</h1>
+<p align=CENTER>Debug Firmware for MSP-FET430UIF/eZ430U</p>
+<p align=RIGHT><a href="index-jp.html">-&gt;Japanese</a></p>
+<table border=0>
+<tr><td><img src="fet430uif-s.jpg"><td><img src="eZ430U.jpg"></tr>
+</table>
+
+<h2>Introduction</h2>
+<p>
+D/FW is an open source, experimental, and unofficial firmware for
+MSP-FET430UIF and eZ430U debug interface and associated host side 
+control programs.  Host side programs are designed to work with
+any modern UNIX operating systems (e.g. Linux, *BSD).
+</p>
+<p>Two firmwares included in the distribution.</p>
+<ul>
+<li>DFW(Debug firmware): Flash target device,  interface to gdbproxy.
+<li>PTFW(Pass-Through): A dedicated serial pass-through function for eZ430U.
+</ul>
+
+<h2>News</h2>
+<dl>
+  <dt> 5/7/2010(Version 0.19):</dt>
+  <dd> DFW for MSP430F2274 (RF2500T).</dd>
+  <dt> 5/3/2010(Version 0.18):</dt>
+  <dd> A new firmware (PTFW) is added. 
+    This is a dedicated (no debug) serial port pass through firmware for eZ430u.</dd>
+  <dt> 5/1/2010(Version 0.17):</dt>
+  <dd> It has been reported that dfw-0.17.tgz works on Linux as well.</dd>
+</dl>
+Please <a href="README.txt">README</a> as well.
+
+<h2>Combinations known to work</h2>
+<h3>Host</h3>
+<ul>
+<li> MacOSX (Darwin 10.2.0) with Intel CPU.
+<li> Gentoo Linux.
+</ul>
+<p>For hosts with big endian CPU,
+host side programs need a few changes.</p>
+
+<h3>FET</h3>
+<ul>
+  <li> FET430UIF
+  <li> eZ430U(Rev2.0), (See below notes for eZ430-F2013)
+  <li> MSP430F2274 + 3V serial interface (eg. eZ430U/PTFW)
+</ul>
+
+<h3>Target</h3>
+<table align=CENTER border=1>
+<tr><th>FET<th>Device<th>TAP<th>Target Board<th>Comments(test by)</tr>
+<tr><td>FETUIF<td>F169<td>JTAG<td>MSP-TS430PM64<td>&nbsp;</tr>
+<tr><td>FETUIF<td>F2274<td>JTAG<td>MSP-TS430DA38<td>&nbsp;</tr>
+<tr><td>FETUIF<td>F2274<td>SBW <td>MSP-TS430DA38<td>&nbsp;</tr>
+<tr>
+  <td>FETUIF<td>F2274<td>SBW 
+  <td><a href="http://focus.ti.com/docs/toolsw/folders/print/ez430-rf2500t.html">
+      eZ430-RF2500T</a>
+  <td>&nbsp;
+</tr>
+<tr>
+  <td>FETUIF<td>F1612<td>JTAG<td>eZ430U(Rev2.0)<td>Soldered TP7..TP1
+</tr>
+<tr><td>FETUIF<td>F2618<td>CPUXV1/JTAG<td>MSP-TS430PM64<td>&nbsp;</tr>
+<tr>
+  <td>FETUIF<td>F5529<td>CPUXV2/JTAG
+  <td><a href="http://focus.ti.com/docs/toolsw/folders/print/msp-ts430pn80usb.html">
+      MSP-TS430PN80USB</a>
+  <td>&nbsp;
+</tr>
+<tr>
+  <td>FETUIF<td>F5529<td>CPUXV2/SBW
+  <td><a href="http://focus.ti.com/docs/toolsw/folders/print/msp-ts430pn80usb.html">
+      MSP-TS430PN80USB</a>
+  <td>&nbsp;
+</tr>
+<tr>
+  <td>FETUIF<td>F6137<td>CPUXV2/SBW
+  <td><a href="http://focus.ti.com/docs/toolsw/folders/print/ez430-chronos.html">
+      eZ430-Chronos</a>
+  <td>&nbsp;
+</tr>
+<tr>
+  <td>eZ430U   <td>F2012<td>SBW 
+  <td><a href="http://focus.ti.com/docs/toolsw/folders/print/ez430-t2012.html">
+      eZ430-T2012</a>
+  <td>&nbsp;
+</tr>
+<tr>
+  <td>eZ430U   <td>F2274<td>SBW 
+  <td><a href="http://focus.ti.com/docs/toolsw/folders/print/ez430-rf2500t.html">
+      eZ430-RF2500T</a>
+  <td>&nbsp;
+</tr>
+<tr>
+  <td>eZ430U<td>F6137<td>CPUXV2/SBW
+  <td><a href="http://focus.ti.com/docs/toolsw/folders/print/ez430-chronos.html">
+      eZ430-Chronos</a>
+  <td>&nbsp;
+</tr>
+<tr>
+  <td>F2274<td>F1612<td>JTAG<td>eZ430U(Rev2.0)<td>F2274@R2500T
+</tr>
+<tr>
+  <td>F2274<td>F2274<td>SBW<td>eZ430-RF2500T<td>F2274@R2500T
+</tr>
+<tr>
+  <td>FETUIF<td>CC2511<td>CC8051
+  <td><a href="http://focus.ti.com/docs/toolsw/folders/print/cc2511emk.html">
+      CC2511DK_Dongle</a>
+  <td>Chipcon RF
+</tr>
+</table>
+<p>
+F2274/DFW can handle everything FET430UIF/DFW can, while eZ430U/DFW can
+only do SBW.  To use F2274/DFW, you need 3V serial interface to
+connect host computer. You can use eZ430/PTFW for this purpose.
+</p>
+
+<h2>Demo</h2>
+<ul>
+  <li> <a href="http://www.youtube.com/watch?v=WoYAJC1oucg">Video</a>
+  <li> <a href="http://picasaweb.google.com/shigenobu.kimura/Msp430#">Gallery</a>
+  <li> <a href="gdb.txt">example gdb session.</a> (stack back trace)
+  <li> step execution on
+       <a href="mamamabushiiyo.txt">F2274</a> and on
+       <a href="koregahayarino.txt">F5529</a>.
+</ul>
+
+<h2>Requirements</h2>
+<ul>
+<li> FET430UIF or eZ430U (target FET), which you don't miss much if 
+   it get broken. (See <a href="README.txt">README</a> for notes on eZ430-F2013)
+
+<li> 4 wire JTAG programmer to write DFW into your FET. (mother FET).
+   DFW has ability to upgrade itself from USB port, you only need 
+   mother programmer just for the first time.
+
+<li>Host computer running UNIX operating system with USB modem support.
+
+<li> <a href="http://mspgcc.sourceforge.net/">MSPGCC toolchain</a>.
+
+<li> No USB device with vendor/product ID of 0x451/0xbeef.
+  These are the ones DFW is using.  See <a href="README.txt">README</a> how to change USB IDs.
+</ul>
+
+<h2>Preparation</h2>
+<h3>MSP-FET430UIF</h3>
+<table align=CENTER border=1>
+<tr><td><img src="jtag_wo_vcct.jpg">
+<td>
+JTAG connector for FET430UIF<br>
+VCCT(pin 7 of J6) is not connected
+for Rev1.3.  Open FET430UIF's enclosure
+and plug this header to J6.
+</table>
+
+<h3>eZ430U</h3>
+<table align=CENTER border=1>
+<tr><td><img src="eZ430U+JTAG.jpg">
+<td>
+<ul>
+<li> <a href="http://wiki.msp430.com/index.php/EZ430_Emulator_Upgrade">This page</a>
+explains alternative way to attach JTAG.
+<li><a href="inst-eZ430U.html">Step by step guide</a>
+<li><a href="rf2500t.html">Bootstrapping D/FW on eZ430-RF2500</a>
+</ul>
+</tr>
+</table>
+
+<h3>MSP430F2274(RF2500T)</h3>
+<table border=1>
+<tr>
+  <td><img src="rf2500t-jtag.jpg">
+  <td><p>Attach JTAG connector and a jumper for SBW.
+    Please find pin assignments in
+    <tt>dfw/conf/f2274/uif_f2274.c</tt>.</p>
+    <p>See Step5 of <a href="rf2500t.html">Bootstrapping D/FW on eZ430-RF2500</a>.</p>
+</tr>
+</table>
+
+<ul>
+<li> <tt>dfw.fetuif.ihex</tt>, <tt>dfw.ez430u.ihex</tt> and 
+    <tt>dfw.ez430u1p1.ihex</tt> in
+    <tt>dfw</tt> directory is pre-compiled binary (in Intel HEX format) for 
+    FET430UIF, eZ430U and eZ430U Rev1.1, respectively.  Write one 
+    of these into your FET by a FET you currently have.
+
+<li> DFW checks the content of EEPROM, and program it
+    if necessary.  It will take about 10 seconds before 
+    it gets ready after the first power on.
+
+<li> edit <tt>Makefile</tt> in the distribution's top directory 
+     and correct your BFD library's location. 
+
+<li> <tt>make</tt> will make dmwt command and other utilities.
+
+<li> <tt>examples/*/Makefile</tt> contains examples how to use dmwt.
+
+<li>  <tt>(cd gdbproxy; ./configure && make)</tt>
+  will make gdbproxy.
+</ul>
+
+<h2>Host command usage examples</h2>
+<h3>dmwt : Dfw Memory WriTer</h3>
+<p>dmwt command will program target cpu via JTAG/SBW (or CC8051).
+This is also used to update FET's firmware.
+</p>
+
+<pre>
+Usage: dmwt [-vdf] [-p /dev/cu.usbmodemXXX] [-c TARGET_OPTIONS] 
+            [-b name.txt from-addr] [object]
+
+  ``object'' can be in either ELF, Intel HEX, or TITXT format.
+
+  /dev/cu.usbmodemXXX might be /dev/ttyACMXXX or /dev/ttyXXX 
+
+   $ dmwt                               # will print help message
+   $ dmwt -f dfw.fetuif.elf             # update firmware
+   $ dmwt -c TARGET_OPTIONS a.out
+   $ dmwt -p /dev/cu.usbmodem001 -c "SBW" a.out
+   $ dmwt -vc "SBW" a.out               # verbose mode
+
+   $ dmwt -c ""  a.out                  # program a.out with JTAG.
+   $ dmwt -c "SBW"  a.out               # program a.out with SBW.
+   $ dmwt -c "VCC 3000 UNLOCKA" a.out   # sets VCC 3.0V, unlock INFO_A
+   $ dmwt -c "CPUXV1" a.out                   
+   $ dmwt -c "CPUXV2" a.out                   
+   $ dmwt -c "CC8051" main.hex
+</pre>
+examples/*/Makefile has more examples.
+
+<h3>gdbproxy</h3>
+<pre>
+   $ msp430-gdbproxy --help uifdfw
+   $ msp430-gdbproxy --port=2000 uifdfw --c TARGET_OPTIONS
+   $ msp430-gdbproxy --port=2000 uifdfw --c "CPUXV2" --debug
+
+   $ msp430-gdbproxy --port=2000 uifdfw --c "SBW"         # msp430/SBW
+   $ msp430-gdbproxy --port=2000 uifdfw --c "CPUXV1"      # CPUXV1/JTAG
+   $ msp430-gdbproxy --port=2000 uifdfw --c "CPUXV2 SBW"  # CPUXV2/SBW
+</pre>
+.gdbinit
+<pre>
+set remoteaddresssize 64
+set remotetimeout 999999
+target remote localhost:2000
+
+define reload
+  monitor erase
+  monitor flash
+  load
+  monitor memory
+  set $pc = *0xfffe
+end
+</pre>
+
+<h3>TARGET_OPTIONS</h3>
+TARGET_OPTIONS are common among dfw tools
+which specifies target cpu's character.
+<pre>
+   MSP430    : (default) msp430x1xx, msp430x2xx, msp430x4xx
+   CPUXV1    :           msp430x2xx, msp430x4xx with CPUX
+   CPUXV2    :           msp430x5xx, cc430x6xx 
+   CC8051    :           cc111x, cc251x, etc.  
+
+   VCC xxxx  : sets VCC to XXXX mV (e.g., VCC 3300), FET430UIF only.
+
+   JTAG      : (default)
+   SBW       :          
+
+   FastFlash : (default)
+   SlowFlash :   for relatively old devices without FastFlash feature
+   LOCKA     : (default) locks INFO_A memory
+   UNLOCKA   :           unlocks INFO_A memory
+
+   FCTL addr : sets FCTL base address for CPUXV2 target.
+
+   FWS  n    : sets flash word size for CC8051 target.
+</pre>
+See cmd.c target_*.c for details.
+
+<h3>bufet : make backup files for target FET</h3>
+This will make backup files for both EEPROM and
+FLASH of FET430UIF/eZ430U.
+<pre>
+Usage: bufet [-vd] [-p /dev/cu.usbmodemXXX] [-c TARGET_OPTIONS] 
+             [fet_eeprom.txt fet_flash.txt]
+</pre>
+To make backup file:
+<ul>
+<li> You need DFW equipped 4wire JTAG FET.
+  eZ430U cannot be used for this purpose, since it supports SBW.
+<li> Connect target FET430UIF or eZ430U to mother FET with JTAG
+     cable, and provide power to target FET through USB cable.
+<li> Connect mother to the host computer with USB cable.
+</ul>
+Then type, 
+<pre>
+   $ ./bufet
+</pre>
+or
+<pre>
+   $ mkdir FET_backup
+   $ cd FET_backup
+   $ ../bufet
+</pre>
+bufet will create fet_eeprom.txt and fet_flash.txt in the current
+directory.  Those files are in TITXT format.  After making backup
+files, you might want to compress these files using titxt_compress 
+command to save disk space and restore time.
+
+<p>To restore from backup file,
+<pre>
+   $ ../bufet fet_eeprom.txt fet_flash.txt
+</pre>
+Note that reading/writing eeprom is very slow.
+
+<h2>Download</h2>
+<ul>
+  <li> <a href="dfw-0.19.tgz">dfw-0.19.tgz</a> (5/7/2010)
+</ul>
+
+<h4>skimu@mac.com</h4>
+</body>
+</html>

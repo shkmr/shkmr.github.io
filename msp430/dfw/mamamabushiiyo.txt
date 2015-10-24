@@ -1,0 +1,316 @@
+lambda$ /usr/local/mspgcc4/bin/msp430-gdb  stop_and_continue.elf 
+GNU gdb (GDB) 7.0.1
+Copyright (C) 2009 Free Software Foundation, Inc.
+License GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl.html>
+This is free software: you are free to change and redistribute it.
+There is NO WARRANTY, to the extent permitted by law.  Type "show copying"
+and "show warranty" for details.
+This GDB was configured as "--host=i386-apple-darwin10.2.0 --target=msp430".
+For bug reporting instructions, please see:
+<http://www.gnu.org/software/gdb/bugs/>...
+Reading symbols from /Volumes/data/skimu/proj/dfw/examples/f2274sbw/stop_and_continue.elf...done.
+0x00008000 in _reset_vector__ ()
+(gdb) reload
+Erasing target flash -  Erased OK
+ flash write enabled
+Loading section .text, size 0x146 lma 0x8000
+Loading section .vectors, size 0x20 lma 0xffe0
+Start address 0x8000, load size 358
+Transfer rate: 324 bytes/sec, 39 bytes/write.
+ flash write disabled
+(gdb) c
+Continuing.
+
+Program received signal SIGABRT, Aborted.
+main () at ../stop_and_continue.c:65
+65	    led_message("-.. -... --.");
+(gdb) list
+60	#endif
+61	
+62	  while (1) {
+63	    led_message("-.-.-  .- -... -.-. -.. .  ");
+64	    LPM0;
+65	    led_message("-.. -... --.");
+66	    LPM0;
+67	  }
+68	}
+69	
+(gdb) regs
+Warning: command 'regs' is deprecated.
+Use 'info registers'.
+
+pc/r0: 8136  sp/r1: 0600  sr/r2: 0010     r3: 0000  
+fp/r4: fbff     r5: ff7f     r6: fcff     r7: ffff  
+   r8: 97f7     r9: dfff    r10: ffff    r11: 80da  
+  r12: feff    r13: ffff    r14: ffff    r15: 0000  
+(gdb) set $r2 = 0
+(gdb) s
+
+Program received signal SIGABRT, Aborted.
+0x0000813a in main () at ../stop_and_continue.c:65
+65	    led_message("-.. -... --.");
+(gdb) s
+
+Program received signal SIGABRT, Aborted.
+led_message (s=0x80da "-.-.-  .- -... -.-. -.. .  ") at ../stop_and_continue.c:21
+21	{
+(gdb) 
+
+Program received signal SIGABRT, Aborted.
+0x00008062 in led_message (s=0x80da "-.-.-  .- -... -.-. -.. .  ") at ../stop_and_continue.c:21
+21	{
+(gdb) 
+
+Program received signal SIGABRT, Aborted.
+led_message (s=0x80f6 "-.. -... --.") at ../stop_and_continue.c:23
+23	  led_off();
+(gdb) 
+
+Program received signal SIGABRT, Aborted.
+led_message (s=0x80f6 "-.. -... --.") at ../stop_and_continue.c:24
+24	  msleep(70*SPEED);
+(gdb) 
+
+Program received signal SIGABRT, Aborted.
+0x0000806c in led_message (s=0x80f6 "-.. -... --.") at ../stop_and_continue.c:24
+24	  msleep(70*SPEED);
+(gdb) 
+
+Program received signal SIGABRT, Aborted.
+msleep (n=-1) at ../stop_and_continue.c:14
+14	{
+(gdb) 
+
+Program received signal SIGABRT, Aborted.
+0x00008036 in msleep (n=-1) at ../stop_and_continue.c:14
+14	{
+(gdb) 
+
+Program received signal SIGABRT, Aborted.
+msleep (n=700) at ../stop_and_continue.c:16
+16	  while (n-- > 0)
+(gdb) 
+
+Program received signal SIGABRT, Aborted.
+0x0000803a in msleep (n=699) at ../stop_and_continue.c:16
+16	  while (n-- > 0)
+(gdb) 
+
+Program received signal SIGABRT, Aborted.
+0x0000803c in msleep (n=699) at ../stop_and_continue.c:16
+16	  while (n-- > 0)
+(gdb) 
+
+Program received signal SIGABRT, Aborted.
+msleep (n=699) at ../stop_and_continue.c:17
+17	    for (i=MCLK/6000; i > 0; i--) ;
+(gdb) 
+
+Program received signal SIGABRT, Aborted.
+0x00008044 in msleep (n=699) at ../stop_and_continue.c:17
+17	    for (i=MCLK/6000; i > 0; i--) ;
+(gdb) 
+
+Program received signal SIGABRT, Aborted.
+0x00008048 in msleep (n=699) at ../stop_and_continue.c:17
+17	    for (i=MCLK/6000; i > 0; i--) ;
+(gdb) 
+
+Program received signal SIGABRT, Aborted.
+0x0000804a in msleep (n=699) at ../stop_and_continue.c:17
+17	    for (i=MCLK/6000; i > 0; i--) ;
+(gdb) p i
+$1 = -32656
+(gdb) p *(int *)$r1
+$2 = 166
+(gdb) s
+
+Program received signal SIGABRT, Aborted.
+0x0000804e in msleep (n=699) at ../stop_and_continue.c:17
+17	    for (i=MCLK/6000; i > 0; i--) ;
+(gdb) s
+
+Program received signal SIGABRT, Aborted.
+0x00008052 in msleep (n=699) at ../stop_and_continue.c:17
+17	    for (i=MCLK/6000; i > 0; i--) ;
+(gdb) s
+
+Program received signal SIGABRT, Aborted.
+0x0000804a in msleep (n=699) at ../stop_and_continue.c:17
+17	    for (i=MCLK/6000; i > 0; i--) ;
+(gdb) p *(int *)$r1
+$3 = 165
+(gdb) s
+
+Program received signal SIGABRT, Aborted.
+0x0000804e in msleep (n=699) at ../stop_and_continue.c:17
+17	    for (i=MCLK/6000; i > 0; i--) ;
+(gdb) s
+
+Program received signal SIGABRT, Aborted.
+0x00008052 in msleep (n=699) at ../stop_and_continue.c:17
+17	    for (i=MCLK/6000; i > 0; i--) ;
+(gdb) s
+
+Program received signal SIGABRT, Aborted.
+0x0000804a in msleep (n=699) at ../stop_and_continue.c:17
+17	    for (i=MCLK/6000; i > 0; i--) ;
+(gdb) p *(int *)$r1
+$4 = 164
+(gdb) set *(int *)$r1 = 1
+(gdb) s
+
+Program received signal SIGABRT, Aborted.
+0x0000804e in msleep (n=699) at ../stop_and_continue.c:17
+17	    for (i=MCLK/6000; i > 0; i--) ;
+(gdb) s
+
+Program received signal SIGABRT, Aborted.
+0x00008052 in msleep (n=699) at ../stop_and_continue.c:17
+17	    for (i=MCLK/6000; i > 0; i--) ;
+(gdb) s
+
+Program received signal SIGABRT, Aborted.
+0x00008054 in msleep (n=699) at ../stop_and_continue.c:17
+17	    for (i=MCLK/6000; i > 0; i--) ;
+(gdb) s
+
+Program received signal SIGABRT, Aborted.
+0x00008056 in msleep (n=699) at ../stop_and_continue.c:17
+17	    for (i=MCLK/6000; i > 0; i--) ;
+(gdb) s
+
+Program received signal SIGABRT, Aborted.
+0x00008058 in msleep (n=698) at ../stop_and_continue.c:17
+17	    for (i=MCLK/6000; i > 0; i--) ;
+(gdb) s
+
+Program received signal SIGABRT, Aborted.
+0x0000805a in msleep (n=698) at ../stop_and_continue.c:17
+17	    for (i=MCLK/6000; i > 0; i--) ;
+(gdb) p n
+$5 = 698
+(gdb) set var n=0
+(gdb) p *(int *)$r1
+$6 = 0
+(gdb) s
+
+Program received signal SIGABRT, Aborted.
+msleep (n=0) at ../stop_and_continue.c:17
+17	    for (i=MCLK/6000; i > 0; i--) ;
+(gdb) 
+
+Program received signal SIGABRT, Aborted.
+0x00008048 in msleep (n=0) at ../stop_and_continue.c:17
+17	    for (i=MCLK/6000; i > 0; i--) ;
+(gdb) 
+
+Program received signal SIGABRT, Aborted.
+0x0000804a in msleep (n=0) at ../stop_and_continue.c:17
+17	    for (i=MCLK/6000; i > 0; i--) ;
+(gdb) 
+
+Program received signal SIGABRT, Aborted.
+0x0000804e in msleep (n=0) at ../stop_and_continue.c:17
+17	    for (i=MCLK/6000; i > 0; i--) ;
+(gdb) p *(int *)$r1
+$7 = 165
+(gdb) set var *(int *)$r1 = 0
+(gdb) s
+
+Program received signal SIGABRT, Aborted.
+0x00008052 in msleep (n=0) at ../stop_and_continue.c:17
+17	    for (i=MCLK/6000; i > 0; i--) ;
+(gdb) 
+
+Program received signal SIGABRT, Aborted.
+0x00008054 in msleep (n=0) at ../stop_and_continue.c:17
+17	    for (i=MCLK/6000; i > 0; i--) ;
+(gdb) 
+
+Program received signal SIGABRT, Aborted.
+0x00008056 in msleep (n=0) at ../stop_and_continue.c:17
+17	    for (i=MCLK/6000; i > 0; i--) ;
+(gdb) 
+
+Program received signal SIGABRT, Aborted.
+0x00008058 in msleep (n=-1) at ../stop_and_continue.c:17
+17	    for (i=MCLK/6000; i > 0; i--) ;
+(gdb) 
+
+Program received signal SIGABRT, Aborted.
+0x0000805a in msleep (n=-1) at ../stop_and_continue.c:17
+17	    for (i=MCLK/6000; i > 0; i--) ;
+(gdb) 
+
+Program received signal SIGABRT, Aborted.
+msleep (n=-1) at ../stop_and_continue.c:18
+18	}
+(gdb) 
+
+Program received signal SIGABRT, Aborted.
+0x0000805e in msleep (n=-1) at ../stop_and_continue.c:18
+18	}
+(gdb) 
+
+Program received signal SIGABRT, Aborted.
+led_message (s=0x80f6 "-.. -... --.") at ../stop_and_continue.c:25
+25	  while (c=*s++) {
+(gdb) 
+
+Program received signal SIGABRT, Aborted.
+0x00008072 in led_message (s=0x80f6 "-.. -... --.") at ../stop_and_continue.c:25
+25	  while (c=*s++) {
+(gdb) 
+
+Program received signal SIGABRT, Aborted.
+0x00008074 in led_message (s=0x80f6 "-.. -... --.") at ../stop_and_continue.c:25
+25	  while (c=*s++) {
+(gdb) 
+
+Program received signal SIGABRT, Aborted.
+0x00008076 in led_message (s=0x80f7 ".. -... --.") at ../stop_and_continue.c:25
+25	  while (c=*s++) {
+(gdb) 
+
+Program received signal SIGABRT, Aborted.
+0x00008078 in led_message (s=0x80f7 ".. -... --.") at ../stop_and_continue.c:25
+25	  while (c=*s++) {
+(gdb) 
+
+Program received signal SIGABRT, Aborted.
+led_message (s=0x80f7 ".. -... --.") at ../stop_and_continue.c:26
+26	    switch (c) {
+(gdb) 
+
+Program received signal SIGABRT, Aborted.
+0x0000807e in led_message (s=0x80f7 ".. -... --.") at ../stop_and_continue.c:26
+26	    switch (c) {
+(gdb) 
+
+Program received signal SIGABRT, Aborted.
+led_message (s=0x80f7 ".. -... --.") at ../stop_and_continue.c:35
+35	      led_on();
+(gdb) 
+
+Program received signal SIGABRT, Aborted.
+led_message (s=0x80f7 ".. -... --.") at ../stop_and_continue.c:36
+36	      msleep(25*SPEED);
+(gdb) list
+31	      msleep(10*SPEED);
+32	      break;
+33	    case '-':
+34	    case '_':
+35	      led_on();
+36	      msleep(25*SPEED);
+37	      led_off();
+38	      msleep(10*SPEED);
+39	      break;
+40	    case ' ':
+(gdb) quit
+A debugging session is active.
+
+	Inferior 1 [Remote target] will be killed.
+
+Quit anyway? (y or n) y
+lambda$ 

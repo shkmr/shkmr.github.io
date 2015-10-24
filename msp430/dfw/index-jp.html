@@ -1,0 +1,362 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=euc-jp">
+<title>FET430UIF/eZ430U for MacOSX/Linux</title>
+<style type="text/css">
+BODY { background: #f8f8f8; color: black; width: 40em; font-family: sans-serif; }
+H1   { color: green; text-align: center;}
+H2   { color: navy;  text-width: 40em; text-align: left; 
+       border-bottom: solid;
+       border-bottom-width: medium; }
+H3   { text-align: center; border-width: thin;}
+H4   { text-align: right }
+pre { margin-left: 2em;
+      margin-right: 2em;
+      font-family: monospace;
+      background-color: #ddeeee;
+      border: solid thin #aacccc;
+}
+</style>
+</head>
+<body>
+<h1>D/FW</h1>
+<p align=CENTER>Debug Firmware for MSP-FET430UIF/eZ430U</p>
+<p align=RIGHT><a href="index.html">-&gt;English</a></p>
+<table border=0>
+<tr><td><img src="fet430uif-s.jpg"><td><img src="eZ430U.jpg"></tr>
+</table>
+
+<h2>はじめに</h2>
+<p>
+  D/FWは MSP-FET430UIF, eZ430U 用の非公式ファームウェア(DFW)と
+  それに付随するホストプログラム群です。
+  動作確認は MacOSX で行っていますが、他の UNIX (Linux とか BSD)
+  でも使える筈です。 自習の為にホビーとして作っています。
+</p>
+<p>D/FW には 2 種類のファームウェアが含まれます。
+<ul>
+<li>DFW(Debug firmware): ターゲットのフラッシュ書き込み。 gdbproxy との通信。
+<li>PTFW(Pass-Through): eZ430U用の USB シリアルインターフェース。
+</ul>
+
+<h2>What's new</h2>
+<dl>
+  <dt>5/7/2010 (Version 0.19):</dt>
+  <dd>MSP430F2274 用のデバッグファームウェア(DFW)を追加しました。</dd>
+  <dt>5/3/2010 (Version 0.18):</dt>
+  <dd>eZ430u 用のシリアルポートの中継専用(デバッグ機能は使えない)ファームウェア(PTFW)を追加しました。</dd>
+  <dt>5/1/2010 (Version 0.17):</dt>
+  <dd>Gentoo Linux でも使えたという報告をいただきました。</dd>
+</dl>
+
+<a href="README.txt">README</a> も参照してください。
+
+<h2>デモ</h2>
+<ul>
+  <li> <a href="http://www.youtube.com/watch?v=WoYAJC1oucg">ビデオ</a>
+  <li> <a href="http://picasaweb.google.com/shigenobu.kimura/Msp430#">ギャラリー</a>
+  <li> スタックバックトレース <a href="gdb.txt">F2274</a>
+  <li> ステップ実行
+       <a href="mamamabushiiyo.txt">F2274</a>, そして
+       <a href="koregahayarino.txt">F5529</a>.
+</ul>
+
+<h2>うまく動作する組み合わせ</h2>
+<h3>Host</h3>
+<ul>
+<li> MacOSX (Darwin 10.2.0, Intel).
+<li> Gentoo Linux.
+</ul>
+ホスト CPU が Big endian の場合は gdbproxy と bufet にちょっとした変更を加える必要があります。
+
+<h3>FET</h3>
+<ul>
+  <li> MSP-FET430UIF
+  <li> eZ430U(Rev2.0)
+  <li> MSP430F2274 + 3Vのシリアルインターフェース. (RF2500T で動作確認)
+</ul>
+
+<h3>Target</h3>
+<table align=CENTER border=1>
+<tr><th>FET<th>Device<th>TAP<th>Target Board<th>Comments(test by)</tr>
+<tr><td>FETUIF<td>F169<td>JTAG<td>MSP-TS430PM64<td>&nbsp;</tr>
+<tr><td>FETUIF<td>F2274<td>JTAG<td>MSP-TS430DA38<td>&nbsp;</tr>
+<tr><td>FETUIF<td>F2274<td>SBW <td>MSP-TS430DA38<td>&nbsp;</tr>
+<tr>
+  <td>FETUIF<td>F2274<td>SBW 
+  <td><a href="http://focus.ti.com/docs/toolsw/folders/print/ez430-rf2500t.html">
+      eZ430-RF2500T</a>
+  <td>&nbsp;
+</tr>
+<tr>
+  <td>FETUIF<td>F1612<td>JTAG<td>eZ430U(Rev2.0)<td>Soldered TP7..TP1
+</tr>
+<tr><td>FETUIF<td>F2618<td>CPUXV1/JTAG<td>MSP-TS430PM64<td>&nbsp;</tr>
+<tr>
+  <td>FETUIF<td>F5529<td>CPUXV2/JTAG
+  <td><a href="http://focus.ti.com/docs/toolsw/folders/print/msp-ts430pn80usb.html">
+      MSP-TS430PN80USB</a>
+  <td>&nbsp;
+</tr>
+<tr>
+  <td>FETUIF<td>F5529<td>CPUXV2/SBW
+  <td><a href="http://focus.ti.com/docs/toolsw/folders/print/msp-ts430pn80usb.html">
+      MSP-TS430PN80USB</a>
+  <td>&nbsp;
+</tr>
+<tr>
+  <td>FETUIF<td>F6137<td>CPUXV2/SBW
+  <td><a href="http://focus.ti.com/docs/toolsw/folders/print/ez430-chronos.html">
+      eZ430-Chronos</a>
+  <td>&nbsp;
+</tr>
+<tr>
+  <td>eZ430U   <td>F2012<td>SBW 
+  <td><a href="http://focus.ti.com/docs/toolsw/folders/print/ez430-t2012.html">
+      eZ430-T2012</a>
+  <td>&nbsp;
+</tr>
+<tr>
+  <td>eZ430U   <td>F2274<td>SBW 
+  <td><a href="http://focus.ti.com/docs/toolsw/folders/print/ez430-rf2500t.html">
+      eZ430-RF2500T</a>
+  <td>&nbsp;
+</tr>
+<tr>
+  <td>eZ430U<td>F6137<td>CPUXV2/SBW
+  <td><a href="http://focus.ti.com/docs/toolsw/folders/print/ez430-chronos.html">
+      eZ430-Chronos</a>
+  <td>&nbsp;
+</tr>
+<tr>
+  <td>F2274<td>F1612<td>JTAG<td>eZ430U(Rev2.0)<td>F2274@R2500T
+</tr>
+<tr>
+  <td>F2274<td>F2274<td>SBW<td>eZ430-RF2500T<td>F2274@R2500T
+</tr>
+<tr>
+  <td>FETUIF<td>CC2511<td>CC8051
+  <td><a href="http://focus.ti.com/docs/toolsw/folders/print/cc2511emk.html">
+      CC2511DK_Dongle</a>
+  <td>Chipcon RF
+</tr>
+</table>
+<ul>
+<li>eZ430U は SBW 専用になります。(4Wire JTAG は使えない。)
+<li>F2274 を使うには別途 3V シリアルインターフェースが必要になります。
+    (PTFW を書き込んだ eZ430U で使う事が出来ます。)
+<li>F2274/DFW が取り扱えるデバイスは FET430UIF/DFW と同じです。
+</ul>
+
+<h2>必要なもの</h2>
+<ul>
+<li> 壊れてもいい FET430UIF または eZ430U。
+     これらを改造する事になるので、当然ながらその後は TI の保証等は受けられません。
+     (0.19 より RF2500T でも使えるようになりました。)
+<li> 4 wire JTAG プログラマ。上記の FET に DFW を書き込む為に必要。
+  一度書き込んでしまえば、 DFW にはファームウェアアップデートの機能があるので
+  自分でアップデート出来ます。
+
+<li> USB Modem をサポートする UNIX.
+<li> <a href="http://mspgcc.sourceforge.net/">MSPGCC toolchain</a>.
+
+<li> DFW は参考にしたTIのアプリケーションレポート(SLAA276)の例に従って、
+     USB ベンダー/プロダクトID の組み合わせが 0x451/0xbeef
+     になっているので、同じ組み合わせでの USB デバイスを作った事の
+     ある方は注意してください。
+</ul>
+
+<h2>準備</h2>
+<h3>MSP-FET430UIF</h3>
+<table align=CENTER border=1>
+<tr><td><img src="jtag_wo_vcct.jpg">
+<td>
+FET430UIF 用の JTAG コネクタ。<br>
+FET430UIF の Rev1.3の基板だとグランドとショートしてしまうので
+VCCT(J6 の7ピン)はつなげてません。
+</table>
+
+<h3>eZ430U</h3>
+<table align=CENTER border=1>
+<tr><td><img src="eZ430U+JTAG.jpg">
+<td>
+<ul>
+<li><a href="inst-eZ430U.html">Step by step guide</a>
+<li><a href="rf2500t.html">Bootstrapping D/FW on eZ430-RF2500</a>
+</ul>
+</tr>
+</table>
+
+<h3>MSP430F2274(RF2500T)</h3>
+<table border=1>
+<tr>
+  <td><img src="rf2500t-jtag.jpg">
+  <td><p>JTAG のコネクタと SBW に対応させる為のジャンパを取り付けます。
+      つなげ方は<tt>dfw/conf/f2274/uif_f2274.c</tt>を参照してください。</p>
+    <p><a href="rf2500t.html">Bootstrapping D/FW on eZ430-RF2500</a> の Step5 も参照。
+</p>
+</tr>
+</table>
+
+<ul>
+<li> 配布アーカイブ中 <tt>dfw</tt> ディレクトリの中の <tt>dfw.fetuif.ihex</tt>, 
+  <tt>dfw.ez430u.ihex</tt> と <tt>dfw.ez430u1p1.ihex</tt> がそれぞれの FET 向けの
+  コンパイル済みのファームウェア(DFW)です。　これらを手持ちのフラッシュプログラマで
+  D/FW を使いたいFETに書き込みます。
+<li> DFW は EEPROM の中身をチェックして必要があれば TUSB3410 用のファームウェアを書き込みます。
+  DFW 書き込み後の最初の起動後FETが使用可能になるまで10秒ほどかかります。
+<li> トップディレクトリの<tt>Makefile</tt>を編集して BFD ライブラリの場所を指定します。
+<li> <tt>make</tt> すると必要なホストプログラムが出来上がります。
+
+<li> <tt>examples/*/Makefile</tt> にいろいろな例があります。
+
+<li>  <tt>(cd gdbproxy; ./configure && make)</tt>
+  で gdbproxy がビルドされます。
+</ul>
+
+
+<h2>ホストコマンドの紹介</h2>
+<h3>dmwt : Dfw Memory WriTer</h3>
+<p>
+ターゲットCPUへのプログラムの書き込みには dmwt を使います。
+</p>
+
+<pre>
+Usage: dmwt [-vdf] [-p /dev/cu.usbmodemXXX] [-c TARGET_OPTIONS] 
+            [-b name.txt from-addr] [object]
+
+  ``object'' は ELF か Intel HEX か TITXT 形式。
+
+  使用している OS によっては /dev/cu.usbmodemXXX は
+　/dev/ttyACMXXX や /dev/ttyXXX になる場合もあります。
+
+   $ dmwt                               # ヘルプメッセージを表示
+   $ dmwt -f dfw.fetuif.elf             # ファームウェアアップデート
+   $ dmwt -c TARGET_OPTIONS a.out
+   $ dmwt -p /dev/cu.usbmodem001 -c "SBW" a.out
+   $ dmwt -vc "SBW" a.out               # うるさいモード
+
+   $ dmwt -c ""  a.out                  # デフォルトは JTAG
+   $ dmwt -c "SBW"  a.out               # SBW で書き込む時はこうします。
+   $ dmwt -c "VCC 3000 UNLOCKA" a.out   # 2xx ではINFO_Aのプロテクトを外します。
+   $ dmwt -c "CPUXV1" a.out                   
+   $ dmwt -c "CPUXV2" a.out                   
+   $ dmwt -c "CC8051" main.hex
+</pre>
+その他 examples/*/Makefile にいろいろあります。
+
+<h3>gdbproxy</h3>
+<pre>
+   $ msp430-gdbproxy --help uifdfw
+   $ msp430-gdbproxy --port=2000 uifdfw --c TARGET_OPTIONS
+   $ msp430-gdbproxy --port=2000 uifdfw --c "CPUXV2" --debug
+
+   $ msp430-gdbproxy --port=2000 uifdfw --c "SBW"         # msp430/SBW
+   $ msp430-gdbproxy --port=2000 uifdfw --c "CPUXV1"      # CPUXV1/JTAG
+   $ msp430-gdbproxy --port=2000 uifdfw --c "CPUXV2 SBW"  # CPUXV2/SBW
+</pre>
+.gdbinit はこんな感じです。
+<pre>
+set remoteaddresssize 64
+set remotetimeout 999999
+target remote localhost:2000
+
+define reload
+  monitor erase
+  monitor flash
+  load
+  monitor memory
+  set $pc = *0xfffe
+end
+</pre>
+
+<h3>TARGET_OPTIONS</h3>
+TARGET_OPTIONS は D/FW のホストコマンドに共通のオプションです。
+<pre>
+   MSP430    : (default) msp430x1xx, msp430x2xx, msp430x4xx
+   CPUXV1    :           msp430x2xx, msp430x4xx with CPUX
+   CPUXV2    :           msp430x5xx, cc430x6xx 
+   CC8051    :           cc111x, cc251x, etc.  
+
+   VCC xxxx  : sets VCC to XXXX mV (e.g., VCC 3300), FET430UIF only.
+
+   JTAG      : (default)
+   SBW       :          
+
+   FastFlash : (default)
+   SlowFlash :  FastFlash の機能もたない比較的古い CPU で必要になります。
+   LOCKA     : (default) INFO_A をプロテクト
+   UNLOCKA   :           INFO_A のプロテクトを外します。
+
+   FCTL addr : CPUXv2 において FCTL のベースアドレスを指定します
+
+   FWS  n    : CC8051 において flash のワードサイズを指定します。
+</pre>
+
+<h3>bufet : FET のバックアップを作成</h3>
+このプログラムは FET430UIF や eZ430U の EEPROM と FLASH 
+の内容を読み出してバックアップファイルを作成します。
+
+<pre>
+Usage: bufet [-vd] [-p /dev/cu.usbmodemXXX] [-c TARGET_OPTIONS] 
+             [fet_eeprom.txt fet_flash.txt]
+</pre>
+バックアップファイルを作るには、
+<ul>
+<li> D/FW のインストールされた 4 Wire の FET(親FET)を用意する。
+<li> FET430UIF もしくは eZ430 の JTAG ポートに親FETを接続し、
+ターゲットの FET には USB ケーブルを通して電源を供給します。
+<li> 親FETをホストコンピュータに接続。
+</ul>
+そして、
+<pre>
+   $ ./bufet
+</pre>
+もしくは
+<pre>
+   $ mkdir FET_backup
+   $ cd FET_backup
+   $ ../bufet
+</pre>
+とするとカレントディレクトリに fet_eeprom.txt と fet_flash.txt という
+TITXT 形式の二つのファイルが作成されます。
+双方とも後半はほとんどデータが 0xFF なのでD/FW パッケージ付属の 
+titxt_compress コマンドを使って 0xFF の塊を取り除いておくと
+リストアするときの時間が節約出来ます。
+
+<p>リストアするには
+<pre>
+   $ ../bufet fet_eeprom.txt fet_flash.txt
+</pre>
+と入力します。特に EEPROM への書き込みはとてもおそいので気長に待っててください。
+
+<h2>MacOSX で MSPGCC をビルドするときのメモ</h2>
+基本的に<a href="http://sourceforge.net/apps/mediawiki/mspgcc/index.php?title=Building_MSPGCC_from_Source_Code">Wiki</a>の手順に従う。
+<ul>
+  <li> binutils-2.19 は intl ディレクトリの中でいろいろ警告がうるさいので --disable-nls
+    を ./configure に追加。
+<pre>
+$ ./configure --prefix=/usr/local/msp430 --target=msp430 --disable-nls
+</pre>
+ <li> gcc-3.2.3 は i686-apple-darwin10.2.0 を不明なホストとしてエラーになるので、
+　　　以下のように gcc/config.gcc の該当部分を編集して無視してしまいす。
+<pre>
+i686-apple-darwin10.2.0)
+        ;;
+*)
+        echo "Configuration $machine not supported" 1>&2
+        exit 1
+        ;;
+ </pre>
+　　<li> GDB に関しては標準の GDB-6.8 だとスタックバックトレースがうまく動かなかったので
+        <a href="http://mspgcc4.sourceforge.net/">MSPGCC4</a> プロジェクトの GDB-7.0 を使ってます。
+</ul>
+
+<h2>ダウンロード</h2>
+<ul>
+  <li> <a href="dfw-0.19.tgz">dfw-0.19.tgz</a> (5/7/2010)
+</ul>
+
+<h4>skimu@mac.com</h4>
+</body>
+</html>
