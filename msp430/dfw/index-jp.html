@@ -1,6 +1,6 @@
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html"; charset="euc-jp">
+<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
 <title>FET430UIF/eZ430U for MacOSX/Linux</title>
 <style type="text/css">
 BODY { background: #f8f8f8; color: black; width: 40em; font-family: sans-serif; }
@@ -26,54 +26,54 @@ pre { margin-left: 2em;
 <tr><td><img src="fet430uif-s.jpg"><td><img src="eZ430U.jpg"></tr>
 </table>
 
-<h2>�Ϥ����</h2>
+<h2>はじめに</h2>
 <p>
-  D/FW�� MSP-FET430UIF, eZ430U �Ѥ�������ե����०����(DFW)��
-  ������տ魯��ۥ��ȥץ�����ෲ�Ǥ���
-  ư���ǧ�� MacOSX �ǹԤäƤ��ޤ�����¾�� UNIX (Linux �Ȥ� BSD)
-  �Ǥ�Ȥ���Ȧ�Ǥ��� �����ΰ٤˥ۥӡ��Ȥ��ƺ�äƤ��ޤ���
+  D/FWは MSP-FET430UIF, eZ430U 用の非公式ファームウェア(DFW)と
+  それに付随するホストプログラム群です。
+  動作確認は MacOSX で行っていますが、他の UNIX (Linux とか BSD)
+  でも使える筈です。 自習の為にホビーとして作っています。
 </p>
-<p>D/FW �ˤ� 2 ����Υե����०�������ޤޤ�ޤ���
+<p>D/FW には 2 種類のファームウェアが含まれます。
 <ul>
-<li>DFW(Debug firmware): �������åȤΥե�å���񤭹��ߡ� gdbproxy �Ȥ��̿���
-<li>PTFW(Pass-Through): eZ430U�Ѥ� USB ���ꥢ�륤�󥿡��ե�������
+<li>DFW(Debug firmware): ターゲットのフラッシュ書き込み。 gdbproxy との通信。
+<li>PTFW(Pass-Through): eZ430U用の USB シリアルインターフェース。
 </ul>
 
 <h2>What's new</h2>
 <dl>
   <dt>5/7/2010 (Version 0.19):</dt>
-  <dd>MSP430F2274 �ѤΥǥХå��ե����०����(DFW)���ɲä��ޤ�����</dd>
+  <dd>MSP430F2274 用のデバッグファームウェア(DFW)を追加しました。</dd>
   <dt>5/3/2010 (Version 0.18):</dt>
-  <dd>eZ430u �ѤΥ��ꥢ��ݡ��Ȥ��������(�ǥХå���ǽ�ϻȤ��ʤ�)�ե����०����(PTFW)���ɲä��ޤ�����</dd>
+  <dd>eZ430u 用のシリアルポートの中継専用(デバッグ機能は使えない)ファームウェア(PTFW)を追加しました。</dd>
   <dt>5/1/2010 (Version 0.17):</dt>
-  <dd>Gentoo Linux �Ǥ�Ȥ����Ȥ������򤤤������ޤ�����</dd>
+  <dd>Gentoo Linux でも使えたという報告をいただきました。</dd>
 </dl>
 
-<a href="README.txt">README</a> �⻲�Ȥ��Ƥ���������
+<a href="README.txt">README</a> も参照してください。
 
-<h2>�ǥ�</h2>
+<h2>デモ</h2>
 <ul>
-  <li> <a href="http://www.youtube.com/watch?v=WoYAJC1oucg">�ӥǥ�</a>
-  <li> <a href="http://picasaweb.google.com/shigenobu.kimura/Msp430#">�����꡼</a>
-  <li> �����å��Хå��ȥ졼�� <a href="gdb.txt">F2274</a>
-  <li> ���ƥå׼¹�
-       <a href="mamamabushiiyo.txt">F2274</a>, ������
+  <li> <a href="http://www.youtube.com/watch?v=WoYAJC1oucg">ビデオ</a>
+  <li> <a href="http://picasaweb.google.com/shigenobu.kimura/Msp430#">ギャラリー</a>
+  <li> スタックバックトレース <a href="gdb.txt">F2274</a>
+  <li> ステップ実行
+       <a href="mamamabushiiyo.txt">F2274</a>, そして
        <a href="koregahayarino.txt">F5529</a>.
 </ul>
 
-<h2>���ޤ�ư����Ȥ߹�碌</h2>
+<h2>うまく動作する組み合わせ</h2>
 <h3>Host</h3>
 <ul>
 <li> MacOSX (Darwin 10.2.0, Intel).
 <li> Gentoo Linux.
 </ul>
-�ۥ��� CPU �� Big endian �ξ��� gdbproxy �� bufet �ˤ���äȤ����ѹ���ä���ɬ�פ�����ޤ���
+ホスト CPU が Big endian の場合は gdbproxy と bufet にちょっとした変更を加える必要があります。
 
 <h3>FET</h3>
 <ul>
   <li> MSP-FET430UIF
   <li> eZ430U(Rev2.0)
-  <li> MSP430F2274 + 3V�Υ��ꥢ�륤�󥿡��ե�����. (RF2500T ��ư���ǧ)
+  <li> MSP430F2274 + 3Vのシリアルインターフェース. (RF2500T で動作確認)
 </ul>
 
 <h3>Target</h3>
@@ -142,38 +142,38 @@ pre { margin-left: 2em;
 </tr>
 </table>
 <ul>
-<li>eZ430U �� SBW ���Ѥˤʤ�ޤ���(4Wire JTAG �ϻȤ��ʤ���)
-<li>F2274 ��Ȥ��ˤ����� 3V ���ꥢ�륤�󥿡��ե�������ɬ�פˤʤ�ޤ���
-    (PTFW ��񤭹���� eZ430U �ǻȤ���������ޤ���)
-<li>F2274/DFW ����갷����ǥХ����� FET430UIF/DFW ��Ʊ���Ǥ���
+<li>eZ430U は SBW 専用になります。(4Wire JTAG は使えない。)
+<li>F2274 を使うには別途 3V シリアルインターフェースが必要になります。
+    (PTFW を書き込んだ eZ430U で使う事が出来ます。)
+<li>F2274/DFW が取り扱えるデバイスは FET430UIF/DFW と同じです。
 </ul>
 
-<h2>ɬ�פʤ��</h2>
+<h2>必要なもの</h2>
 <ul>
-<li> ����Ƥ⤤�� FET430UIF �ޤ��� eZ430U��
-     �������¤������ˤʤ�Τǡ������ʤ��餽�θ�� TI ���ݾ����ϼ������ޤ���
-     (0.19 ��� RF2500T �Ǥ�Ȥ���褦�ˤʤ�ޤ�����)
-<li> 4 wire JTAG �ץ�����ޡ��嵭�� FET �� DFW ��񤭹���٤�ɬ�ס�
-  ���ٽ񤭹���Ǥ��ޤ��С� DFW �ˤϥե����०�������åץǡ��Ȥε�ǽ������Τ�
-  ��ʬ�ǥ��åץǡ��Ƚ���ޤ���
+<li> 壊れてもいい FET430UIF または eZ430U。
+     これらを改造する事になるので、当然ながらその後は TI の保証等は受けられません。
+     (0.19 より RF2500T でも使えるようになりました。)
+<li> 4 wire JTAG プログラマ。上記の FET に DFW を書き込む為に必要。
+  一度書き込んでしまえば、 DFW にはファームウェアアップデートの機能があるので
+  自分でアップデート出来ます。
 
-<li> USB Modem �򥵥ݡ��Ȥ��� UNIX.
+<li> USB Modem をサポートする UNIX.
 <li> <a href="http://mspgcc.sourceforge.net/">MSPGCC toolchain</a>.
 
-<li> DFW �ϻ��ͤˤ���TI�Υ��ץꥱ��������ݡ���(SLAA276)����˽��äơ�
-     USB �٥����/�ץ�������ID ���Ȥ߹�碌�� 0x451/0xbeef
-     �ˤʤäƤ���Τǡ�Ʊ���Ȥ߹�碌�Ǥ� USB �ǥХ������ä�����
-     �����������դ��Ƥ���������
+<li> DFW は参考にしたTIのアプリケーションレポート(SLAA276)の例に従って、
+     USB ベンダー/プロダクトID の組み合わせが 0x451/0xbeef
+     になっているので、同じ組み合わせでの USB デバイスを作った事の
+     ある方は注意してください。
 </ul>
 
-<h2>����</h2>
+<h2>準備</h2>
 <h3>MSP-FET430UIF</h3>
 <table align=CENTER border=1>
 <tr><td><img src="jtag_wo_vcct.jpg">
 <td>
-FET430UIF �Ѥ� JTAG ���ͥ�����<br>
-FET430UIF �� Rev1.3�δ��Ĥ��ȥ����ɤȥ��硼�Ȥ��Ƥ��ޤ��Τ�
-VCCT(J6 ��7�ԥ�)�ϤĤʤ��Ƥޤ���
+FET430UIF 用の JTAG コネクタ。<br>
+FET430UIF の Rev1.3の基板だとグランドとショートしてしまうので
+VCCT(J6 の7ピン)はつなげてません。
 </table>
 
 <h3>eZ430U</h3>
@@ -191,59 +191,59 @@ VCCT(J6 ��7�ԥ�)�ϤĤʤ��Ƥޤ���
 <table border=1>
 <tr>
   <td><img src="rf2500t-jtag.jpg">
-  <td><p>JTAG �Υ��ͥ����� SBW ���б�������٤Υ����Ѥ����դ��ޤ���
-      �Ĥʤ�����<tt>dfw/conf/f2274/uif_f2274.c</tt>�򻲾Ȥ��Ƥ���������</p>
-    <p><a href="rf2500t.html">Bootstrapping D/FW on eZ430-RF2500</a> �� Step5 �⻲�ȡ�
+  <td><p>JTAG のコネクタと SBW に対応させる為のジャンパを取り付けます。
+      つなげ方は<tt>dfw/conf/f2274/uif_f2274.c</tt>を参照してください。</p>
+    <p><a href="rf2500t.html">Bootstrapping D/FW on eZ430-RF2500</a> の Step5 も参照。
 </p>
 </tr>
 </table>
 
 <ul>
-<li> ���ۥ����������� <tt>dfw</tt> �ǥ��쥯�ȥ����� <tt>dfw.fetuif.ihex</tt>, 
-  <tt>dfw.ez430u.ihex</tt> �� <tt>dfw.ez430u1p1.ihex</tt> �����줾��� FET ������
-  ����ѥ���ѤߤΥե����०����(DFW)�Ǥ����������������Υե�å���ץ�����ޤ�
-  D/FW ��Ȥ�����FET�˽񤭹��ߤޤ���
-<li> DFW �� EEPROM ����Ȥ�����å�����ɬ�פ������ TUSB3410 �ѤΥե����०������񤭹��ߤޤ���
-  DFW �񤭹��߸�κǽ�ε�ư��FET�����Ѳ�ǽ�ˤʤ�ޤ�10�äۤɤ�����ޤ���
-<li> �ȥåץǥ��쥯�ȥ��<tt>Makefile</tt>���Խ����� BFD �饤�֥��ξ�����ꤷ�ޤ���
-<li> <tt>make</tt> �����ɬ�פʥۥ��ȥץ�����ब����夬��ޤ���
+<li> 配布アーカイブ中 <tt>dfw</tt> ディレクトリの中の <tt>dfw.fetuif.ihex</tt>, 
+  <tt>dfw.ez430u.ihex</tt> と <tt>dfw.ez430u1p1.ihex</tt> がそれぞれの FET 向けの
+  コンパイル済みのファームウェア(DFW)です。　これらを手持ちのフラッシュプログラマで
+  D/FW を使いたいFETに書き込みます。
+<li> DFW は EEPROM の中身をチェックして必要があれば TUSB3410 用のファームウェアを書き込みます。
+  DFW 書き込み後の最初の起動後FETが使用可能になるまで10秒ほどかかります。
+<li> トップディレクトリの<tt>Makefile</tt>を編集して BFD ライブラリの場所を指定します。
+<li> <tt>make</tt> すると必要なホストプログラムが出来上がります。
 
-<li> <tt>examples/*/Makefile</tt> �ˤ����������㤬����ޤ���
+<li> <tt>examples/*/Makefile</tt> にいろいろな例があります。
 
 <li>  <tt>(cd gdbproxy; ./configure && make)</tt>
-  �� gdbproxy ���ӥ�ɤ���ޤ���
+  で gdbproxy がビルドされます。
 </ul>
 
 
-<h2>�ۥ��ȥ��ޥ�ɤξҲ�</h2>
+<h2>ホストコマンドの紹介</h2>
 <h3>dmwt : Dfw Memory WriTer</h3>
 <p>
-�������å�CPU�ؤΥץ������ν񤭹��ߤˤ� dmwt ��Ȥ��ޤ���
+ターゲットCPUへのプログラムの書き込みには dmwt を使います。
 </p>
 
 <pre>
 Usage: dmwt [-vdf] [-p /dev/cu.usbmodemXXX] [-c TARGET_OPTIONS] 
             [-b name.txt from-addr] [object]
 
-  ``object'' �� ELF �� Intel HEX �� TITXT ������
+  ``object'' は ELF か Intel HEX か TITXT 形式。
 
-  ���Ѥ��Ƥ��� OS �ˤ�äƤ� /dev/cu.usbmodemXXX ��
-��/dev/ttyACMXXX �� /dev/ttyXXX �ˤʤ���⤢��ޤ���
+  使用している OS によっては /dev/cu.usbmodemXXX は
+　/dev/ttyACMXXX や /dev/ttyXXX になる場合もあります。
 
-   $ dmwt                               # �إ�ץ�å�������ɽ��
-   $ dmwt -f dfw.fetuif.elf             # �ե����०�������åץǡ���
+   $ dmwt                               # ヘルプメッセージを表示
+   $ dmwt -f dfw.fetuif.elf             # ファームウェアアップデート
    $ dmwt -c TARGET_OPTIONS a.out
    $ dmwt -p /dev/cu.usbmodem001 -c "SBW" a.out
-   $ dmwt -vc "SBW" a.out               # ���뤵���⡼��
+   $ dmwt -vc "SBW" a.out               # うるさいモード
 
-   $ dmwt -c ""  a.out                  # �ǥե���Ȥ� JTAG
-   $ dmwt -c "SBW"  a.out               # SBW �ǽ񤭹�����Ϥ������ޤ���
-   $ dmwt -c "VCC 3000 UNLOCKA" a.out   # 2xx �Ǥ�INFO_A�Υץ��ƥ��Ȥ򳰤��ޤ���
+   $ dmwt -c ""  a.out                  # デフォルトは JTAG
+   $ dmwt -c "SBW"  a.out               # SBW で書き込む時はこうします。
+   $ dmwt -c "VCC 3000 UNLOCKA" a.out   # 2xx ではINFO_Aのプロテクトを外します。
    $ dmwt -c "CPUXV1" a.out                   
    $ dmwt -c "CPUXV2" a.out                   
    $ dmwt -c "CC8051" main.hex
 </pre>
-����¾ examples/*/Makefile �ˤ�����������ޤ���
+その他 examples/*/Makefile にいろいろあります。
 
 <h3>gdbproxy</h3>
 <pre>
@@ -255,7 +255,7 @@ Usage: dmwt [-vdf] [-p /dev/cu.usbmodemXXX] [-c TARGET_OPTIONS]
    $ msp430-gdbproxy --port=2000 uifdfw --c "CPUXV1"      # CPUXV1/JTAG
    $ msp430-gdbproxy --port=2000 uifdfw --c "CPUXV2 SBW"  # CPUXV2/SBW
 </pre>
-.gdbinit �Ϥ���ʴ����Ǥ���
+.gdbinit はこんな感じです。
 <pre>
 set remoteaddresssize 64
 set remotetimeout 999999
@@ -271,7 +271,7 @@ end
 </pre>
 
 <h3>TARGET_OPTIONS</h3>
-TARGET_OPTIONS �� D/FW �Υۥ��ȥ��ޥ�ɤ˶��̤Υ��ץ����Ǥ���
+TARGET_OPTIONS は D/FW のホストコマンドに共通のオプションです。
 <pre>
    MSP430    : (default) msp430x1xx, msp430x2xx, msp430x4xx
    CPUXV1    :           msp430x2xx, msp430x4xx with CPUX
@@ -284,62 +284,62 @@ TARGET_OPTIONS �� D/FW �Υۥ��ȥ��ޥ�ɤ˶��̤Υ��ץ����Ǥ���
    SBW       :          
 
    FastFlash : (default)
-   SlowFlash :  FastFlash �ε�ǽ�⤿�ʤ����Ū�Ť� CPU ��ɬ�פˤʤ�ޤ���
-   LOCKA     : (default) INFO_A ��ץ��ƥ���
-   UNLOCKA   :           INFO_A �Υץ��ƥ��Ȥ򳰤��ޤ���
+   SlowFlash :  FastFlash の機能もたない比較的古い CPU で必要になります。
+   LOCKA     : (default) INFO_A をプロテクト
+   UNLOCKA   :           INFO_A のプロテクトを外します。
 
-   FCTL addr : CPUXv2 �ˤ����� FCTL �Υ١������ɥ쥹����ꤷ�ޤ�
+   FCTL addr : CPUXv2 において FCTL のベースアドレスを指定します
 
-   FWS  n    : CC8051 �ˤ����� flash �Υ�ɥ���������ꤷ�ޤ���
+   FWS  n    : CC8051 において flash のワードサイズを指定します。
 </pre>
 
-<h3>bufet : FET �ΥХå����åפ����</h3>
-���Υץ������� FET430UIF �� eZ430U �� EEPROM �� FLASH 
-�����Ƥ��ɤ߽Ф��ƥХå����åץե������������ޤ���
+<h3>bufet : FET のバックアップを作成</h3>
+このプログラムは FET430UIF や eZ430U の EEPROM と FLASH 
+の内容を読み出してバックアップファイルを作成します。
 
 <pre>
 Usage: bufet [-vd] [-p /dev/cu.usbmodemXXX] [-c TARGET_OPTIONS] 
              [fet_eeprom.txt fet_flash.txt]
 </pre>
-�Хå����åץե��������ˤϡ�
+バックアップファイルを作るには、
 <ul>
-<li> D/FW �Υ��󥹥ȡ��뤵�줿 4 Wire �� FET(��FET)���Ѱդ��롣
-<li> FET430UIF �⤷���� eZ430 �� JTAG �ݡ��Ȥ˿�FET����³����
-�������åȤ� FET �ˤ� USB �����֥���̤����Ÿ��򶡵뤷�ޤ���
-<li> ��FET��ۥ��ȥ���ԥ塼������³��
+<li> D/FW のインストールされた 4 Wire の FET(親FET)を用意する。
+<li> FET430UIF もしくは eZ430 の JTAG ポートに親FETを接続し、
+ターゲットの FET には USB ケーブルを通して電源を供給します。
+<li> 親FETをホストコンピュータに接続。
 </ul>
-�����ơ�
+そして、
 <pre>
    $ ./bufet
 </pre>
-�⤷����
+もしくは
 <pre>
    $ mkdir FET_backup
    $ cd FET_backup
    $ ../bufet
 </pre>
-�Ȥ���ȥ����ȥǥ��쥯�ȥ�� fet_eeprom.txt �� fet_flash.txt �Ȥ���
-TITXT ��������ĤΥե����뤬��������ޤ���
-�����Ȥ��Ⱦ�ϤۤȤ�ɥǡ����� 0xFF �ʤΤ�D/FW �ѥå�������°�� 
-titxt_compress ���ޥ�ɤ�Ȥä� 0xFF �β���������Ƥ�����
-�ꥹ�ȥ�����Ȥ��λ��֤��������ޤ���
+とするとカレントディレクトリに fet_eeprom.txt と fet_flash.txt という
+TITXT 形式の二つのファイルが作成されます。
+双方とも後半はほとんどデータが 0xFF なのでD/FW パッケージ付属の 
+titxt_compress コマンドを使って 0xFF の塊を取り除いておくと
+リストアするときの時間が節約出来ます。
 
-<p>�ꥹ�ȥ�����ˤ�
+<p>リストアするには
 <pre>
    $ ../bufet fet_eeprom.txt fet_flash.txt
 </pre>
-�����Ϥ��ޤ����ä� EEPROM �ؤν񤭹��ߤϤȤƤ⤪�����Τǵ�Ĺ���ԤäƤƤ���������
+と入力します。特に EEPROM への書き込みはとてもおそいので気長に待っててください。
 
-<h2>MacOSX �� MSPGCC ��ӥ�ɤ���Ȥ��Υ��</h2>
-����Ū��<a href="http://sourceforge.net/apps/mediawiki/mspgcc/index.php?title=Building_MSPGCC_from_Source_Code">Wiki</a>�μ��˽�����
+<h2>MacOSX で MSPGCC をビルドするときのメモ</h2>
+基本的に<a href="http://sourceforge.net/apps/mediawiki/mspgcc/index.php?title=Building_MSPGCC_from_Source_Code">Wiki</a>の手順に従う。
 <ul>
-  <li> binutils-2.19 �� intl �ǥ��쥯�ȥ����Ǥ��������ٹ𤬤��뤵���Τ� --disable-nls
-    �� ./configure ���ɲá�
+  <li> binutils-2.19 は intl ディレクトリの中でいろいろ警告がうるさいので --disable-nls
+    を ./configure に追加。
 <pre>
 $ ./configure --prefix=/usr/local/msp430 --target=msp430 --disable-nls
 </pre>
- <li> gcc-3.2.3 �� i686-apple-darwin10.2.0 �������ʥۥ��ȤȤ��ƥ��顼�ˤʤ�Τǡ�
-�������ʲ��Τ褦�� gcc/config.gcc �γ�����ʬ���Խ�����̵�뤷�Ƥ��ޤ�����
+ <li> gcc-3.2.3 は i686-apple-darwin10.2.0 を不明なホストとしてエラーになるので、
+　　　以下のように gcc/config.gcc の該当部分を編集して無視してしまいす。
 <pre>
 i686-apple-darwin10.2.0)
         ;;
@@ -348,11 +348,11 @@ i686-apple-darwin10.2.0)
         exit 1
         ;;
  </pre>
-����<li> GDB �˴ؤ��Ƥ�ɸ��� GDB-6.8 ���ȥ����å��Хå��ȥ졼�������ޤ�ư���ʤ��ä��Τ�
-        <a href="http://mspgcc4.sourceforge.net/">MSPGCC4</a> �ץ��������Ȥ� GDB-7.0 ��ȤäƤޤ���
+　　<li> GDB に関しては標準の GDB-6.8 だとスタックバックトレースがうまく動かなかったので
+        <a href="http://mspgcc4.sourceforge.net/">MSPGCC4</a> プロジェクトの GDB-7.0 を使ってます。
 </ul>
 
-<h2>�����������</h2>
+<h2>ダウンロード</h2>
 <ul>
   <li> <a href="dfw-0.19.tgz">dfw-0.19.tgz</a> (5/7/2010)
 </ul>
