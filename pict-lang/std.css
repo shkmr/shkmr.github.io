@@ -36,7 +36,7 @@ body {
     margin: 14px 10px;
     font-size: 16px;
     line-height: 1.5;
-    width: 40em; 
+    width: 50em; 
     font-family: 'Myriad Pro', Calibri, Helvetica, Arial, sans-serif;
 }
 
@@ -63,6 +63,8 @@ h2 {
 }
 
 h3 { 
+    font-size: 18px;
+    font-weight: bold;
     text-align: center; 
     border-width: thin;
 }
@@ -85,11 +87,9 @@ tt {
 }
 
 code {
-    font-family: monospace;
+    font-weight: bold;
     font-size: inherit;
 }
-
-
 ul, ol, dl {
   margin-bottom: 15px;
 }
