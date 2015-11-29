@@ -1,0 +1,120 @@
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font: inherit;
+  vertical-align: baseline;
+}
+
+ol, ul {
+  list-style: none;
+}
+
+table {
+    border-collapse: separate;
+    border-spacing: 1;
+}
+
+table, th, td {
+    border: 1px solid;
+}
+
+body { 
+    background: #f0f0f0; 
+    margin: 14px 10px;
+    font-size: 16px;
+    line-height: 1.5;
+    width: 40em; 
+    font-family: 'Myriad Pro', Calibri, Helvetica, Arial, sans-serif;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Lucida Grande', 'Calibri', Helvetica, Arial, sans-serif;
+    font-weight: 700;
+    margin: 14px 0;
+    letter-spacing: -1px;
+}
+
+h1 { 
+    font-size: 36px;
+    color: green; 
+    text-align: center;
+}
+
+h2 { 
+    font-size: 24px;
+    color: navy;
+    text-align: left; 
+    padding-bottom: 0px;
+    border-bottom: solid;
+    border-bottom-width: medium;
+}
+
+h3 { 
+    text-align: center; 
+    border-width: thin;
+}
+
+pre { 
+    margin-top:   5px;
+    margin-bottom: 5px;
+    margin-left: 2em;
+    margin-right: 2em;
+    font-family: monospace;
+    font-size: 14px;
+    line-height: 1.2;
+    background-color: #fcfcfc;
+    border: solid thin #888888;
+}
+
+tt {
+    font-family: monospace;
+    font-size: inherit;
+}
+
+code {
+    font-family: monospace;
+    font-size: inherit;
+}
+
+
+ul, ol, dl {
+  margin-bottom: 15px;
+}
+
+ul {
+  list-style: inside;
+  padding-left: 20px;
+}
+
+ol {
+  list-style: decimal inside;
+  padding-left: 20px;
+}
+
+dl dt {
+  font-weight: bold;
+}
+
+dl dd {
+  padding-left: 20px;
+  font-style: italic;
+}
+
+dl p {
+  padding-left: 20px;
+  font-style: italic;
+}
+

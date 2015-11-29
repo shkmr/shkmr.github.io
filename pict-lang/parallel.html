@@ -1,0 +1,169 @@
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <link rel="stylesheet" type="text/css" media="screen" href="std.css">
+    <title>Parallel pict</title>
+</head>
+<body>
+<h1>PICT LANG の並列化</h1>
+<p>
+  SICP の Picture Language を Kent Dybvig の 
+  <a href="http://www.scheme.com/tspl2d/">THE SCHEME PROGRAMMING LANGUAGE SECOND EDITION</a>
+  の 3.3 章に載っている lwp (Light Weight Process) を利用して並列化してみました。
+</p>
+<h2>デモ</h2>
+<p>先ずは <code>(cross-limit (compose-painter border wave) 3)</code>
+が描かれてゆく過程をお楽しみ下さい。(このページをリロードすると始まります)</p></br>
+
+<table border=1>
+  <tr><td><img src="pa.gif"><td><img src="pb.gif"></tr>
+  <tr><th>通常バージョン<th>並列バージョン</tr>
+</table></br>
+
+<p>このページではこれらの動画の作り方を説明したいと思います。</p>
+
+<h2>準備</h2>
+<h3>lwp</h3>
+ここでは、上記の本に載ってるものを(練習問題にそって)改造したものを使います。
+<pre>
+(use util.queue)
+
+(define lwp-queue (make-queue))
+
+(define (lwp thunk)
+  (enqueue! lwp-queue (lambda () (thunk) (lwp-next))))
+
+(define (lwp-start)
+  (lwp-pause)
+  (if (queue-empty? lwp-queue)
+      #t
+      (lwp-start)))
+
+(define (lwp-next)
+  (let ((next (dequeue! lwp-queue)))
+    (next)))
+
+(define (lwp-pause)
+  (call/cc (lambda (k)
+             (lwp (lambda () (k #f)))
+             (lwp-next))))
+</pre>
+
+<h3>draw-line</h3>
+<p>線を引くたびにプロセスの切替が起こるように <code>draw-line</code> 
+の適当な場所に <code>(lwp-pause)</code> を挿入します。
+<code>base</code> と <code>count</code> は別の場所で初期化されます。
+<pre>
+(define base   #f)
+(define count  0)
+
+(define (draw-line fb p1 p2)
+  (let* ((x1 (xcor-vect p1))
+         (y1 (ycor-vect p1))
+	 (x2 (xcor-vect p2))
+         (y2 (ycor-vect p2)))
+    (lwp-pause)
+    (fb-draw-line! fb
+                   (round->exact x1)
+                   (round->exact y1)
+                   (round->exact x2)
+                   (round->exact y2)
+                   0 0 0)
+    (save-frame-buffer-as-png-file
+                fb (format #f "~a/~5,'0d.png" base count))
+    (inc! count)
+    ))
+</pre>
+この中 <code>fb-draw-line</code> が実際に描画を行う手続きで、
+その次の <code>save-frame-buffer-as-png-file</code> は
+その時点の画像をPNGファイルに保存します。
+つまり <code>draw-line</code> が呼ばれて線分を描くたびに次づぎと
+PNG ファイルを作って行きます。
+これらを後で gif アニメーションなどの動画ファイルに変換します。</p></br>
+
+<p>次の <code>draw-painter</code> が画板(frame-buffer)を作りそれに合わせた
+<code>frame</code> を作って <code>painter</code> に渡します。
+<pre>
+(define (draw-painter painter width height filename)
+  (let* ((fb     (make-frame-buffer width height))
+         (frame  (make-frame fb
+                             (make-vect 0.0 height)
+                             (make-vect width 0.0)
+                             (make-vect 0.0 (- height)))))
+    (set! count   0)
+    (set! base filename)
+    (lwp (lambda () (painter frame)))
+    (lwp-start)
+    ))
+</pre>
+先ほどの <code>count</code> と <code>base</code> はここで初期化しています。
+<code>(painter frame)</code> を最初のプロセスとして登録して
+<code>(lwp-start)</code> で起動します。
+
+
+<h2>ペインタを並列化する</h2>
+順番に依存しないて手続呼び出しは並列化できるわけですが pict-lang
+を詳しく調べてゆくと <code>beside</code> 手続と <code>below</code> 
+手続が並列化できるのがわかります。
+これらの手続はそれぞれフレームを左右/上下に二分割して引数に与えられた二つのペインタを割り当てるペインタを生成しますが、この分割されたフレームに対するベインタは並列に呼び出すことができます。
+<pre>
+  (define (beside painter1 painter2)
+    (let ((split-point (make-vect 0.5 0.0)))
+      (let ((paint-left
+             (transform-painter painter1
+                                (make-vect 0.0 0.0)
+                                split-point
+                                (make-vect 0.0 1.0)))
+            (paint-right
+             (transform-painter painter2
+                                split-point
+                                (make-vect 1.0 0.0)
+                                (make-vect 0.5 1.0))))
+        (lambda (frame)
+          ;; 二つのぺインタを同時に起動
+          (lwp (lambda () (paint-left  frame) )) 
+          (lwp (lambda () (paint-right frame) ))
+        ))))
+
+  (define (below painter1 painter2)
+    (let ((split-point (make-vect 0.0 0.5)))
+      (let ((paint-below
+             (transform-painter painter1
+                                (make-vect 0.0 0.0)
+                                (make-vect 1.0 0.0)
+                                split-point))
+            (paint-above
+             (transform-painter painter2
+                                split-point
+                                (make-vect 1.0 0.5)
+                                (make-vect 0.0 1.0))))
+        (lambda (frame)
+          ;; 二つのぺインタを同時に起動
+          (lwp (lambda () (paint-below frame) ))
+          (lwp (lambda () (paint-above frame) ))
+        ))))
+</pre>
+さて、 ここで <code>cross-limit</code> をよく見てみると、
+<pre>
+(define (cross-limit painter n)
+  (if (= n 0)
+      painter
+      (let ((top    (beside painter (cross-limit painter (- n 1))))
+            (bottom (beside (cross-limit painter (- n 1)) painter)))
+         (below bottom top))))
+</pre>
+この手続は再帰的に <code>beside</code> と <code>below</code>
+を呼び出してゆきます。 <code>beside</code> と <code>below</code>
+が上の様に並列化したものであれば, この <code>cross-limit</code>
+は再帰的に呼ばれるたびに次々とプロセスを生成するペインタを生成します。</p><br>
+
+<p>冒頭のデモは
+<pre>
+(define clw (cross-limit (compose-painter border wave) 3))
+(draw-painter clw 300 300 "pb")
+</pre>
+で作った png を gif アニメーション変換したものです。
+
+<h4 align=RIGHT>skimu@mac.com</h4>
+</body>
+</html>

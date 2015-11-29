@@ -1,0 +1,133 @@
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <link rel="stylesheet" type="text/css" media="screen" href="std.css">
+    <title>Fractal</title>
+  </head>
+<body>
+<h1>フラクタルな図形</h1>
+<p>SICP の Picture Language を使って有名どころのフラクタル図形を書いてみました。</p>
+<h2>準備</h2>
+<p>任意角度の回転手続 <code>rotate</code> と並行移動の手続 <code>shift</code>、
+  原点からの拡大/縮小の <code>scale</code>, さらに比率を x 軸, y 軸それぞれに
+  与えることのできる <code>scale2</code> を作ります。</p>
+<pre>
+(define (rotate painter t)
+  (let ((s (sin t))
+        (c (cos t)))
+    (transform-painter painter
+                       (make-vect  0.0 0.0)
+                       (make-vect    c   s)
+                       (make-vect (- s) c))))
+
+(define (shift painter s)
+  (transform-painter painter
+                     s
+                     (add-vect (make-vect 1.0 0.0) s)
+                     (add-vect (make-vect 0.0 1.0) s)))
+
+(define (scale painter r)
+  (transform-painter painter
+                     (make-vect 0.0 0.0)
+                     (make-vect  r  0.0)
+                     (make-vect 0.0  r )))
+
+(define (scale2 painter x y)
+  (transform-painter painter
+                     (make-vect 0.0 0.0)
+                     (make-vect  x  0.0)
+                     (make-vect 0.0  y )))
+</pre>
+
+<p> <code>(/ 1 (sqrt 2))</code> と <code>(/ 1 (sqrt 3))</code>
+  はよく出てくるのであらかじめ適当な名前をつけておきます.</p>
+
+<pre>
+(define ir2  (/ 1 (sqrt 2)))
+(define ir3  (/ 1 (sqrt 3)))
+(define pi/6 (/ pi 6))
+</pre>
+
+<p>もとの SICP では最初に与えられた frame からはみ出さないような変換しかなかったけど,
+  これらの変換はそうとは限りません.
+  できあがった図形がきちんと画板に収まるように, 最後に <code>shift</code> と 
+  <code>scale</code> で調整します.</p>
+
+<pre>
+(define dragon (dragon point 10))
+(define koch   (koch   simple-segment 9))
+(define levy   (levy   point 12))
+
+(draw-painter (shift (scale dragon 0.5) (make-vect 0.25 0.50))
+              400 400 "dragon.png")
+
+(draw-painter (shift koch               (make-vect 0.00 0.50))
+              400 400 "koch.png")
+
+(draw-painter (shift (scale levy   0.6) (make-vect 0.12 0.45))
+              400 400 "levy.png")
+</pre>
+<p><code>draw-painter</code> は描画する画板(ウィンドウやビットマップなど) の情報と
+それに合わせた枠(frame)を painter に渡して実際に描画を行ないます.</p><br>
+
+<p>それではお絵書きをお楽しみ下さい.</p>
+
+<h2>Koch 曲線</h2>
+<table>
+  <tr><td align=CENTER><img src="koch.png"></tr>
+  <tr><td><pre>
+(define (koch painter n)
+  (if (= n 0)
+      painter
+      (let ((f1 (scale (rotate (scale2 painter 1 -1) pi/6) ir3))
+            (f2 (shift (scale (rotate (shift (scale2 painter 1 -1)  
+                                             (make-vect -1.0 0.0))  
+                                      (- pi/6))
+                              ir3)
+                       (make-vect 1.0 0.0))))
+        (koch (compose-painter f1 f2) (- n 1)))))
+  </pre></tr>
+</table>
+
+<h2>Levy 曲線</h2>
+<table border=1>
+  <tr><td align=CENTER><img src="levy.png"></tr>
+  <tr><td><pre>
+(define (levy painter n)
+  (if (= n 0)
+      painter
+      (let ((f1 (scale (rotate (scale2 painter 1 -1) pi/4) ir2))    
+            (f2 (shift (scale (rotate (shift painter 
+                                             (make-vect -1.0 0.0))  
+                                      pi/4)
+                              ir2)
+                       (make-vect 1.0 0.0))))
+        (levy (compose-painter f1 f2) (- n 1)))))
+  </pre></tr>
+</table>
+
+<h2>Dragon 曲線</h2>
+<table border=1>
+  <tr><td align=CENTER><img src="dragon.png"></tr>
+  <tr><td><pre>
+(define (dragon painter n)
+  (if (= n 0)
+      painter
+      (let ((f1 (scale (rotate painter pi/4) ir2))
+            (f2 (shift (scale (rotate (shift painter 
+                                             (make-vect -1.0 0.0))  
+                                      pi/4)
+                              ir2)
+                       (make-vect 1.0 0.0))))
+        (dragon (compose-painter f1 f2) (- n 1)))))
+  </pre></tr>
+</table>
+
+<h2>おまけ</h2>
+<ul>
+  <li><a href="fomake.html">アニメバージョン</a>
+</ul>
+
+<h4 align=RIGHT>skimu@mac.com</h4>
+</body>
+</html>
