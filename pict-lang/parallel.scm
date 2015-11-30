@@ -41,7 +41,7 @@
     (lwp (lambda () (painter frame)))
     (lwp-start)
 
-    (sys-system #"convert -loop 1 ~|base|/*[16].png ~|base|.gif")
+    (sys-system #"convert -loop 0 ~|base|/*[16].png ~|base|.gif")
     (sys-system #"rm -rf ~|base|")
     ))
 
