@@ -62,6 +62,7 @@
                              (make-vect 0.0 (- height)))))
     (set! count   0)
     (set! base filename)
+    (sys-system #"mkdir -p ~|base|")
     (painter frame)
     ))
 

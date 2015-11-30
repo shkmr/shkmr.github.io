@@ -1,30 +1,6 @@
 (use gauche.time)
-(use util.queue)
+(use ggc.lwp)
 (use ggc.skimu.frame-buffer)
-
-;;;
-;;;
-;;;
-(define lwp-queue (make-queue))
-
-(define (lwp thunk)
-  (enqueue! lwp-queue (lambda () (thunk) (lwp-next))))
-
-(define (lwp-start)
-  (lwp-pause)
-  (if (queue-empty? lwp-queue)
-      #t
-      (lwp-start)))
-
-(define (lwp-next)
-  (let ((next (dequeue! lwp-queue)))
-    (next)))
-
-(define (lwp-pause)
-  (call/cc (lambda (k)
-             (lwp (lambda () (k #f)))
-             (lwp-next))))
-
 ;;;
 ;;;
 ;;;
@@ -60,10 +36,13 @@
                              (make-vect 0.0 (- height)))))
     (set! count   0)
     (set! base filename)
+    (sys-system #"mkdir -p ~|base|")
+
     (lwp (lambda () (painter frame)))
     (lwp-start)
-    #;(sys-system #"convert -loop 1 ~|base|*.png ~|base|.gif")
-    #;(sys-system #"rm ~|base|*.png")
+
+    (sys-system #"convert -loop 1 ~|base|/*[16].png ~|base|.gif")
+    (sys-system #"rm -rf ~|base|")
     ))
 
 (time (draw-painter clw 300 300 "pa"))

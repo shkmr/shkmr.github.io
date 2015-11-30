@@ -1,5 +1,3 @@
-(use math.const)
-
 ;;; SICP painter
 
 ;;  implementation of vector
