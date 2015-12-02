@@ -25,10 +25,14 @@ ol, ul {
 table {
     border-collapse: separate;
     border-spacing: 1;
+    vertical-align: middle;
+    margin-left: 2em;
+    margin-right: 2em;
 }
 
 table, th, td {
     border: 1px solid;
+    vertical-align: middle;
 }
 
 body { 
@@ -94,9 +98,9 @@ ul, ol, dl {
   margin-bottom: 15px;
 }
 
-ul {
-  list-style: inside;
-  padding-left: 20px;
+ul{
+    list-style: disc outside none;
+    padding: 10px 10px 10px 25px;
 }
 
 ol {
@@ -110,7 +114,6 @@ dl dt {
 
 dl dd {
   padding-left: 20px;
-  font-style: italic;
 }
 
 dl p {

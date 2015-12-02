@@ -2,21 +2,7 @@
 <head>
 <meta charset="utf-8">
 <title>FET430UIF/eZ430U for MacOSX/Linux</title>
-<style type="text/css">
-BODY { background: #f8f8f8; color: black; width: 40em; font-family: sans-serif; }
-H1   { color: green; text-align: center;}
-H2   { color: navy;  text-width: 40em; text-align: left; 
-       border-bottom: solid;
-       border-bottom-width: medium; }
-H3   { text-align: center; border-width: thin;}
-H4   { text-align: right }
-pre { margin-left: 2em;
-      margin-right: 2em;
-      font-family: monospace;
-      background-color: #ddeeee;
-      border: solid thin #aacccc;
-}
-</style>
+<link rel="stylesheet" type="text/css" media="screen" href="../../stylesheets/std.css">
 </head>
 <body>
 <h1>D/FW</h1>
@@ -77,7 +63,7 @@ pre { margin-left: 2em;
 </ul>
 
 <h3>Target</h3>
-<table align=CENTER border=1>
+<table>
 <tr><th>FET<th>Device<th>TAP<th>Target Board<th>Comments(test by)</tr>
 <tr><td>FETUIF<td>F169<td>JTAG<td>MSP-TS430PM64<td>&nbsp;</tr>
 <tr><td>FETUIF<td>F2274<td>JTAG<td>MSP-TS430DA38<td>&nbsp;</tr>
@@ -168,16 +154,17 @@ pre { margin-left: 2em;
 
 <h2>準備</h2>
 <h3>MSP-FET430UIF</h3>
-<table align=CENTER border=1>
-<tr><td><img src="jtag_wo_vcct.jpg">
-<td>
-FET430UIF 用の JTAG コネクタ。<br>
-FET430UIF の Rev1.3の基板だとグランドとショートしてしまうので
-VCCT(J6 の7ピン)はつなげてません。
+<table>
+  <tr>
+    <td><img src="jtag_wo_vcct.jpg">
+    <td>
+      <ul>
+        <li>FET430UIF 用の JTAG コネクタ。
+        <li>FET430UIF の Rev1.3の基板だとグランドとショートしてしまうので VCCT(J6 の7ピン)はつなげてません。
 </table>
 
 <h3>eZ430U</h3>
-<table align=CENTER border=1>
+<table>
 <tr><td><img src="eZ430U+JTAG.jpg">
 <td>
 <ul>
@@ -188,29 +175,32 @@ VCCT(J6 の7ピン)はつなげてません。
 </table>
 
 <h3>MSP430F2274(RF2500T)</h3>
-<table border=1>
+<table>
 <tr>
   <td><img src="rf2500t-jtag.jpg">
-  <td><p>JTAG のコネクタと SBW に対応させる為のジャンパを取り付けます。
-      つなげ方は<tt>dfw/conf/f2274/uif_f2274.c</tt>を参照してください。</p>
-    <p><a href="rf2500t.html">Bootstrapping D/FW on eZ430-RF2500</a> の Step5 も参照。
-</p>
+  <td>
+    <ul>
+      <li>JTAG のコネクタと SBW に対応させる為のジャンパを取り付けます。
+      <li>つなげ方は<code>dfw/conf/f2274/uif_f2274.c</code>を参照してください。
+      <li><a href="rf2500t.html">このページ</a>の Step5 も参照。
+    </ul>
 </tr>
 </table>
 
+<br>
 <ul>
-<li> 配布アーカイブ中 <tt>dfw</tt> ディレクトリの中の <tt>dfw.fetuif.ihex</tt>, 
-  <tt>dfw.ez430u.ihex</tt> と <tt>dfw.ez430u1p1.ihex</tt> がそれぞれの FET 向けの
+<li> 配布アーカイブ中 <code>dfw</code> ディレクトリの中の <code>dfw.fetuif.ihex</code>, 
+  <code>dfw.ez430u.ihex</code> と <code>dfw.ez430u1p1.ihex</code> がそれぞれの FET 向けの
   コンパイル済みのファームウェア(DFW)です。　これらを手持ちのフラッシュプログラマで
   D/FW を使いたいFETに書き込みます。
 <li> DFW は EEPROM の中身をチェックして必要があれば TUSB3410 用のファームウェアを書き込みます。
   DFW 書き込み後の最初の起動後FETが使用可能になるまで10秒ほどかかります。
-<li> トップディレクトリの<tt>Makefile</tt>を編集して BFD ライブラリの場所を指定します。
-<li> <tt>make</tt> すると必要なホストプログラムが出来上がります。
+<li> トップディレクトリの<code>Makefile</code>を編集して BFD ライブラリの場所を指定します。
+<li> <code>make</code> すると必要なホストプログラムが出来上がります。
 
-<li> <tt>examples/*/Makefile</tt> にいろいろな例があります。
+<li> <code>examples/*/Makefile</code> にいろいろな例があります。
 
-<li>  <tt>(cd gdbproxy; ./configure && make)</tt>
+<li>  <code>(cd gdbproxy; ./configure && make)</code>
   で gdbproxy がビルドされます。
 </ul>
 
@@ -357,6 +347,6 @@ i686-apple-darwin10.2.0)
   <li> <a href="https://github.com/shkmr/dfw">github</a>
 </ul>
 
-<h4>skimu@mac.com</h4>
+<h4 align=RIGHT>skimu@mac.com</h4>
 </body>
 </html>

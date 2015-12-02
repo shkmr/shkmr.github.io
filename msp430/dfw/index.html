@@ -1,22 +1,8 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=euc-jp">
+<link rel="stylesheet" type="text/css" media="screen" href="../../stylesheets/std.css">
 <title>FET430UIF/eZ430U for MacOSX/Linux</title>
-<style type="text/css">
-BODY { background: #f8f8f8; color: black; width: 40em; font-family: sans-serif; }
-H1   { color: green; text-align: center;}
-H2   { color: navy;  text-width: 40em; text-align: left; 
-       border-bottom: solid;
-       border-bottom-width: medium; }
-H3   { text-align: center; border-width: thin;}
-H4   { text-align: right }
-pre { margin-left: 2em;
-      margin-right: 2em;
-      font-family: monospace;
-      background-color: #ddeeee;
-      border: solid thin #aacccc;
-}
-</style>
 </head>
 <body>
 <h1>D/FW</h1>
@@ -167,17 +153,22 @@ connect host computer. You can use eZ430/PTFW for this purpose.
 
 <h2>Preparation</h2>
 <h3>MSP-FET430UIF</h3>
-<table align=CENTER border=1>
-<tr><td><img src="jtag_wo_vcct.jpg">
-<td>
-JTAG connector for FET430UIF<br>
-VCCT(pin 7 of J6) is not connected
-for Rev1.3.  Open FET430UIF's enclosure
-and plug this header to J6.
+<table>
+  <tr>
+    <td><img src="jtag_wo_vcct.jpg">
+    <td>
+      <ul>
+        <li>JTAG connector for FET430UIF.
+        <li>VCCT(pin 7 of J6) is not connected
+          for Rev1.3.
+        <li> Open FET430UIF's enclosure
+        <li> and plug this header to J6.
+      </ul>
+  </tr>
 </table>
 
 <h3>eZ430U</h3>
-<table align=CENTER border=1>
+<table>
 <tr><td><img src="eZ430U+JTAG.jpg">
 <td>
 <ul>
@@ -190,20 +181,24 @@ explains alternative way to attach JTAG.
 </table>
 
 <h3>MSP430F2274(RF2500T)</h3>
-<table border=1>
+<table>
 <tr>
   <td><img src="rf2500t-jtag.jpg">
-  <td><p>Attach JTAG connector and a jumper for SBW.
-    Please find pin assignments in
-    <tt>dfw/conf/f2274/uif_f2274.c</tt>.</p>
-    <p>See Step5 of <a href="rf2500t.html">Bootstrapping D/FW on eZ430-RF2500</a>.</p>
+  <td>
+    <ul>
+      <li> Attach JTAG connector and a jumper for SBW.
+      <li> Pin assignments is in
+        <code>dfw/conf/f2274/uif_f2274.c</code>.
+      <li> See Step5 of
+        <a href="rf2500t.html">this page</a>.
 </tr>
 </table>
 
+<br>
 <ul>
-<li> <tt>dfw.fetuif.ihex</tt>, <tt>dfw.ez430u.ihex</tt> and 
-    <tt>dfw.ez430u1p1.ihex</tt> in
-    <tt>dfw</tt> directory is pre-compiled binary (in Intel HEX format) for 
+<li> <code>dfw.fetuif.ihex</code>, <code>dfw.ez430u.ihex</code> and 
+    <code>dfw.ez430u1p1.ihex</code> in
+    <code>dfw</code> directory is pre-compiled binary (in Intel HEX format) for 
     FET430UIF, eZ430U and eZ430U Rev1.1, respectively.  Write one 
     of these into your FET by a FET you currently have.
 
@@ -211,14 +206,14 @@ explains alternative way to attach JTAG.
     if necessary.  It will take about 10 seconds before 
     it gets ready after the first power on.
 
-<li> edit <tt>Makefile</tt> in the distribution's top directory 
+<li> edit <code>Makefile</code> in the distribution's top directory 
      and correct your BFD library's location. 
 
-<li> <tt>make</tt> will make dmwt command and other utilities.
+<li> <code>make</code> will make dmwt command and other utilities.
 
-<li> <tt>examples/*/Makefile</tt> contains examples how to use dmwt.
+<li> <code>examples/*/Makefile</code> contains examples how to use dmwt.
 
-<li>  <tt>(cd gdbproxy; ./configure && make)</tt>
+<li>  <code>(cd gdbproxy; ./configure && make)</code>
   will make gdbproxy.
 </ul>
 
@@ -341,6 +336,6 @@ Note that reading/writing eeprom is very slow.
 <ul>
   <li> <a href="https://github.com/shkmr/dfw">github</a>
 </ul>
-<h4>skimu@mac.com</h4>
+<h4 align=RIGHT>skimu@mac.com</h4>
 </body>
 </html>
