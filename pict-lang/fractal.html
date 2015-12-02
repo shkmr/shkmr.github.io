@@ -53,6 +53,7 @@
   できあがった図形がきちんと画板に収まるように, 最後に <code>shift</code> と 
   <code>scale</code> で調整します.</p>
 
+<p>
 <pre>
 (define dragon (dragon point 10))
 (define koch   (koch   simple-segment 9))
@@ -67,8 +68,9 @@
 (draw-painter (shift (scale levy   0.6) (make-vect 0.12 0.45))
               400 400 "levy.png")
 </pre>
-<p><code>draw-painter</code> は描画する画板(ウィンドウやビットマップなど) の情報と
-それに合わせた枠(frame)を painter に渡して実際に描画を行ないます.</p><br>
+<code>draw-painter</code> は描画する画板(ウィンドウやビットマップなど) の情報と
+それに合わせた枠(frame)を painter に渡して実際に描画を行ないます.
+</p>
 
 <p>それではお絵書きをお楽しみ下さい.</p>
 
@@ -90,7 +92,7 @@
 </table>
 
 <h2>Levy 曲線</h2>
-<table border=1>
+<table>
   <tr><td align=CENTER><img src="levy.png"></tr>
   <tr><td><pre>
 (define (levy painter n)
@@ -107,7 +109,7 @@
 </table>
 
 <h2>Dragon 曲線</h2>
-<table border=1>
+<table>
   <tr><td align=CENTER><img src="dragon.png"></tr>
   <tr><td><pre>
 (define (dragon painter n)
@@ -128,6 +130,6 @@
   <li><a href="fomake.html">アニメバージョン</a>
 </ul>
 
-<h4 align=RIGHT>skimu@mac.com</h4>
+<h4>skimu@mac.com</h4>
 </body>
 </html>

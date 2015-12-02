@@ -13,15 +13,15 @@
 </p>
 <h2>デモ</h2>
 <p>先ずは <code>(cross-limit (compose-painter border wave) 3)</code>
-が描かれてゆく過程をお楽しみ下さい。</p></br>
-
+が描かれてゆく過程をお楽しみ下さい。
 <center>
-<table border=1>
+<table>
   <tr><td><img src="pa.gif"><td><img src="pb.gif"></tr>
   <tr><th>通常バージョン<th>並列バージョン</tr>
 </table></br>
 </center>
-<p>このページではこれらの動画の作り方を説明したいと思います。</p>
+このページではこれらの動画の作り方を説明したいと思います。
+</p>
 
 <h2>準備</h2>
 <h3>lwp</h3>
@@ -80,7 +80,7 @@
 その時点の画像をPNGファイルに保存します。
 つまり <code>draw-line</code> が呼ばれて線分を描くたびに次づぎと
 PNG ファイルを作って行きます。
-これらを後で gif アニメーションなどの動画ファイルに変換します。</p></br>
+これらを後で gif アニメーションなどの動画ファイルに変換します。</p>
 
 <p>次の <code>draw-painter</code> が画板(frame-buffer)を作りそれに合わせた
 <code>frame</code> を作って <code>painter</code> に渡します。
@@ -153,10 +153,10 @@ PNG ファイルを作って行きます。
             (bottom (beside (cross-limit painter (- n 1)) painter)))
          (below bottom top))))
 </pre>
-この手続は再帰的に <code>beside</code> と <code>below</code>
+<p>この手続は再帰的に <code>beside</code> と <code>below</code>
 を呼び出してゆきます。 <code>beside</code> と <code>below</code>
 が上の様に並列化したものであれば, この <code>cross-limit</code>
-は再帰的に呼ばれるたびに次々とプロセスを生成するペインタを生成します。</p><br>
+は再帰的に呼ばれるたびに次々とプロセスを生成するペインタを生成します。</p>
 
 <p>冒頭のデモは
 <pre>
@@ -165,6 +165,6 @@ PNG ファイルを作って行きます。
 </pre>
 で作った png を gif アニメーション変換したものです。
 
-<h4 align=RIGHT>skimu@mac.com</h4>
+<h4>skimu@mac.com</h4>
 </body>
 </html>
