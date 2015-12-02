@@ -40,13 +40,13 @@
 </pre>
 
 <p> <code>(/ 1 (sqrt 2))</code> と <code>(/ 1 (sqrt 3))</code>
-  はよく出てくるのであらかじめ適当な名前をつけておきます.</p>
-
+はよく出てくるので、あらかじめ適当な名前をつけておきます.
 <pre>
 (define ir2  (/ 1 (sqrt 2)))
 (define ir3  (/ 1 (sqrt 3)))
 (define pi/6 (/ pi 6))
 </pre>
+</p>
 
 <p>もとの SICP では最初に与えられた <code>frame</code> からはみ出さないような変換しかなかったけど,
   これらの変換はそうとは限りません.
@@ -69,7 +69,7 @@
               400 400 "levy.png")
 </pre>
 <code>draw-painter</code> は描画する画板(ウィンドウやビットマップなど) の情報と
-それに合わせた枠(frame)を painter に渡して実際に描画を行ないます.
+それに合わせた枠(frame)を <code>painter</code> に渡して実際に描画を行ないます.
 </p>
 
 <p>それではお絵書きをお楽しみ下さい.</p>
@@ -88,7 +88,7 @@
                               ir3)
                        (make-vect 1.0 0.0))))
         (koch (compose-painter f1 f2) (- n 1)))))
-  </pre></tr>
+</pre></tr>
 </table>
 
 <h2>Levy 曲線</h2>
@@ -105,7 +105,7 @@
                               ir2)
                        (make-vect 1.0 0.0))))
         (levy (compose-painter f1 f2) (- n 1)))))
-  </pre></tr>
+</pre></tr>
 </table>
 
 <h2>Dragon 曲線</h2>
@@ -122,7 +122,7 @@
                               ir2)
                        (make-vect 1.0 0.0))))
         (dragon (compose-painter f1 f2) (- n 1)))))
-  </pre></tr>
+</pre></tr>
 </table>
 
 <h2>おまけ</h2>
