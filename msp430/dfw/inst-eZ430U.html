@@ -1,11 +1,11 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=euc-jp">
-<link rel="stylesheet" type="text/css" media="screen" href="../../stylesheets/std.css">
+<link rel="stylesheet" type="text/css" media="screen" href="../../stylesheets/rm.css">
 <title>eZ430U MacOSX/Linux</title>
 </head>
 <body>
-<h1>D/FW installation</h1>
+<h1>D/FW Installation</h1>
 <p align=CENTER>a step by step guide to install D/FW into eZ430U</p>
 
 <h2>Introduction</h2>
@@ -23,32 +23,30 @@ from another untouched FET.
 for eZ430U with D/FW equipped FET.</a>
 
 <h2>Overview</h2>
-<p>First of all, please examine the circuit diagram for eZ430U carefully, and
+First of all, please examine the circuit diagram for eZ430U carefully, and
 make sure you understand what you are about to do.
 Figure 4-25 of
 <a href="http://focus.ti.com.cn/cn/lit/ug/slau292a/slau292a.pdf">SLAU292A</a>
-is the circuit diagram for eZ430U.</p>
+is the circuit diagram for eZ430U.
 
-<p>eZ430U consists of two programmable device, one is 
+<p>eZ430U consists of two programmable devices, one is 
 <a href="http://focus.ti.com/docs/prod/folders/print/msp430f1612.html">MSP430F1612</a> and the other is 
 <a href="http://focus.ti.com/docs/prod/folders/print/tusb3410.html">TUSB3410</a>.
-<p>
 TUSB3410 takes care of communication between host computer (Unix system) 
 and MSP430F1612 through USB and the firmware for this device is stored
 in EEPROM (24LC128, 16KBytes).  This EEPROM is programmed by MSP430F1612
 at the time when D/FW equipped FET is powered up for the first time.
 D/FW includes an implementation of USB CDC ACM, this means that eZ430U
-can be accessed through traditional /dev/tty* interface on most of modern
-Unix systems.  In MacOSX, eZ430U appears as /dev/cu.usbmodem001 for most cases.
-In Linux, eZ430U appears as /dev/ttyACM0 for most cases.
-The firmware is programmed to interface /dev/tty and
-MSP430F1612's USART. Any data written to corresponding /dev/tty goes
-to RXD of MSP430F1612 and any data read from /dev/tty comes from
+can be accessed through traditional <code>/dev/tty*</code> interface on most of modern
+Unix systems.  In MacOSX, eZ430U appears as <code>/dev/cu.usbmodem001</code> for most cases.
+In Linux, eZ430U appears as <code>/dev/ttyACM0</code> for most cases.
+The firmware is programmed to interface <code>/dev/tty</code> and
+MSP430F1612's USART. Any data written to corresponding <code>/dev/tty</code> goes
+to RXD of MSP430F1612 and any data read from <code>/dev/tty</code> comes from
 TXD of MSP430F1612.  The host operating system and the firmware takes 
 care of low level USB protocol and TUSB3410 is transparent for host
 programs and the firmware for MSP430F1612.
 </p>
-
 <p>
 MSP430F1612 takes commands from the host programs, and does actual
 JTAG/SBW manipulation to the target device. Commands are defined in 
@@ -57,11 +55,11 @@ All of host side utility programs, (dmwt, bufet and gdbproxy) use libdfw to
 communicate D/FW equipped FET.
 This MSP430F1612 can be programmed through TP1...TP7 of the eZ430U
 circuit board, by 4 wire JTAG programmer such as FET430UIF.
-dfw/dfw.ez430u.ihex is the D/FW firmware for MSP430F1612 on eZ430U.
+<code>dfw/dfw.ez430u.ihex</code> is the D/FW firmware for MSP430F1612 on eZ430U.
 As mentioned above, the first time eZ430U is powered up, D/FW
 will write the firmware for TUSB3410. This will take about 10 seconds or so.
 Be patient. Once EEPROM is programmed successfully, 
-/dev/tty* will appear in your host Unix system.
+<code>/dev/tty*</code> will appear in your host Unix system.
 </p>
 
 <h2>Preparation</h2>
@@ -120,7 +118,7 @@ The followings are the instructions to build host side tools.
 <ul>
   <li> Disconnect JTAG from eZ430U.
   <li> Connect eZ430U to your host Unix system.
-  <li> /dev/cu.usbmodem001 (MacOSX) or /dev/ttyACM0 (Linux) will appear.
+  <li> <code>/dev/cu.usbmodem001</code> (MacOSX) or <code>/dev/ttyACM0</code> (Linux) will appear.
   <li> It might take about 10 seconds after you plug your eZ430U
     into your host before these device node appears in the file system.
     (EEPROM is being programmed)

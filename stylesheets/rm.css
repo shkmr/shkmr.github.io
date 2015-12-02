@@ -18,41 +18,25 @@ time, mark, audio, video {
   vertical-align: baseline;
 }
 
-ol, ul {
-  list-style: none;
-}
-
-table {
-    border-collapse: separate;
-    border-spacing: 1;
-    vertical-align: middle;
-    margin-left: 2em;
-    margin-right: 2em;
-}
-
-table, th, td {
-    border: 1px solid;
-    vertical-align: middle;
-}
-
 body { 
     background: #f0f0f0; 
     margin: 14px 10px;
-    font-size: 16px;
-    line-height: 1.5;
-    width: 50em; 
-    font-family: 'Myriad Pro', Calibri, Helvetica, Arial, sans-serif;
+    font-size: 14px;
+    line-height: 1.4;
+    width: 45em; 
+    font-family: Times, Serif; 
 }
 
+
 h1, h2, h3, h4, h5, h6 {
-    font-family: 'Lucida Grande', 'Calibri', Helvetica, Arial, sans-serif;
-    font-weight: 700;
-    margin: 14px 0;
-    letter-spacing: -1px;
+    font-family: Times, Serif;
+    font-weight: 600;
+    margin: 10px 0;
+    letter-spacing: 0px;
 }
 
 h1 { 
-    font-size: 36px;
+    font-size: 32px;
     color: green; 
     text-align: center;
 }
@@ -67,33 +51,65 @@ h2 {
 }
 
 h3 { 
-    font-size: 18px;
+    font-size: 20px;
     font-weight: bold;
     text-align: center; 
     border-width: thin;
 }
 
+h4 { 
+    font-size: 14px;
+    font-weight: bold;
+    text-align: right; 
+    border-width: thin;
+}
+
 pre { 
-    margin-top:   5px;
-    margin-bottom: 5px;
+    margin-top:    10px;
+    margin-bottom: 10px;
     margin-left: 2em;
     margin-right: 2em;
-    font-family: monospace;
-    font-size: 14px;
-    line-height: 1.2;
+    font-family: "Courier New", Courier, monospace;
+    font-size: 12px;
+/*    font-weight: 600;
+    letter-spacing: 0.2px; */
+    line-height: 1.1;
     background-color: #fcfcfc;
-    border: solid thin #888888;
+    border: solid thin #cccccc;
+}
+
+table {
+    border-collapse: separate;
+    border-spacing: 1;
+    vertical-align: middle;
+    margin-top:    10px;
+    margin-bottom: 10px;
+    margin-left: 1em;
+    margin-right: 1em;
+}
+
+table, th, td {
+    border: 1px solid;
+    vertical-align: middle;
 }
 
 tt {
-    font-family: monospace;
+    font-family: "Courier New", Courier, monospace;
     font-size: inherit;
 }
 
 code {
     font-weight: bold;
     font-size: inherit;
+    font-family: "Courier New", Courier, monospace;
 }
+
+p {
+    text-indent:   0px;
+    margin-top:    10px;
+    margin-bottom: 10px;
+}
+
 ul, ol, dl {
   margin-bottom: 15px;
 }
