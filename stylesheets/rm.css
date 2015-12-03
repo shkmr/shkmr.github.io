@@ -21,10 +21,11 @@ time, mark, audio, video {
 body { 
     background: #f0f0f0; 
     margin: 14px 10px;
-    font-size: 14px;
+    font-size: 16px;
     line-height: 1.4;
     width: 45em; 
-    font-family: Times, Serif; 
+    font-family: Times, "Times New Roman", Georgia, serif;
+    font-weight: 400;
 }
 
 
@@ -94,14 +95,14 @@ table, th, td {
 }
 
 tt {
-    font-family: "Courier New", Courier, monospace;
+    font-family: Helvetica, monospace;
     font-size: inherit;
 }
 
 code {
-    font-weight: bold;
-    font-size: inherit;
-    font-family: "Courier New", Courier, monospace;
+    font-weight: bold ;
+    font-size: 14px;
+    font-family: Helvetica, monospace;
 }
 
 p {

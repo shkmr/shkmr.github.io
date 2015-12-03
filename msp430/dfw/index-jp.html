@@ -207,44 +207,45 @@ D/FW には 2 種類のファームウェアが含まれます。
 <h2>ホストコマンドの紹介</h2>
 <h3>dmwt : Dfw Memory WriTer</h3>
 <p>
-ターゲットCPUへのプログラムの書き込みには dmwt を使います。
-</p>
-
+ターゲットCPUへのプログラムの書き込みには <code>dmwt</code> を使います。
 <pre>
 Usage: dmwt [-vdf] [-p /dev/cu.usbmodemXXX] [-c TARGET_OPTIONS] 
             [-b name.txt from-addr] [object]
-
-  ``object'' は ELF か Intel HEX か TITXT 形式。
-
-  使用している OS によっては /dev/cu.usbmodemXXX は
-　/dev/ttyACMXXX や /dev/ttyXXX になる場合もあります。
-
-   $ dmwt                               # ヘルプメッセージを表示
-   $ dmwt -f dfw.fetuif.elf             # ファームウェアアップデート
-   $ dmwt -c TARGET_OPTIONS a.out
-   $ dmwt -p /dev/cu.usbmodem001 -c "SBW" a.out
-   $ dmwt -vc "SBW" a.out               # うるさいモード
-
-   $ dmwt -c ""  a.out                  # デフォルトは JTAG
-   $ dmwt -c "SBW"  a.out               # SBW で書き込む時はこうします。
-   $ dmwt -c "VCC 3000 UNLOCKA" a.out   # 2xx ではINFO_Aのプロテクトを外します。
-   $ dmwt -c "CPUXV1" a.out                   
-   $ dmwt -c "CPUXV2" a.out                   
-   $ dmwt -c "CC8051" main.hex
 </pre>
-その他 examples/*/Makefile にいろいろあります。
+
+<code>object</code> は ELF か Intel HEX か TITXT 形式。
+
+使用している OS によっては <code>/dev/cu.usbmodemXXX</code> は
+<code>/dev/ttyACMXXX</code> や <code>/dev/ttyXXX</code> になる場合もあります。
+
+<pre>
+$ dmwt                               # ヘルプメッセージを表示
+$ dmwt -f dfw.fetuif.elf             # ファームウェアアップデート
+$ dmwt -c TARGET_OPTIONS a.out
+$ dmwt -p /dev/cu.usbmodem001 -c "SBW" a.out
+$ dmwt -vc "SBW" a.out               # うるさいモード
+
+$ dmwt -c ""  a.out                  # デフォルトは JTAG
+$ dmwt -c "SBW"  a.out               # SBW で書き込む時はこうします。
+$ dmwt -c "VCC 3000 UNLOCKA" a.out   # 2xx ではINFO_Aのプロテクトを外します。
+$ dmwt -c "CPUXV1" a.out                   
+$ dmwt -c "CPUXV2" a.out                   
+$ dmwt -c "CC8051" main.hex
+</pre>
+</p>
+<p>その他 <code>examples/*/Makefile</code> にいろいろあります。</p>
 
 <h3>gdbproxy</h3>
 <pre>
-   $ msp430-gdbproxy --help uifdfw
-   $ msp430-gdbproxy --port=2000 uifdfw --c TARGET_OPTIONS
-   $ msp430-gdbproxy --port=2000 uifdfw --c "CPUXV2" --debug
+$ msp430-gdbproxy --help uifdfw
+$ msp430-gdbproxy --port=2000 uifdfw --c TARGET_OPTIONS
+$ msp430-gdbproxy --port=2000 uifdfw --c "CPUXV2" --debug
 
-   $ msp430-gdbproxy --port=2000 uifdfw --c "SBW"         # msp430/SBW
-   $ msp430-gdbproxy --port=2000 uifdfw --c "CPUXV1"      # CPUXV1/JTAG
-   $ msp430-gdbproxy --port=2000 uifdfw --c "CPUXV2 SBW"  # CPUXV2/SBW
+$ msp430-gdbproxy --port=2000 uifdfw --c "SBW"         # msp430/SBW
+$ msp430-gdbproxy --port=2000 uifdfw --c "CPUXV1"      # CPUXV1/JTAG
+$ msp430-gdbproxy --port=2000 uifdfw --c "CPUXV2 SBW"  # CPUXV2/SBW
 </pre>
-.gdbinit はこんな感じです。
+<code>.gdbinit</code> はこんな感じです。
 <pre>
 set remoteaddresssize 64
 set remotetimeout 999999
@@ -260,7 +261,7 @@ end
 </pre>
 
 <h3>TARGET_OPTIONS</h3>
-TARGET_OPTIONS は D/FW のホストコマンドに共通のオプションです。
+<code>TARGET_OPTIONS</code> は D/FW のホストコマンドに共通のオプションです。
 <pre>
    MSP430    : (default) msp430x1xx, msp430x2xx, msp430x4xx
    CPUXV1    :           msp430x2xx, msp430x4xx with CPUX
@@ -299,13 +300,13 @@ Usage: bufet [-vd] [-p /dev/cu.usbmodemXXX] [-c TARGET_OPTIONS]
 </ul>
 そして、
 <pre>
-   $ ./bufet
+$ ./bufet
 </pre>
 もしくは
 <pre>
-   $ mkdir FET_backup
-   $ cd FET_backup
-   $ ../bufet
+$ mkdir FET_backup
+$ cd FET_backup
+$ ../bufet
 </pre>
 とするとカレントディレクトリに fet_eeprom.txt と fet_flash.txt という
 TITXT 形式の二つのファイルが作成されます。
@@ -315,7 +316,7 @@ titxt_compress コマンドを使って 0xFF の塊を取り除いておくと
 
 <p>リストアするには
 <pre>
-   $ ../bufet fet_eeprom.txt fet_flash.txt
+$ ../bufet fet_eeprom.txt fet_flash.txt
 </pre>
 と入力します。特に EEPROM への書き込みはとてもおそいので気長に待っててください。
 
@@ -346,6 +347,6 @@ i686-apple-darwin10.2.0)
   <li> <a href="https://github.com/shkmr/dfw">github</a>
 </ul>
 
-<h4 align=RIGHT>skimu@mac.com</h4>
+<h4>skimu@mac.com</h4>
 </body>
 </html>
