@@ -55,18 +55,18 @@
 
 <p>
 <pre>
-(define dragon (dragon point 10))
-(define koch   (koch   simple-segment 9))
-(define levy   (levy   point 12))
+(define d10 (dragon simple-segment 10))
+(define k08 (koch   simple-segment  8))
+(define l12 (levy   simple-segment 12))
 
-(draw-painter (shift (scale dragon 0.5) (make-vect 0.25 0.50))
-              400 400 "dragon.png")
+(draw-painter (shift (scale d10 0.6) (make-vect 0.25 0.60))
+              400 400 "dragon10.png")
 
-(draw-painter (shift koch               (make-vect 0.00 0.50))
-              400 400 "koch.png")
+(draw-painter (shift k08             (make-vect 0.00 0.50))
+              400 400 "koch08.png")
 
-(draw-painter (shift (scale levy   0.6) (make-vect 0.12 0.45))
-              400 400 "levy.png")
+(draw-painter (shift (scale l12 0.5) (make-vect 0.25 0.65))
+              400 400 "levy12.png")
 </pre>
 <code>draw-painter</code> は描画する画板(ウィンドウやビットマップなど) の情報と
 それに合わせた枠(frame)を <code>painter</code> に渡して実際に描画を行ないます.
@@ -76,7 +76,7 @@
 
 <h2>Koch 曲線</h2>
 <table>
-  <tr><td align=CENTER><img src="koch.png"></tr>
+  <tr><td align=CENTER><img src="koch08.png"></tr>
   <tr><td><pre>
 (define (koch painter n)
   (if (= n 0)
@@ -93,14 +93,14 @@
 
 <h2>Levy 曲線</h2>
 <table>
-  <tr><td align=CENTER><img src="levy.png"></tr>
+  <tr><td align=CENTER><img src="levy12.png"></tr>
   <tr><td><pre>
 (define (levy painter n)
   (if (= n 0)
       painter
-      (let ((f1 (scale (rotate (scale2 painter 1 -1) pi/4) ir2))    
+      (let ((f1 (scale (rotate painter (- pi/4)) ir2))
             (f2 (shift (scale (rotate (shift painter 
-                                             (make-vect -1.0 0.0))  
+                                             (make-vect -1.0 0.0))
                                       pi/4)
                               ir2)
                        (make-vect 1.0 0.0))))
@@ -110,16 +110,13 @@
 
 <h2>Dragon 曲線</h2>
 <table>
-  <tr><td align=CENTER><img src="dragon.png"></tr>
+  <tr><td align=CENTER><img src="dragon10.png"></tr>
   <tr><td><pre>
 (define (dragon painter n)
   (if (= n 0)
       painter
-      (let ((f1 (scale (rotate painter pi/4) ir2))
-            (f2 (shift (scale (rotate (shift painter 
-                                             (make-vect -1.0 0.0))  
-                                      pi/4)
-                              ir2)
+      (let ((f1 (scale (rotate painter (- pi/4)) ir2))
+            (f2 (shift (scale (rotate (scale2 painter -1 -1) pi/4) ir2)
                        (make-vect 1.0 0.0))))
         (dragon (compose-painter f1 f2) (- n 1)))))
 </pre></tr>
