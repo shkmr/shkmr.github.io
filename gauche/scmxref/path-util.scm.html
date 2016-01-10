@@ -1,0 +1,99 @@
+<html>
+<body>
+<a href="../scmxref/index.html">index</a>
+<pre>
+<a name="path-util.scm:1"></a>(<a href="http://practical-scheme.net/gauche/man/?l=en&p=define-module">define-module</a> <a href="path-util.scm.html#path-util.scm:1">scmxref.path-util</a>
+  (<a href="http://practical-scheme.net/gauche/man/?l=en&p=use">use</a> <a href="http://practical-scheme.net/gauche/man/?l=en&p=file.util">file.util</a>)
+  (<a href="http://practical-scheme.net/gauche/man/?l=en&p=use">use</a> <a href="http://practical-scheme.net/gauche/man/?l=en&p=srfi-11">srfi-11</a>) ; let-values
+  (<a href="http://practical-scheme.net/gauche/man/?l=en&p=export">export</a> <a href="path-util.scm.html#path-util.scm:22">canonical-path</a>
+          <a href="path-util.scm.html#path-util.scm:80">relative-path</a>
+          <a href="path-util.scm.html#path-util.scm:45">path-to-top</a>
+          ))
+<a name="path-util.scm:8"></a>(<a href="http://practical-scheme.net/gauche/man/?l=en&p=select-module">select-module</a> <a href="path-util.scm.html#path-util.scm:1">scmxref.path-util</a>)
+;;
+;; ---  not really belongs to scmxref
+;;
+
+;;;
+;;;  Pathname utilities: canonical-path, relative-path, path-to-top.
+;;;
+
+;;
+;;  Function: &lt;code&gt;canonical-path path&lt;/code&gt;
+;;
+;;    Calculate canonical path of &lt;code&gt;path&lt;/code&gt;.
+;;
+<a name="path-util.scm:22"></a>(<a href="http://practical-scheme.net/gauche/man/?l=en&p=define">define</a> (<a href="path-util.scm.html#path-util.scm:22">canonical-path</a> path)
+  (<a href="http://practical-scheme.net/gauche/man/?l=en&p=simplify-path">simplify-path</a>
+   (<a href="http://practical-scheme.net/gauche/man/?l=en&p=sys-normalize-pathname">sys-normalize-pathname</a>
+    path :absolute #t :canonicalize #t)))
+
+;;
+;; Function: &lt;code&gt;path-to-top path&lt;/code&gt;
+;;
+;;   Calculate path to top directory from dirname of &lt;code&gt;path&lt;/code&gt;.
+;;   An error is raised if &lt;code&gt;path&lt;/code&gt; goes beyond top.
+;;
+;;   Example:
+;;
+;;     (path-to-top "")            =&gt; ""
+;;     (path-to-top "foo")         =&gt; ""
+;;     (path-to-top "foo/")        =&gt; "../"
+;;     (path-to-top "foo/bar")     =&gt; "../"
+;;     (path-to-top "foo/bar/")    =&gt; "../../"
+;;     (path-to-top "foo/../bar")  =&gt; ""
+;;     (path-to-top "foo/../bar/") =&gt; "../"
+;;     (path-to-top "foo/../../")  =&gt; ERROR
+;;     (path-to-top "../")         =&gt; ERROR
+;;
+<a name="path-util.scm:45"></a>(<a href="http://practical-scheme.net/gauche/man/?l=en&p=define">define</a> (<a href="path-util.scm.html#path-util.scm:45">path-to-top</a> pathname)
+  (<a href="http://practical-scheme.net/gauche/man/?l=en&p=let">let</a> ((path (<a href="http://practical-scheme.net/gauche/man/?l=en&p=simplify-path">simplify-path</a>
+               (<a href="http://practical-scheme.net/gauche/man/?l=en&p=if">if</a> (<a href="http://practical-scheme.net/gauche/man/?l=en&p=absolute-path?">absolute-path?</a> pathname)
+                 (<a href="http://practical-scheme.net/gauche/man/?l=en&p=string-copy">string-copy</a> pathname 1 (<a href="http://practical-scheme.net/gauche/man/?l=en&p=string-length">string-length</a> pathname))
+                 pathname))))
+    (<a href="http://practical-scheme.net/gauche/man/?l=en&p=let">let</a> lp ((path path)
+             (lis  '()))
+      (<a href="http://practical-scheme.net/gauche/man/?l=en&p=if">if</a> (<a href="http://practical-scheme.net/gauche/man/?l=en&p=eq?">eq?</a> (<a href="http://practical-scheme.net/gauche/man/?l=en&p=string-scan">string-scan</a> path "../") 0)
+        (<a href="http://practical-scheme.net/gauche/man/?l=en&p=error">error</a> "Invalid path " pathname)
+        (<a href="http://practical-scheme.net/gauche/man/?l=en&p=cond">cond</a> ((<a href="http://practical-scheme.net/gauche/man/?l=en&p=string=?">string=?</a> path "/")
+               (<a href="http://practical-scheme.net/gauche/man/?l=en&p=apply">apply</a> <a href="http://practical-scheme.net/gauche/man/?l=en&p=string-append">string-append</a> lis))
+              ((<a href="http://practical-scheme.net/gauche/man/?l=en&p=string-scan">string-scan</a> path #\/ 'after)
+               <a href="http://practical-scheme.net/gauche/man/?l=en&p==>">=></a> (<a href="http://practical-scheme.net/gauche/man/?l=en&p=lambda">lambda</a> (path)
+                    (lp path (<a href="http://practical-scheme.net/gauche/man/?l=en&p=cons">cons</a> "../" lis))))
+              (<a href="http://practical-scheme.net/gauche/man/?l=en&p=else">else</a>
+               (<a href="http://practical-scheme.net/gauche/man/?l=en&p=apply">apply</a> <a href="http://practical-scheme.net/gauche/man/?l=en&p=string-append">string-append</a> lis)))))))
+
+;;
+;; Function: &lt;code&gt;relative-path from to&lt;/code&gt;
+;;
+;;   Calculate relative path from &lt;code&gt;from&lt;/code&gt; to &lt;code&gt;to&lt;/code&gt;.
+;;
+;;   Example: in case (current-directory) =&gt; "/home/smith"
+;;
+;;     (relative-path "" "")                =&gt; ""
+;;     (relative-path "foo" "")             =&gt; ""
+;;     (relative-path "foo/" "")            =&gt; "../"
+;;     (relative-path "foo/" "foo/bar")     =&gt; "bar"
+;;     (relative-path "foo/" "foo/bar/")    =&gt; "bar/"
+;;     (relative-path "../foo/" "foo/bar/") =&gt; "../smith/foo/bar/"
+;;     (relative-path "" "../..")           =&gt; "../../"
+;;     (relative-path "" "../../..")        =&gt; "../../"  ; parent of root is itself.
+;;
+;;   BUG: the last case does not work as expected.
+;;
+<a name="path-util.scm:80"></a>(<a href="http://practical-scheme.net/gauche/man/?l=en&p=define">define</a> (<a href="path-util.scm.html#path-util.scm:80">relative-path</a> from to)
+  (<a href="http://practical-scheme.net/gauche/man/?l=en&p=let">let</a> lp ((f0 (<a href="path-util.scm.html#path-util.scm:22">canonical-path</a> from))
+           (t0 (<a href="path-util.scm.html#path-util.scm:22">canonical-path</a> to)))
+    (<a href="http://practical-scheme.net/gauche/man/?l=en&p=let-values">let-values</a> (((f1 f2) (<a href="http://practical-scheme.net/gauche/man/?l=en&p=string-scan">string-scan</a> f0 #\/ 'both))
+                 ((t1 t2) (<a href="http://practical-scheme.net/gauche/man/?l=en&p=string-scan">string-scan</a> t0 #\/ 'both)))
+      (<a href="http://practical-scheme.net/gauche/man/?l=en&p=cond">cond</a> ((<a href="http://practical-scheme.net/gauche/man/?l=en&p=and">and</a> f1 t1 (<a href="http://practical-scheme.net/gauche/man/?l=en&p=string=?">string=?</a> f1 t1))
+             (lp f2 t2))
+            (<a href="http://practical-scheme.net/gauche/man/?l=en&p=else">else</a>
+             (<a href="http://practical-scheme.net/gauche/man/?l=en&p=string-append">string-append</a> (<a href="path-util.scm.html#path-util.scm:45">path-to-top</a> f0) t0))))))
+
+<a name="path-util.scm:90"></a>(<a href="http://practical-scheme.net/gauche/man/?l=en&p=provide">provide</a> "scmxref/path-util")
+
+</pre>
+<a href="../scmxref/index.html">index</a>
+</body>
+</html>

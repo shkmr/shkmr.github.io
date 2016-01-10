@@ -1,0 +1,62 @@
+<html>
+<body>
+<a href="../scmxref/index.html">index</a>
+<pre>
+<a name="scmxref.scm:1"></a>(<a href="http://practical-scheme.net/gauche/man/?l=en&p=define-module">define-module</a> <a href="scmxref.scm.html#scmxref.scm:1">scmxref</a>
+  (<a href="http://practical-scheme.net/gauche/man/?l=en&p=extend">extend</a> <a href="read-and-anchor.scm.html#read-and-anchor.scm:1">scmxref.read-and-anchor</a>)
+  (<a href="http://practical-scheme.net/gauche/man/?l=en&p=export">export</a> <a href="dictionary.scm.html#dictionary.scm:6">documented-modules</a>
+          <a href="dictionary.scm.html#dictionary.scm:240">build-dictionary</a>
+          <a href="dictionary.scm.html#dictionary.scm:157">dictionary-file-list</a>
+          <a href="dictionary.scm.html#dictionary.scm:166">dictionary-definition-list</a>
+          <a href="read-and-anchor.scm.html#read-and-anchor.scm:7">anchor-all-lines</a>
+          <a href="read-and-anchor.scm.html#read-and-anchor.scm:9">gauche-man-base</a>
+          <a href="read-and-anchor.scm.html#read-and-anchor.scm:8">enable-goto-anchor</a>
+          <a href="read-and-anchor.scm.html#read-and-anchor.scm:259">read-and-anchor</a>
+          <a href="scmxref.scm.html#scmxref.scm:21">display-index-table</a>
+          <a href="scmxref.scm.html#scmxref.scm:44">display-index.html</a>
+          <a href="scmxref.scm.html#scmxref.scm:19">html-of</a>
+          ))
+<a name="scmxref.scm:15"></a>(<a href="http://practical-scheme.net/gauche/man/?l=en&p=select-module">select-module</a> <a href="scmxref.scm.html#scmxref.scm:1">scmxref</a>)
+;;;
+;;; fscm has to be one of members of (dictionary-file-list)
+;;;
+<a name="scmxref.scm:19"></a>(<a href="http://practical-scheme.net/gauche/man/?l=en&p=define">define</a> (<a href="scmxref.scm.html#scmxref.scm:19">html-of</a> fscm) (<a href="http://practical-scheme.net/gauche/man/?l=en&p=string-append">string-append</a> fscm ".html"))
+
+<a name="scmxref.scm:21"></a>(<a href="http://practical-scheme.net/gauche/man/?l=en&p=define">define</a> (<a href="scmxref.scm.html#scmxref.scm:21">display-index-table</a> fscm)
+  (<a href="http://practical-scheme.net/gauche/man/?l=en&p=display">display</a> "&lt;table&gt;\n")
+  (<a href="http://practical-scheme.net/gauche/man/?l=en&p=for-each">for-each</a> (<a href="http://practical-scheme.net/gauche/man/?l=en&p=lambda">lambda</a> (entry)
+              (<a href="http://practical-scheme.net/gauche/man/?l=en&p=format">format</a> #t "&lt;tr&gt;&lt;th align=LEFT&gt;&lt;a href=\"~a#~a:~a\"&gt;"
+                      (<a href="scmxref.scm.html#scmxref.scm:19">html-of</a> fscm)
+                      fscm
+                      (line-of entry))
+              (<a href="read-and-anchor.scm.html#read-and-anchor.scm:13">disp</a> (name-of entry))
+              (<a href="http://practical-scheme.net/gauche/man/?l=en&p=display">display</a> "&lt;/a&gt;&lt;/th&gt;&lt;td&gt;")
+              (<a href="http://practical-scheme.net/gauche/man/?l=en&p=if">if</a> <a href="read-and-anchor.scm.html#read-and-anchor.scm:7">anchor-all-lines</a>
+                (<a href="http://practical-scheme.net/gauche/man/?l=en&p=for-each">for-each</a> (<a href="http://practical-scheme.net/gauche/man/?l=en&p=lambda">lambda</a> (<a href="http://practical-scheme.net/gauche/man/?l=en&p=ref">ref</a>)
+                            (<a href="http://practical-scheme.net/gauche/man/?l=en&p=format">format</a> #t "  &lt;a href=\"~a#~a:~a\"&gt;~a:~a&lt;/a&gt;  "
+                                    (<a href="http://practical-scheme.net/gauche/man/?l=en&p=string-append">string-append</a> (<a href="http://practical-scheme.net/gauche/man/?l=en&p=list-ref">list-ref</a> <a href="http://practical-scheme.net/gauche/man/?l=en&p=ref">ref</a> 0)
+                                                   ".html")
+                                    (<a href="http://practical-scheme.net/gauche/man/?l=en&p=list-ref">list-ref</a> <a href="http://practical-scheme.net/gauche/man/?l=en&p=ref">ref</a> 0)
+                                    (<a href="http://practical-scheme.net/gauche/man/?l=en&p=list-ref">list-ref</a> <a href="http://practical-scheme.net/gauche/man/?l=en&p=ref">ref</a> 1)
+                                    (<a href="http://practical-scheme.net/gauche/man/?l=en&p=list-ref">list-ref</a> <a href="http://practical-scheme.net/gauche/man/?l=en&p=ref">ref</a> 0)
+                                    (<a href="http://practical-scheme.net/gauche/man/?l=en&p=list-ref">list-ref</a> <a href="http://practical-scheme.net/gauche/man/?l=en&p=ref">ref</a> 1)))
+                          (ref-of entry)))
+              (<a href="http://practical-scheme.net/gauche/man/?l=en&p=display">display</a> "&lt;/td&gt;&lt;/tr&gt;\n"))
+            (<a href="dictionary.scm.html#dictionary.scm:166">dictionary-definition-list</a> fscm))
+    (<a href="http://practical-scheme.net/gauche/man/?l=en&p=display">display</a> "&lt;/table&gt;\n"))
+
+<a name="scmxref.scm:44"></a>(<a href="http://practical-scheme.net/gauche/man/?l=en&p=define">define</a> (<a href="scmxref.scm.html#scmxref.scm:44">display-index.html</a>)
+  (<a href="http://practical-scheme.net/gauche/man/?l=en&p=display">display</a> "&lt;html&gt;\n&lt;body&gt;\n&lt;h1&gt;Index&lt;/h1&gt;\n")
+  (<a href="http://practical-scheme.net/gauche/man/?l=en&p=for-each">for-each</a> (<a href="http://practical-scheme.net/gauche/man/?l=en&p=lambda">lambda</a> (fscm)
+              (<a href="http://practical-scheme.net/gauche/man/?l=en&p=let">let</a> ((html (<a href="scmxref.scm.html#scmxref.scm:19">html-of</a> fscm)))
+                (<a href="http://practical-scheme.net/gauche/man/?l=en&p=display">display</a> #"&lt;h2&gt;&lt;a href=\"~|html|\"&gt;~|fscm|&lt;/a&gt;&lt;/h2&gt;\n")
+                (<a href="scmxref.scm.html#scmxref.scm:21">display-index-table</a> fscm)))
+            (<a href="http://practical-scheme.net/gauche/man/?l=en&p=sort">sort</a> (<a href="dictionary.scm.html#dictionary.scm:157">dictionary-file-list</a>)))
+  (<a href="http://practical-scheme.net/gauche/man/?l=en&p=display">display</a> "\n&lt;/body&gt;\n&lt;/html&gt;\n"))
+
+<a name="scmxref.scm:53"></a>(<a href="http://practical-scheme.net/gauche/man/?l=en&p=provide">provide</a> "scmxref")
+
+</pre>
+<a href="../scmxref/index.html">index</a>
+</body>
+</html>
