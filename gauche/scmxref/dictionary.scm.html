@@ -2,252 +2,272 @@
 <body>
 <a href="../scmxref/index.html">index</a>
 <pre>
-<a name="dictionary.scm:1"></a>(<a href="http://practical-scheme.net/gauche/man/?l=en&p=define-module">define-module</a> <a href="dictionary.scm.html#dictionary.scm:1">scmxref.dictionary</a> (<a href="http://practical-scheme.net/gauche/man/?l=en&p=use">use</a> <a href="http://practical-scheme.net/gauche/man/?l=en&p=srfi-13">srfi-13</a>))
-<a name="dictionary.scm:2"></a>(<a href="http://practical-scheme.net/gauche/man/?l=en&p=select-module">select-module</a> <a href="dictionary.scm.html#dictionary.scm:1">scmxref.dictionary</a>)
-;;;
-;;;  DICTIONARY
-;;;
-<a name="dictionary.scm:6"></a>(<a href="http://practical-scheme.net/gauche/man/?l=en&p=define">define</a> <a href="dictionary.scm.html#dictionary.scm:6">documented-modules</a>
-  '(
-    ;; add modules ...
-    <a href="http://practical-scheme.net/gauche/man/?l=en&p=crypt.bcrypt">crypt.bcrypt</a>
-    <a href="http://practical-scheme.net/gauche/man/?l=en&p=dbm">dbm</a>
-    <a href="http://practical-scheme.net/gauche/man/?l=en&p=file.util">file.util</a>
-    <a href="http://practical-scheme.net/gauche/man/?l=en&p=gauche.array">gauche.array</a>
-    <a href="http://practical-scheme.net/gauche/man/?l=en&p=gauche.charconv">gauche.charconv</a>
-    <a href="http://practical-scheme.net/gauche/man/?l=en&p=gauche.cgen">gauche.cgen</a>
-    <a href="http://practical-scheme.net/gauche/man/?l=en&p=gauche.collection">gauche.collection</a>
-    <a href="http://practical-scheme.net/gauche/man/?l=en&p=gauche.config">gauche.config</a>
-    <a href="http://practical-scheme.net/gauche/man/?l=en&p=gauche.configure">gauche.configure</a>
-    <a href="http://practical-scheme.net/gauche/man/?l=en&p=gauche.dictionary">gauche.dictionary</a>
-    <a href="http://practical-scheme.net/gauche/man/?l=en&p=gauche.fcntl">gauche.fcntl</a>
-    <a href="http://practical-scheme.net/gauche/man/?l=en&p=gauche.generator">gauche.generator</a>
-    <a href="http://practical-scheme.net/gauche/man/?l=en&p=gauche.hook">gauche.hook</a>
-    <a href="http://practical-scheme.net/gauche/man/?l=en&p=gauche.interactive">gauche.interactive</a>
-    <a href="http://practical-scheme.net/gauche/man/?l=en&p=gauche.lazy">gauche.lazy</a>
-    <a href="http://practical-scheme.net/gauche/man/?l=en&p=gauche.listener">gauche.listener</a>
-    <a href="http://practical-scheme.net/gauche/man/?l=en&p=gauche.logger">gauche.logger</a>
-    <a href="http://practical-scheme.net/gauche/man/?l=en&p=gauche.mop.propagate">gauche.mop.propagate</a>
-    <a href="http://practical-scheme.net/gauche/man/?l=en&p=gauche.mop.singleton">gauche.mop.singleton</a>
-    <a href="http://practical-scheme.net/gauche/man/?l=en&p=gauche.mop.validator">gauche.mop.validator</a>
-    <a href="http://practical-scheme.net/gauche/man/?l=en&p=gauche.net">gauche.net</a>
-    <a href="http://practical-scheme.net/gauche/man/?l=en&p=gauche.parameter">gauche.parameter</a>
-    <a href="http://practical-scheme.net/gauche/man/?l=en&p=gauche.parseopt">gauche.parseopt</a>
-    <a href="http://practical-scheme.net/gauche/man/?l=en&p=gauche.partcont">gauche.partcont</a>
-    <a href="http://practical-scheme.net/gauche/man/?l=en&p=gauche.process">gauche.process</a>
-    <a href="http://practical-scheme.net/gauche/man/?l=en&p=gauche.record">gauche.record</a>
-    <a href="http://practical-scheme.net/gauche/man/?l=en&p=gauche.regexp">gauche.regexp</a> ; autoloaded
-    <a href="http://practical-scheme.net/gauche/man/?l=en&p=gauche.reload">gauche.reload</a>
-    <a href="http://practical-scheme.net/gauche/man/?l=en&p=gauche.selector">gauche.selector</a>
-    <a href="http://practical-scheme.net/gauche/man/?l=en&p=gauche.sequence">gauche.sequence</a>
-    <a href="http://practical-scheme.net/gauche/man/?l=en&p=gauche.syslog">gauche.syslog</a>
-    <a href="http://practical-scheme.net/gauche/man/?l=en&p=gauche.termios">gauche.termios</a>
-    <a href="http://practical-scheme.net/gauche/man/?l=en&p=gauche.test">gauche.test</a>
-    <a href="http://practical-scheme.net/gauche/man/?l=en&p=gauche.threads">gauche.threads</a>
-    <a href="http://practical-scheme.net/gauche/man/?l=en&p=gauche.time">gauche.time</a>
-    <a href="http://practical-scheme.net/gauche/man/?l=en&p=gauche.uvector">gauche.uvector</a>
-    <a href="http://practical-scheme.net/gauche/man/?l=en&p=gauche.version">gauche.version</a>
-    <a href="http://practical-scheme.net/gauche/man/?l=en&p=gauche.vport">gauche.vport</a>
-    <a href="http://practical-scheme.net/gauche/man/?l=en&p=srfi-1">srfi-1</a>   ; List library
-    ;srfi-2  -- and-let* is in core syntax 
-    <a href="http://practical-scheme.net/gauche/man/?l=en&p=srfi-4">srfi-4</a>   ; Homogeneous vectors
-    <a href="http://practical-scheme.net/gauche/man/?l=en&p=srfi-11">srfi-11</a>  ; Let-values
-    <a href="http://practical-scheme.net/gauche/man/?l=en&p=srfi-13">srfi-13</a>  ; String library
-    <a href="http://practical-scheme.net/gauche/man/?l=en&p=srfi-14">srfi-14</a>  ; Character-set library
-    <a href="http://practical-scheme.net/gauche/man/?l=en&p=srfi-19">srfi-19</a>  ; Time data types and procedures
-    <a href="http://practical-scheme.net/gauche/man/?l=en&p=srfi-27">srfi-27</a>  ; Sources of Random Bits
-    <a href="http://practical-scheme.net/gauche/man/?l=en&p=srfi-29">srfi-29</a>  ; Localization
-    <a href="http://practical-scheme.net/gauche/man/?l=en&p=srfi-37">srfi-37</a>  ; args-fold
-    <a href="http://practical-scheme.net/gauche/man/?l=en&p=srfi-42">srfi-42</a>  ; Eager comprehensions
-    <a href="http://practical-scheme.net/gauche/man/?l=en&p=srfi-43">srfi-43</a>  ; Vecotor library
-    <a href="http://practical-scheme.net/gauche/man/?l=en&p=srfi-55">srfi-55</a>  ; Requiring extensions
-    <a href="http://practical-scheme.net/gauche/man/?l=en&p=srfi-60">srfi-60</a>  ; Integers as bits
-    <a href="http://practical-scheme.net/gauche/man/?l=en&p=srfi-98">srfi-98</a>  ; Accessing environment variables
-    <a href="http://practical-scheme.net/gauche/man/?l=en&p=srfi-106">srfi-106</a> ; Basic socket interface
-    <a href="http://practical-scheme.net/gauche/man/?l=en&p=binary.io">binary.io</a>
-    <a href="http://practical-scheme.net/gauche/man/?l=en&p=binary.pack">binary.pack</a>
-    <a href="http://practical-scheme.net/gauche/man/?l=en&p=compat.norational">compat.norational</a>
-    <a href="http://practical-scheme.net/gauche/man/?l=en&p=control.job">control.job</a>
-    <a href="http://practical-scheme.net/gauche/man/?l=en&p=control.thread-pool">control.thread-pool</a>
-    <a href="http://practical-scheme.net/gauche/man/?l=en&p=crypt.bcrypt">crypt.bcrypt</a>
-    <a href="http://practical-scheme.net/gauche/man/?l=en&p=data.random">data.random</a>
-    <a href="http://practical-scheme.net/gauche/man/?l=en&p=dbi">dbi</a>
-    <a href="http://practical-scheme.net/gauche/man/?l=en&p=dbm">dbm</a>
-    <a href="http://practical-scheme.net/gauche/man/?l=en&p=dbm.fsdbm">dbm.fsdbm</a>
-    <a href="http://practical-scheme.net/gauche/man/?l=en&p=dbm.gdbm">dbm.gdbm</a>
-    <a href="http://practical-scheme.net/gauche/man/?l=en&p=dbm.ndbm">dbm.ndbm</a>
-    <a href="http://practical-scheme.net/gauche/man/?l=en&p=dbm.odbm">dbm.odbm</a>
-    <a href="http://practical-scheme.net/gauche/man/?l=en&p=file.filter">file.filter</a>
-    <a href="http://practical-scheme.net/gauche/man/?l=en&p=file.util">file.util</a>
-    <a href="http://practical-scheme.net/gauche/man/?l=en&p=math.const">math.const</a>
-    <a href="http://practical-scheme.net/gauche/man/?l=en&p=math.mt-random">math.mt-random</a>
-    <a href="http://practical-scheme.net/gauche/man/?l=en&p=math.prime">math.prime</a>
-    <a href="http://practical-scheme.net/gauche/man/?l=en&p=os.windows">os.windows</a>
-    <a href="http://practical-scheme.net/gauche/man/?l=en&p=rfc.822">rfc.822</a>
-    <a href="http://practical-scheme.net/gauche/man/?l=en&p=rfc.base64">rfc.base64</a>
-    <a href="http://practical-scheme.net/gauche/man/?l=en&p=rfb.cookie">rfb.cookie</a>
-    <a href="http://practical-scheme.net/gauche/man/?l=en&p=rfc.ftp">rfc.ftp</a>
-    <a href="http://practical-scheme.net/gauche/man/?l=en&p=rfc.hmac">rfc.hmac</a>
-    <a href="http://practical-scheme.net/gauche/man/?l=en&p=rfc.http">rfc.http</a>
-    <a href="http://practical-scheme.net/gauche/man/?l=en&p=rfc.ip">rfc.ip</a>
-    <a href="http://practical-scheme.net/gauche/man/?l=en&p=rfc.icmp">rfc.icmp</a>
-    <a href="http://practical-scheme.net/gauche/man/?l=en&p=rfc.json">rfc.json</a>
-    <a href="http://practical-scheme.net/gauche/man/?l=en&p=rfc.md5">rfc.md5</a>
-    <a href="http://practical-scheme.net/gauche/man/?l=en&p=rfc.mime">rfc.mime</a>
-    <a href="http://practical-scheme.net/gauche/man/?l=en&p=rfc.quoted-printable">rfc.quoted-printable</a>
-    <a href="http://practical-scheme.net/gauche/man/?l=en&p=rfc.sha">rfc.sha</a>
-    <a href="http://practical-scheme.net/gauche/man/?l=en&p=rfc.uri">rfc.uri</a>
-    <a href="http://practical-scheme.net/gauche/man/?l=en&p=rfc.zlib">rfc.zlib</a>
-    <a href="http://practical-scheme.net/gauche/man/?l=en&p=sxml.ssax">sxml.ssax</a>
-    <a href="http://practical-scheme.net/gauche/man/?l=en&p=sxml.sxpath">sxml.sxpath</a>
-    <a href="http://practical-scheme.net/gauche/man/?l=en&p=sxml.tools">sxml.tools</a>
-    <a href="http://practical-scheme.net/gauche/man/?l=en&p=sxml.serializer">sxml.serializer</a>
-    <a href="http://practical-scheme.net/gauche/man/?l=en&p=text.csv">text.csv</a>
-    <a href="http://practical-scheme.net/gauche/man/?l=en&p=text.diff">text.diff</a>
-    <a href="http://practical-scheme.net/gauche/man/?l=en&p=text.gettext">text.gettext</a>
-    <a href="http://practical-scheme.net/gauche/man/?l=en&p=text.html-lite">text.html-lite</a>
-    <a href="http://practical-scheme.net/gauche/man/?l=en&p=text.parse">text.parse</a>
-    <a href="http://practical-scheme.net/gauche/man/?l=en&p=text.progress">text.progress</a>
-    <a href="http://practical-scheme.net/gauche/man/?l=en&p=text.sql">text.sql</a>
-    <a href="http://practical-scheme.net/gauche/man/?l=en&p=text.tr">text.tr</a>
-    <a href="http://practical-scheme.net/gauche/man/?l=en&p=text.tree">text.tree</a>
-    <a href="http://practical-scheme.net/gauche/man/?l=en&p=text.unicode">text.unicode</a>
-    <a href="http://practical-scheme.net/gauche/man/?l=en&p=util.combinations">util.combinations</a>
-    <a href="http://practical-scheme.net/gauche/man/?l=en&p=util.digest">util.digest</a>
-    <a href="http://practical-scheme.net/gauche/man/?l=en&p=util.isomorph">util.isomorph</a>
-    <a href="http://practical-scheme.net/gauche/man/?l=en&p=util.lcs">util.lcs</a>
-    ; util.list -- obsoleted
-    <a href="http://practical-scheme.net/gauche/man/?l=en&p=util.match">util.match</a>
-    <a href="http://practical-scheme.net/gauche/man/?l=en&p=util.queue">util.queue</a>
-    <a href="http://practical-scheme.net/gauche/man/?l=en&p=util.rbtree">util.rbtree</a>
-    <a href="http://practical-scheme.net/gauche/man/?l=en&p=util.record">util.record</a>
-    <a href="http://practical-scheme.net/gauche/man/?l=en&p=util.relation">util.relation</a>
-    <a href="http://practical-scheme.net/gauche/man/?l=en&p=util.sparse">util.sparse</a>
-    <a href="http://practical-scheme.net/gauche/man/?l=en&p=util.stream">util.stream</a>
-    <a href="http://practical-scheme.net/gauche/man/?l=en&p=util.trie">util.trie</a>
-    <a href="http://practical-scheme.net/gauche/man/?l=en&p=util.toposort">util.toposort</a>
-    <a href="http://practical-scheme.net/gauche/man/?l=en&p=www.cgi">www.cgi</a>
-    <a href="http://practical-scheme.net/gauche/man/?l=en&p=www.cgi.test">www.cgi.test</a>
-    ))
-
-<a name="dictionary.scm:129"></a>(<a href="http://practical-scheme.net/gauche/man/?l=en&p=define">define</a> <a href="dictionary.scm.html#dictionary.scm:129">*dictionary*</a> (<a href="http://practical-scheme.net/gauche/man/?l=en&p=make-hash-table">make-hash-table</a>))
-
-<a name="dictionary.scm:131"></a>(<a href="http://practical-scheme.net/gauche/man/?l=en&p=define">define</a> (<a href="dictionary.scm.html#dictionary.scm:131">dictionary-get</a> name)
-  (<a href="http://practical-scheme.net/gauche/man/?l=en&p=hash-table-get">hash-table-get</a> <a href="dictionary.scm.html#dictionary.scm:129">*dictionary*</a> name #f))
-
-<a name="dictionary.scm:134"></a>(<a href="http://practical-scheme.net/gauche/man/?l=en&p=define">define</a> (<a href="dictionary.scm.html#dictionary.scm:134">dictionary-put!</a> name entry)
-  (<a href="http://practical-scheme.net/gauche/man/?l=en&p=hash-table-put!">hash-table-put!</a> <a href="dictionary.scm.html#dictionary.scm:129">*dictionary*</a> name entry))
-
-<a name="dictionary.scm:137"></a>(<a href="http://practical-scheme.net/gauche/man/?l=en&p=define-class">define-class</a> <a href="dictionary.scm.html#dictionary.scm:137">&lt;entry&gt;</a> ()
-  ((name :init-value #f
-         :init-keyword :name
-         :accessor name-of)
-   (type :init-value #f
-         :init-keyword :type
-         :accessor type-of)
-   (file :init-value #f
-         :init-keyword :file
-         :accessor file-of)
-   (line :init-value 0
-         :init-keyword :line
-         :accessor line-of)
-   (<a href="http://practical-scheme.net/gauche/man/?l=en&p=ref">ref</a>  :init-value '()
-         :accessor ref-of)
-   ))
-
-<a name="dictionary.scm:154"></a>(<a href="http://practical-scheme.net/gauche/man/?l=en&p=define">define</a> (<a href="dictionary.scm.html#dictionary.scm:154">make-entry</a> name type file line)
-  (<a href="http://practical-scheme.net/gauche/man/?l=en&p=make">make</a> <a href="dictionary.scm.html#dictionary.scm:137">&lt;entry&gt;</a> :name name :type type :file file :line line))
-
-<a name="dictionary.scm:157"></a>(<a href="http://practical-scheme.net/gauche/man/?l=en&p=define">define</a> (<a href="dictionary.scm.html#dictionary.scm:157">dictionary-file-list</a>)
-  (<a href="http://practical-scheme.net/gauche/man/?l=en&p=let">let</a> ((result '()))
-    (<a href="http://practical-scheme.net/gauche/man/?l=en&p=hash-table-for-each">hash-table-for-each</a> <a href="dictionary.scm.html#dictionary.scm:129">*dictionary*</a>
-                         (<a href="http://practical-scheme.net/gauche/man/?l=en&p=lambda">lambda</a> (name entry)
-                           (<a href="http://practical-scheme.net/gauche/man/?l=en&p=if">if</a> (<a href="http://practical-scheme.net/gauche/man/?l=en&p=and">and</a> (file-of entry)
-                                    (<a href="http://practical-scheme.net/gauche/man/?l=en&p=not">not</a> (<a href="http://practical-scheme.net/gauche/man/?l=en&p=member">member</a> (file-of entry) result)))
-                               (<a href="http://practical-scheme.net/gauche/man/?l=en&p=push!">push!</a> result (file-of entry)))))
-    result))
-
-<a name="dictionary.scm:166"></a>(<a href="http://practical-scheme.net/gauche/man/?l=en&p=define">define</a> (<a href="dictionary.scm.html#dictionary.scm:166">dictionary-definition-list</a> file)
-  (<a href="http://practical-scheme.net/gauche/man/?l=en&p=let">let</a> ((result '()))
-    (<a href="http://practical-scheme.net/gauche/man/?l=en&p=hash-table-for-each">hash-table-for-each</a> <a href="dictionary.scm.html#dictionary.scm:129">*dictionary*</a>
-                         (<a href="http://practical-scheme.net/gauche/man/?l=en&p=lambda">lambda</a> (name entry)
-                           (<a href="http://practical-scheme.net/gauche/man/?l=en&p=if">if</a> (<a href="http://practical-scheme.net/gauche/man/?l=en&p=and">and</a> (file-of entry)
-                                    (<a href="http://practical-scheme.net/gauche/man/?l=en&p=string=?">string=?</a> file (file-of entry)))
-                               (<a href="http://practical-scheme.net/gauche/man/?l=en&p=push!">push!</a> result entry))))
-    (<a href="http://practical-scheme.net/gauche/man/?l=en&p=sort">sort</a> result (<a href="http://practical-scheme.net/gauche/man/?l=en&p=lambda">lambda</a> (x y)
-                   (<a href="http://practical-scheme.net/gauche/man/?l=en&p=<"><</a> (line-of x)
-                      (line-of y))))))
-
-;;;
-;;;  BUILD-DICTIONARY
-;;;
-<a name="dictionary.scm:180"></a>(<a href="http://practical-scheme.net/gauche/man/?l=en&p=define-module">define-module</a> <a href="dictionary.scm.html#dictionary.scm:180">scmxref.used-modules</a>)
-
-<a name="dictionary.scm:182"></a>(<a href="http://practical-scheme.net/gauche/man/?l=en&p=define">define</a> (<a href="dictionary.scm.html#dictionary.scm:182">read-source-file</a>)
-
-  (<a href="http://practical-scheme.net/gauche/man/?l=en&p=define">define</a> (definition? <a href="http://practical-scheme.net/gauche/man/?l=en&p=exp">exp</a>)
-    (<a href="http://practical-scheme.net/gauche/man/?l=en&p=and">and</a> (<a href="http://practical-scheme.net/gauche/man/?l=en&p=pair?">pair?</a> <a href="http://practical-scheme.net/gauche/man/?l=en&p=exp">exp</a>)
-         (<a href="http://practical-scheme.net/gauche/man/?l=en&p=symbol?">symbol?</a> (<a href="http://practical-scheme.net/gauche/man/?l=en&p=car">car</a> <a href="http://practical-scheme.net/gauche/man/?l=en&p=exp">exp</a>))
-         (<a href="http://practical-scheme.net/gauche/man/?l=en&p=string-prefix-ci?">string-prefix-ci?</a> "define" (<a href="http://practical-scheme.net/gauche/man/?l=en&p=symbol->string">symbol->string</a> (<a href="http://practical-scheme.net/gauche/man/?l=en&p=car">car</a> <a href="http://practical-scheme.net/gauche/man/?l=en&p=exp">exp</a>)))))
-
-  (<a href="http://practical-scheme.net/gauche/man/?l=en&p=define">define</a> (definition-name <a href="http://practical-scheme.net/gauche/man/?l=en&p=exp">exp</a>)
-    (<a href="http://practical-scheme.net/gauche/man/?l=en&p=let">let</a> lp ((second (<a href="http://practical-scheme.net/gauche/man/?l=en&p=cadr">cadr</a> <a href="http://practical-scheme.net/gauche/man/?l=en&p=exp">exp</a>)))
-      (<a href="http://practical-scheme.net/gauche/man/?l=en&p=cond">cond</a> ((<a href="http://practical-scheme.net/gauche/man/?l=en&p=pair?">pair?</a> second) (lp (<a href="http://practical-scheme.net/gauche/man/?l=en&p=car">car</a> second)))
-            ((<a href="http://practical-scheme.net/gauche/man/?l=en&p=symbol?">symbol?</a> second) second)
-            (<a href="http://practical-scheme.net/gauche/man/?l=en&p=else">else</a>
-             (<a href="http://practical-scheme.net/gauche/man/?l=en&p=display">display</a> #"Warning: strange definition:(~(<a href="http://practical-scheme.net/gauche/man/?l=en&p=car">car</a> <a href="http://practical-scheme.net/gauche/man/?l=en&p=exp">exp</a>) ~|second| ...\n"
-                      (<a href="http://practical-scheme.net/gauche/man/?l=en&p=current-error-port">current-error-port</a>))))))
-
-  (<a href="http://practical-scheme.net/gauche/man/?l=en&p=define">define</a> (definition-type <a href="http://practical-scheme.net/gauche/man/?l=en&p=exp">exp</a>) (<a href="http://practical-scheme.net/gauche/man/?l=en&p=car">car</a> <a href="http://practical-scheme.net/gauche/man/?l=en&p=exp">exp</a>))
-
-  (<a href="http://practical-scheme.net/gauche/man/?l=en&p=define">define</a> (putit! <a href="http://practical-scheme.net/gauche/man/?l=en&p=exp">exp</a>)
-    (<a href="http://practical-scheme.net/gauche/man/?l=en&p=let*">let*</a> ((name (definition-name <a href="http://practical-scheme.net/gauche/man/?l=en&p=exp">exp</a>))
-           (type (definition-type <a href="http://practical-scheme.net/gauche/man/?l=en&p=exp">exp</a>))
-           (info (<a href="http://practical-scheme.net/gauche/man/?l=en&p=debug-source-info">debug-source-info</a> <a href="http://practical-scheme.net/gauche/man/?l=en&p=exp">exp</a>))
-           (file (<a href="http://practical-scheme.net/gauche/man/?l=en&p=list-ref">list-ref</a> info 0))
-           (line (<a href="http://practical-scheme.net/gauche/man/?l=en&p=list-ref">list-ref</a> info 1)))
-
-      (<a href="http://practical-scheme.net/gauche/man/?l=en&p=cond">cond</a> ((<a href="http://practical-scheme.net/gauche/man/?l=en&p=not">not</a> (<a href="http://practical-scheme.net/gauche/man/?l=en&p=symbol?">symbol?</a> name)) #t)
-            ((<a href="dictionary.scm.html#dictionary.scm:131">dictionary-get</a> name)
-             <a href="http://practical-scheme.net/gauche/man/?l=en&p==>">=></a>
-             (<a href="http://practical-scheme.net/gauche/man/?l=en&p=lambda">lambda</a> (entry)
-               (<a href="http://practical-scheme.net/gauche/man/?l=en&p=unless">unless</a> (<a href="http://practical-scheme.net/gauche/man/?l=en&p=and">and</a> (<a href="http://practical-scheme.net/gauche/man/?l=en&p=eq?">eq?</a> type 'define-method)
-                            (<a href="http://practical-scheme.net/gauche/man/?l=en&p=eq?">eq?</a> (type-of entry) 'define-method))
-                 (<a href="http://practical-scheme.net/gauche/man/?l=en&p=display">display</a> #"Duplicate definition of ~|name| as ~|type| found at ~|file|:~|line|. \
+(<a href="http://practical-scheme.net/gauche/man/?l=en&p=define-module">define-module</a> <a href="dictionary.scm.html#dictionary.scm:1">scmxref.dictionary</a>
+<a name="dictionary.scm:2"></a>  (<a href="http://practical-scheme.net/gauche/man/?l=en&p=use">use</a> <a href="http://practical-scheme.net/gauche/man/?l=en&p=gauche.parameter">gauche.parameter</a>)
+<a name="dictionary.scm:3"></a>  (<a href="http://practical-scheme.net/gauche/man/?l=en&p=use">use</a> <a href="http://practical-scheme.net/gauche/man/?l=en&p=srfi-13">srfi-13</a>))
+<a name="dictionary.scm:4"></a>(<a href="http://practical-scheme.net/gauche/man/?l=en&p=select-module">select-module</a> <a href="dictionary.scm.html#dictionary.scm:1">scmxref.dictionary</a>)
+<a name="dictionary.scm:5"></a>;;;
+<a name="dictionary.scm:6"></a>;;;  DICTIONARY
+<a name="dictionary.scm:7"></a>;;;
+<a name="dictionary.scm:8"></a>(<a href="http://practical-scheme.net/gauche/man/?l=en&p=define">define</a> <a href="dictionary.scm.html#dictionary.scm:8">documented-modules</a>
+<a name="dictionary.scm:9"></a>  (<a href="http://practical-scheme.net/gauche/man/?l=en&p=make-parameter">make-parameter</a>
+<a name="dictionary.scm:10"></a>   ;;
+<a name="dictionary.scm:11"></a>   ;;  This is list of module names that has manual entry.
+<a name="dictionary.scm:12"></a>   ;;  If you do not want to too much link to manual entry,
+<a name="dictionary.scm:13"></a>   ;;  or find anything missing, customize the this list.
+<a name="dictionary.scm:14"></a>   ;;  Especially if you do (documented-modules '())
+<a name="dictionary.scm:15"></a>   ;;  you will not get any link to manual entries
+<a name="dictionary.scm:16"></a>   ;;  except for R5RS syntactic keywords.
+<a name="dictionary.scm:17"></a>   ;;
+<a name="dictionary.scm:18"></a>   '(
+<a name="dictionary.scm:19"></a>     <a href="http://practical-scheme.net/gauche/man/?l=en&p=crypt.bcrypt">crypt.bcrypt</a>
+<a name="dictionary.scm:20"></a>     <a href="http://practical-scheme.net/gauche/man/?l=en&p=dbm">dbm</a>
+<a name="dictionary.scm:21"></a>     <a href="http://practical-scheme.net/gauche/man/?l=en&p=file.util">file.util</a>
+<a name="dictionary.scm:22"></a>     <a href="http://practical-scheme.net/gauche/man/?l=en&p=gauche.array">gauche.array</a>
+<a name="dictionary.scm:23"></a>     <a href="http://practical-scheme.net/gauche/man/?l=en&p=gauche.charconv">gauche.charconv</a>
+<a name="dictionary.scm:24"></a>     <a href="http://practical-scheme.net/gauche/man/?l=en&p=gauche.cgen">gauche.cgen</a>
+<a name="dictionary.scm:25"></a>     <a href="http://practical-scheme.net/gauche/man/?l=en&p=gauche.collection">gauche.collection</a>
+<a name="dictionary.scm:26"></a>     <a href="http://practical-scheme.net/gauche/man/?l=en&p=gauche.config">gauche.config</a>
+<a name="dictionary.scm:27"></a>     <a href="http://practical-scheme.net/gauche/man/?l=en&p=gauche.configure">gauche.configure</a>
+<a name="dictionary.scm:28"></a>     <a href="http://practical-scheme.net/gauche/man/?l=en&p=gauche.dictionary">gauche.dictionary</a>
+<a name="dictionary.scm:29"></a>     <a href="http://practical-scheme.net/gauche/man/?l=en&p=gauche.fcntl">gauche.fcntl</a>
+<a name="dictionary.scm:30"></a>     <a href="http://practical-scheme.net/gauche/man/?l=en&p=gauche.generator">gauche.generator</a>
+<a name="dictionary.scm:31"></a>     <a href="http://practical-scheme.net/gauche/man/?l=en&p=gauche.hook">gauche.hook</a>
+<a name="dictionary.scm:32"></a>     <a href="http://practical-scheme.net/gauche/man/?l=en&p=gauche.interactive">gauche.interactive</a>
+<a name="dictionary.scm:33"></a>     <a href="http://practical-scheme.net/gauche/man/?l=en&p=gauche.lazy">gauche.lazy</a>
+<a name="dictionary.scm:34"></a>     <a href="http://practical-scheme.net/gauche/man/?l=en&p=gauche.listener">gauche.listener</a>
+<a name="dictionary.scm:35"></a>     <a href="http://practical-scheme.net/gauche/man/?l=en&p=gauche.logger">gauche.logger</a>
+<a name="dictionary.scm:36"></a>     <a href="http://practical-scheme.net/gauche/man/?l=en&p=gauche.mop.propagate">gauche.mop.propagate</a>
+<a name="dictionary.scm:37"></a>     <a href="http://practical-scheme.net/gauche/man/?l=en&p=gauche.mop.singleton">gauche.mop.singleton</a>
+<a name="dictionary.scm:38"></a>     <a href="http://practical-scheme.net/gauche/man/?l=en&p=gauche.mop.validator">gauche.mop.validator</a>
+<a name="dictionary.scm:39"></a>     <a href="http://practical-scheme.net/gauche/man/?l=en&p=gauche.net">gauche.net</a>
+<a name="dictionary.scm:40"></a>     <a href="http://practical-scheme.net/gauche/man/?l=en&p=gauche.parameter">gauche.parameter</a>
+<a name="dictionary.scm:41"></a>     <a href="http://practical-scheme.net/gauche/man/?l=en&p=gauche.parseopt">gauche.parseopt</a>
+<a name="dictionary.scm:42"></a>     <a href="http://practical-scheme.net/gauche/man/?l=en&p=gauche.partcont">gauche.partcont</a>
+<a name="dictionary.scm:43"></a>     <a href="http://practical-scheme.net/gauche/man/?l=en&p=gauche.process">gauche.process</a>
+<a name="dictionary.scm:44"></a>     <a href="http://practical-scheme.net/gauche/man/?l=en&p=gauche.record">gauche.record</a>
+<a name="dictionary.scm:45"></a>     <a href="http://practical-scheme.net/gauche/man/?l=en&p=gauche.regexp">gauche.regexp</a>                      ; autoloaded
+<a name="dictionary.scm:46"></a>     <a href="http://practical-scheme.net/gauche/man/?l=en&p=gauche.reload">gauche.reload</a>
+<a name="dictionary.scm:47"></a>     <a href="http://practical-scheme.net/gauche/man/?l=en&p=gauche.selector">gauche.selector</a>
+<a name="dictionary.scm:48"></a>     <a href="http://practical-scheme.net/gauche/man/?l=en&p=gauche.sequence">gauche.sequence</a>
+<a name="dictionary.scm:49"></a>     <a href="http://practical-scheme.net/gauche/man/?l=en&p=gauche.syslog">gauche.syslog</a>
+<a name="dictionary.scm:50"></a>     <a href="http://practical-scheme.net/gauche/man/?l=en&p=gauche.termios">gauche.termios</a>
+<a name="dictionary.scm:51"></a>     <a href="http://practical-scheme.net/gauche/man/?l=en&p=gauche.test">gauche.test</a>
+<a name="dictionary.scm:52"></a>     <a href="http://practical-scheme.net/gauche/man/?l=en&p=gauche.threads">gauche.threads</a>
+<a name="dictionary.scm:53"></a>     <a href="http://practical-scheme.net/gauche/man/?l=en&p=gauche.time">gauche.time</a>
+<a name="dictionary.scm:54"></a>     <a href="http://practical-scheme.net/gauche/man/?l=en&p=gauche.uvector">gauche.uvector</a>
+<a name="dictionary.scm:55"></a>     <a href="http://practical-scheme.net/gauche/man/?l=en&p=gauche.version">gauche.version</a>
+<a name="dictionary.scm:56"></a>     <a href="http://practical-scheme.net/gauche/man/?l=en&p=gauche.vport">gauche.vport</a>
+<a name="dictionary.scm:57"></a>     <a href="http://practical-scheme.net/gauche/man/?l=en&p=srfi-1">srfi-1</a>                    ; List library
+<a name="dictionary.scm:58"></a>                                        ;srfi-2  -- and-let* is in core syntax
+<a name="dictionary.scm:59"></a>     <a href="http://practical-scheme.net/gauche/man/?l=en&p=srfi-4">srfi-4</a>                             ; Homogeneous vectors
+<a name="dictionary.scm:60"></a>     <a href="http://practical-scheme.net/gauche/man/?l=en&p=srfi-11">srfi-11</a>                            ; Let-values
+<a name="dictionary.scm:61"></a>     <a href="http://practical-scheme.net/gauche/man/?l=en&p=srfi-13">srfi-13</a>                            ; String library
+<a name="dictionary.scm:62"></a>     <a href="http://practical-scheme.net/gauche/man/?l=en&p=srfi-14">srfi-14</a>                            ; Character-set library
+<a name="dictionary.scm:63"></a>     <a href="http://practical-scheme.net/gauche/man/?l=en&p=srfi-19">srfi-19</a>                         ; Time data types and procedures
+<a name="dictionary.scm:64"></a>     <a href="http://practical-scheme.net/gauche/man/?l=en&p=srfi-27">srfi-27</a>                         ; Sources of Random Bits
+<a name="dictionary.scm:65"></a>     <a href="http://practical-scheme.net/gauche/man/?l=en&p=srfi-29">srfi-29</a>                         ; Localization
+<a name="dictionary.scm:66"></a>     <a href="http://practical-scheme.net/gauche/man/?l=en&p=srfi-37">srfi-37</a>                         ; args-fold
+<a name="dictionary.scm:67"></a>     <a href="http://practical-scheme.net/gauche/man/?l=en&p=srfi-42">srfi-42</a>                         ; Eager comprehensions
+<a name="dictionary.scm:68"></a>     <a href="http://practical-scheme.net/gauche/man/?l=en&p=srfi-43">srfi-43</a>                         ; Vecotor library
+<a name="dictionary.scm:69"></a>     <a href="http://practical-scheme.net/gauche/man/?l=en&p=srfi-55">srfi-55</a>                         ; Requiring extensions
+<a name="dictionary.scm:70"></a>     <a href="http://practical-scheme.net/gauche/man/?l=en&p=srfi-60">srfi-60</a>                         ; Integers as bits
+<a name="dictionary.scm:71"></a>     <a href="http://practical-scheme.net/gauche/man/?l=en&p=srfi-98">srfi-98</a>                         ; Accessing environment variables
+<a name="dictionary.scm:72"></a>     <a href="http://practical-scheme.net/gauche/man/?l=en&p=srfi-106">srfi-106</a>                        ; Basic socket interface
+<a name="dictionary.scm:73"></a>     <a href="http://practical-scheme.net/gauche/man/?l=en&p=binary.io">binary.io</a>
+<a name="dictionary.scm:74"></a>     <a href="http://practical-scheme.net/gauche/man/?l=en&p=binary.pack">binary.pack</a>
+<a name="dictionary.scm:75"></a>     <a href="http://practical-scheme.net/gauche/man/?l=en&p=compat.norational">compat.norational</a>
+<a name="dictionary.scm:76"></a>     <a href="http://practical-scheme.net/gauche/man/?l=en&p=control.job">control.job</a>
+<a name="dictionary.scm:77"></a>     <a href="http://practical-scheme.net/gauche/man/?l=en&p=control.thread-pool">control.thread-pool</a>
+<a name="dictionary.scm:78"></a>     <a href="http://practical-scheme.net/gauche/man/?l=en&p=crypt.bcrypt">crypt.bcrypt</a>
+<a name="dictionary.scm:79"></a>     <a href="http://practical-scheme.net/gauche/man/?l=en&p=data.random">data.random</a>
+<a name="dictionary.scm:80"></a>     <a href="http://practical-scheme.net/gauche/man/?l=en&p=dbi">dbi</a>
+<a name="dictionary.scm:81"></a>     <a href="http://practical-scheme.net/gauche/man/?l=en&p=dbm">dbm</a>
+<a name="dictionary.scm:82"></a>     <a href="http://practical-scheme.net/gauche/man/?l=en&p=dbm.fsdbm">dbm.fsdbm</a>
+<a name="dictionary.scm:83"></a>     <a href="http://practical-scheme.net/gauche/man/?l=en&p=dbm.gdbm">dbm.gdbm</a>
+<a name="dictionary.scm:84"></a>     <a href="http://practical-scheme.net/gauche/man/?l=en&p=dbm.ndbm">dbm.ndbm</a>
+<a name="dictionary.scm:85"></a>     <a href="http://practical-scheme.net/gauche/man/?l=en&p=dbm.odbm">dbm.odbm</a>
+<a name="dictionary.scm:86"></a>     <a href="http://practical-scheme.net/gauche/man/?l=en&p=file.filter">file.filter</a>
+<a name="dictionary.scm:87"></a>     <a href="http://practical-scheme.net/gauche/man/?l=en&p=file.util">file.util</a>
+<a name="dictionary.scm:88"></a>     <a href="http://practical-scheme.net/gauche/man/?l=en&p=math.const">math.const</a>
+<a name="dictionary.scm:89"></a>     <a href="http://practical-scheme.net/gauche/man/?l=en&p=math.mt-random">math.mt-random</a>
+<a name="dictionary.scm:90"></a>     <a href="http://practical-scheme.net/gauche/man/?l=en&p=math.prime">math.prime</a>
+<a name="dictionary.scm:91"></a>     <a href="http://practical-scheme.net/gauche/man/?l=en&p=os.windows">os.windows</a>
+<a name="dictionary.scm:92"></a>     <a href="http://practical-scheme.net/gauche/man/?l=en&p=rfc.822">rfc.822</a>
+<a name="dictionary.scm:93"></a>     <a href="http://practical-scheme.net/gauche/man/?l=en&p=rfc.base64">rfc.base64</a>
+<a name="dictionary.scm:94"></a>     <a href="http://practical-scheme.net/gauche/man/?l=en&p=rfb.cookie">rfb.cookie</a>
+<a name="dictionary.scm:95"></a>     <a href="http://practical-scheme.net/gauche/man/?l=en&p=rfc.ftp">rfc.ftp</a>
+<a name="dictionary.scm:96"></a>     <a href="http://practical-scheme.net/gauche/man/?l=en&p=rfc.hmac">rfc.hmac</a>
+<a name="dictionary.scm:97"></a>     <a href="http://practical-scheme.net/gauche/man/?l=en&p=rfc.http">rfc.http</a>
+<a name="dictionary.scm:98"></a>     <a href="http://practical-scheme.net/gauche/man/?l=en&p=rfc.ip">rfc.ip</a>
+<a name="dictionary.scm:99"></a>     <a href="http://practical-scheme.net/gauche/man/?l=en&p=rfc.icmp">rfc.icmp</a>
+<a name="dictionary.scm:100"></a>     <a href="http://practical-scheme.net/gauche/man/?l=en&p=rfc.json">rfc.json</a>
+<a name="dictionary.scm:101"></a>     <a href="http://practical-scheme.net/gauche/man/?l=en&p=rfc.md5">rfc.md5</a>
+<a name="dictionary.scm:102"></a>     <a href="http://practical-scheme.net/gauche/man/?l=en&p=rfc.mime">rfc.mime</a>
+<a name="dictionary.scm:103"></a>     <a href="http://practical-scheme.net/gauche/man/?l=en&p=rfc.quoted-printable">rfc.quoted-printable</a>
+<a name="dictionary.scm:104"></a>     <a href="http://practical-scheme.net/gauche/man/?l=en&p=rfc.sha">rfc.sha</a>
+<a name="dictionary.scm:105"></a>     <a href="http://practical-scheme.net/gauche/man/?l=en&p=rfc.uri">rfc.uri</a>
+<a name="dictionary.scm:106"></a>     <a href="http://practical-scheme.net/gauche/man/?l=en&p=rfc.zlib">rfc.zlib</a>
+<a name="dictionary.scm:107"></a>     <a href="http://practical-scheme.net/gauche/man/?l=en&p=sxml.ssax">sxml.ssax</a>
+<a name="dictionary.scm:108"></a>     <a href="http://practical-scheme.net/gauche/man/?l=en&p=sxml.sxpath">sxml.sxpath</a>
+<a name="dictionary.scm:109"></a>     <a href="http://practical-scheme.net/gauche/man/?l=en&p=sxml.tools">sxml.tools</a>
+<a name="dictionary.scm:110"></a>     <a href="http://practical-scheme.net/gauche/man/?l=en&p=sxml.serializer">sxml.serializer</a>
+<a name="dictionary.scm:111"></a>     <a href="http://practical-scheme.net/gauche/man/?l=en&p=text.csv">text.csv</a>
+<a name="dictionary.scm:112"></a>     <a href="http://practical-scheme.net/gauche/man/?l=en&p=text.diff">text.diff</a>
+<a name="dictionary.scm:113"></a>     <a href="http://practical-scheme.net/gauche/man/?l=en&p=text.gettext">text.gettext</a>
+<a name="dictionary.scm:114"></a>     <a href="http://practical-scheme.net/gauche/man/?l=en&p=text.html-lite">text.html-lite</a>
+<a name="dictionary.scm:115"></a>     <a href="http://practical-scheme.net/gauche/man/?l=en&p=text.parse">text.parse</a>
+<a name="dictionary.scm:116"></a>     <a href="http://practical-scheme.net/gauche/man/?l=en&p=text.progress">text.progress</a>
+<a name="dictionary.scm:117"></a>     <a href="http://practical-scheme.net/gauche/man/?l=en&p=text.sql">text.sql</a>
+<a name="dictionary.scm:118"></a>     <a href="http://practical-scheme.net/gauche/man/?l=en&p=text.tr">text.tr</a>
+<a name="dictionary.scm:119"></a>     <a href="http://practical-scheme.net/gauche/man/?l=en&p=text.tree">text.tree</a>
+<a name="dictionary.scm:120"></a>     <a href="http://practical-scheme.net/gauche/man/?l=en&p=text.unicode">text.unicode</a>
+<a name="dictionary.scm:121"></a>     <a href="http://practical-scheme.net/gauche/man/?l=en&p=util.combinations">util.combinations</a>
+<a name="dictionary.scm:122"></a>     <a href="http://practical-scheme.net/gauche/man/?l=en&p=util.digest">util.digest</a>
+<a name="dictionary.scm:123"></a>     <a href="http://practical-scheme.net/gauche/man/?l=en&p=util.isomorph">util.isomorph</a>
+<a name="dictionary.scm:124"></a>     <a href="http://practical-scheme.net/gauche/man/?l=en&p=util.lcs">util.lcs</a>
+<a name="dictionary.scm:125"></a>                                        ; util.list -- obsoleted
+<a name="dictionary.scm:126"></a>     <a href="http://practical-scheme.net/gauche/man/?l=en&p=util.match">util.match</a>
+<a name="dictionary.scm:127"></a>     <a href="http://practical-scheme.net/gauche/man/?l=en&p=util.queue">util.queue</a>
+<a name="dictionary.scm:128"></a>     <a href="http://practical-scheme.net/gauche/man/?l=en&p=util.rbtree">util.rbtree</a>
+<a name="dictionary.scm:129"></a>     <a href="http://practical-scheme.net/gauche/man/?l=en&p=util.record">util.record</a>
+<a name="dictionary.scm:130"></a>     <a href="http://practical-scheme.net/gauche/man/?l=en&p=util.relation">util.relation</a>
+<a name="dictionary.scm:131"></a>     <a href="http://practical-scheme.net/gauche/man/?l=en&p=util.sparse">util.sparse</a>
+<a name="dictionary.scm:132"></a>     <a href="http://practical-scheme.net/gauche/man/?l=en&p=util.stream">util.stream</a>
+<a name="dictionary.scm:133"></a>     <a href="http://practical-scheme.net/gauche/man/?l=en&p=util.trie">util.trie</a>
+<a name="dictionary.scm:134"></a>     <a href="http://practical-scheme.net/gauche/man/?l=en&p=util.toposort">util.toposort</a>
+<a name="dictionary.scm:135"></a>     <a href="http://practical-scheme.net/gauche/man/?l=en&p=www.cgi">www.cgi</a>
+<a name="dictionary.scm:136"></a>     <a href="http://practical-scheme.net/gauche/man/?l=en&p=www.cgi.test">www.cgi.test</a>
+<a name="dictionary.scm:137"></a>     )))
+<a name="dictionary.scm:138"></a>
+<a name="dictionary.scm:139"></a>(<a href="http://practical-scheme.net/gauche/man/?l=en&p=define">define</a> <a href="dictionary.scm.html#dictionary.scm:139">*dictionary*</a> (<a href="http://practical-scheme.net/gauche/man/?l=en&p=make-hash-table">make-hash-table</a>))
+<a name="dictionary.scm:140"></a>
+<a name="dictionary.scm:141"></a>(<a href="http://practical-scheme.net/gauche/man/?l=en&p=define">define</a> (<a href="dictionary.scm.html#dictionary.scm:141">dictionary-get</a> name)
+<a name="dictionary.scm:142"></a>  (<a href="http://practical-scheme.net/gauche/man/?l=en&p=hash-table-get">hash-table-get</a> <a href="dictionary.scm.html#dictionary.scm:139">*dictionary*</a> name #f))
+<a name="dictionary.scm:143"></a>
+<a name="dictionary.scm:144"></a>(<a href="http://practical-scheme.net/gauche/man/?l=en&p=define">define</a> (<a href="dictionary.scm.html#dictionary.scm:144">dictionary-put!</a> name type file line)
+<a name="dictionary.scm:145"></a>  (<a href="http://practical-scheme.net/gauche/man/?l=en&p=hash-table-put!">hash-table-put!</a> <a href="dictionary.scm.html#dictionary.scm:139">*dictionary*</a>
+<a name="dictionary.scm:146"></a>                   name (<a href="http://practical-scheme.net/gauche/man/?l=en&p=make">make</a> <a href="dictionary.scm.html#dictionary.scm:148">&lt;entry&gt;</a> :name name :type type :file file :line line)))
+<a name="dictionary.scm:147"></a>
+<a name="dictionary.scm:148"></a>(<a href="http://practical-scheme.net/gauche/man/?l=en&p=define-class">define-class</a> <a href="dictionary.scm.html#dictionary.scm:148">&lt;entry&gt;</a> ()
+<a name="dictionary.scm:149"></a>  ((name :init-value #f
+<a name="dictionary.scm:150"></a>         :init-keyword :name
+<a name="dictionary.scm:151"></a>         :accessor name-of)
+<a name="dictionary.scm:152"></a>   (type :init-value #f
+<a name="dictionary.scm:153"></a>         :init-keyword :type
+<a name="dictionary.scm:154"></a>         :accessor type-of)
+<a name="dictionary.scm:155"></a>   (file :init-value #f
+<a name="dictionary.scm:156"></a>         :init-keyword :file
+<a name="dictionary.scm:157"></a>         :accessor file-of)
+<a name="dictionary.scm:158"></a>   (line :init-value 0
+<a name="dictionary.scm:159"></a>         :init-keyword :line
+<a name="dictionary.scm:160"></a>         :accessor line-of)
+<a name="dictionary.scm:161"></a>   (<a href="http://practical-scheme.net/gauche/man/?l=en&p=ref">ref</a>  :init-value '()
+<a name="dictionary.scm:162"></a>         :accessor ref-of)
+<a name="dictionary.scm:163"></a>   ))
+<a name="dictionary.scm:164"></a>
+<a name="dictionary.scm:165"></a>(<a href="http://practical-scheme.net/gauche/man/?l=en&p=define">define</a> (<a href="dictionary.scm.html#dictionary.scm:165">entry-ref-push!</a> entry file line)
+<a name="dictionary.scm:166"></a>  (<a href="http://practical-scheme.net/gauche/man/?l=en&p=unless">unless</a> (<a href="http://practical-scheme.net/gauche/man/?l=en&p=member">member</a> (<a href="http://practical-scheme.net/gauche/man/?l=en&p=list">list</a> file line) (ref-of entry))
+<a name="dictionary.scm:167"></a>    (<a href="http://practical-scheme.net/gauche/man/?l=en&p=push!">push!</a> (ref-of entry) (<a href="http://practical-scheme.net/gauche/man/?l=en&p=list">list</a> file line))))
+<a name="dictionary.scm:168"></a>
+<a name="dictionary.scm:169"></a>(<a href="http://practical-scheme.net/gauche/man/?l=en&p=define">define</a> (<a href="dictionary.scm.html#dictionary.scm:169">dictionary-file-list</a>)
+<a name="dictionary.scm:170"></a>  (<a href="http://practical-scheme.net/gauche/man/?l=en&p=let">let</a> ((result '()))
+<a name="dictionary.scm:171"></a>    (<a href="http://practical-scheme.net/gauche/man/?l=en&p=hash-table-for-each">hash-table-for-each</a> <a href="dictionary.scm.html#dictionary.scm:139">*dictionary*</a>
+<a name="dictionary.scm:172"></a>                         (<a href="http://practical-scheme.net/gauche/man/?l=en&p=lambda">lambda</a> (name entry)
+<a name="dictionary.scm:173"></a>                           (<a href="http://practical-scheme.net/gauche/man/?l=en&p=if">if</a> (<a href="http://practical-scheme.net/gauche/man/?l=en&p=and">and</a> (file-of entry)
+<a name="dictionary.scm:174"></a>                                    (<a href="http://practical-scheme.net/gauche/man/?l=en&p=not">not</a> (<a href="http://practical-scheme.net/gauche/man/?l=en&p=member">member</a> (file-of entry) result)))
+<a name="dictionary.scm:175"></a>                               (<a href="http://practical-scheme.net/gauche/man/?l=en&p=push!">push!</a> result (file-of entry)))))
+<a name="dictionary.scm:176"></a>    result))
+<a name="dictionary.scm:177"></a>
+<a name="dictionary.scm:178"></a>(<a href="http://practical-scheme.net/gauche/man/?l=en&p=define">define</a> (<a href="dictionary.scm.html#dictionary.scm:178">dictionary-definition-list</a> file)
+<a name="dictionary.scm:179"></a>  (<a href="http://practical-scheme.net/gauche/man/?l=en&p=let">let</a> ((result '()))
+<a name="dictionary.scm:180"></a>    (<a href="http://practical-scheme.net/gauche/man/?l=en&p=hash-table-for-each">hash-table-for-each</a> <a href="dictionary.scm.html#dictionary.scm:139">*dictionary*</a>
+<a name="dictionary.scm:181"></a>                         (<a href="http://practical-scheme.net/gauche/man/?l=en&p=lambda">lambda</a> (name entry)
+<a name="dictionary.scm:182"></a>                           (<a href="http://practical-scheme.net/gauche/man/?l=en&p=if">if</a> (<a href="http://practical-scheme.net/gauche/man/?l=en&p=and">and</a> (file-of entry)
+<a name="dictionary.scm:183"></a>                                    (<a href="http://practical-scheme.net/gauche/man/?l=en&p=string=?">string=?</a> file (file-of entry)))
+<a name="dictionary.scm:184"></a>                               (<a href="http://practical-scheme.net/gauche/man/?l=en&p=push!">push!</a> result entry))))
+<a name="dictionary.scm:185"></a>    (<a href="http://practical-scheme.net/gauche/man/?l=en&p=sort">sort</a> result (<a href="http://practical-scheme.net/gauche/man/?l=en&p=lambda">lambda</a> (x y)
+<a name="dictionary.scm:186"></a>                   (<a href="http://practical-scheme.net/gauche/man/?l=en&p=<"><</a> (line-of x)
+<a name="dictionary.scm:187"></a>                      (line-of y))))))
+<a name="dictionary.scm:188"></a>
+<a name="dictionary.scm:189"></a>;;;
+<a name="dictionary.scm:190"></a>;;;  BUILD-DICTIONARY
+<a name="dictionary.scm:191"></a>;;;
+<a name="dictionary.scm:192"></a>(<a href="http://practical-scheme.net/gauche/man/?l=en&p=define-module">define-module</a> <a href="dictionary.scm.html#dictionary.scm:192">scmxref.used-modules</a>)
+<a name="dictionary.scm:193"></a>
+<a name="dictionary.scm:194"></a>(<a href="http://practical-scheme.net/gauche/man/?l=en&p=define">define</a> (<a href="dictionary.scm.html#dictionary.scm:194">read-source-file</a>)
+<a name="dictionary.scm:195"></a>
+<a name="dictionary.scm:196"></a>  (<a href="http://practical-scheme.net/gauche/man/?l=en&p=define">define</a> (definition? <a href="http://practical-scheme.net/gauche/man/?l=en&p=exp">exp</a>)
+<a name="dictionary.scm:197"></a>    (<a href="http://practical-scheme.net/gauche/man/?l=en&p=and">and</a> (<a href="http://practical-scheme.net/gauche/man/?l=en&p=pair?">pair?</a> <a href="http://practical-scheme.net/gauche/man/?l=en&p=exp">exp</a>)
+<a name="dictionary.scm:198"></a>         (<a href="http://practical-scheme.net/gauche/man/?l=en&p=symbol?">symbol?</a> (<a href="http://practical-scheme.net/gauche/man/?l=en&p=car">car</a> <a href="http://practical-scheme.net/gauche/man/?l=en&p=exp">exp</a>))
+<a name="dictionary.scm:199"></a>         (<a href="http://practical-scheme.net/gauche/man/?l=en&p=string-prefix-ci?">string-prefix-ci?</a> "define" (<a href="http://practical-scheme.net/gauche/man/?l=en&p=symbol->string">symbol->string</a> (<a href="http://practical-scheme.net/gauche/man/?l=en&p=car">car</a> <a href="http://practical-scheme.net/gauche/man/?l=en&p=exp">exp</a>)))))
+<a name="dictionary.scm:200"></a>
+<a name="dictionary.scm:201"></a>  (<a href="http://practical-scheme.net/gauche/man/?l=en&p=define">define</a> (definition-name <a href="http://practical-scheme.net/gauche/man/?l=en&p=exp">exp</a>)
+<a name="dictionary.scm:202"></a>    (<a href="http://practical-scheme.net/gauche/man/?l=en&p=let">let</a> lp ((second (<a href="http://practical-scheme.net/gauche/man/?l=en&p=cadr">cadr</a> <a href="http://practical-scheme.net/gauche/man/?l=en&p=exp">exp</a>)))
+<a name="dictionary.scm:203"></a>      (<a href="http://practical-scheme.net/gauche/man/?l=en&p=cond">cond</a> ((<a href="http://practical-scheme.net/gauche/man/?l=en&p=pair?">pair?</a> second) (lp (<a href="http://practical-scheme.net/gauche/man/?l=en&p=car">car</a> second)))
+<a name="dictionary.scm:204"></a>            ((<a href="http://practical-scheme.net/gauche/man/?l=en&p=symbol?">symbol?</a> second) second)
+<a name="dictionary.scm:205"></a>            (<a href="http://practical-scheme.net/gauche/man/?l=en&p=else">else</a>
+<a name="dictionary.scm:206"></a>             (<a href="http://practical-scheme.net/gauche/man/?l=en&p=display">display</a> #"Warning: strange definition:(~(<a href="http://practical-scheme.net/gauche/man/?l=en&p=car">car</a> <a href="http://practical-scheme.net/gauche/man/?l=en&p=exp">exp</a>) ~|second| ...\n"
+<a name="dictionary.scm:207"></a>                      (<a href="http://practical-scheme.net/gauche/man/?l=en&p=current-error-port">current-error-port</a>))))))
+<a name="dictionary.scm:208"></a>
+<a name="dictionary.scm:209"></a>  (<a href="http://practical-scheme.net/gauche/man/?l=en&p=define">define</a> (definition-type <a href="http://practical-scheme.net/gauche/man/?l=en&p=exp">exp</a>) (<a href="http://practical-scheme.net/gauche/man/?l=en&p=car">car</a> <a href="http://practical-scheme.net/gauche/man/?l=en&p=exp">exp</a>))
+<a name="dictionary.scm:210"></a>
+<a name="dictionary.scm:211"></a>  (<a href="http://practical-scheme.net/gauche/man/?l=en&p=define">define</a> (putit! <a href="http://practical-scheme.net/gauche/man/?l=en&p=exp">exp</a>)
+<a name="dictionary.scm:212"></a>    (<a href="http://practical-scheme.net/gauche/man/?l=en&p=let*">let*</a> ((name (definition-name <a href="http://practical-scheme.net/gauche/man/?l=en&p=exp">exp</a>))
+<a name="dictionary.scm:213"></a>           (type (definition-type <a href="http://practical-scheme.net/gauche/man/?l=en&p=exp">exp</a>))
+<a name="dictionary.scm:214"></a>           (info (<a href="http://practical-scheme.net/gauche/man/?l=en&p=debug-source-info">debug-source-info</a> <a href="http://practical-scheme.net/gauche/man/?l=en&p=exp">exp</a>))
+<a name="dictionary.scm:215"></a>           (file (<a href="http://practical-scheme.net/gauche/man/?l=en&p=list-ref">list-ref</a> info 0))
+<a name="dictionary.scm:216"></a>           (line (<a href="http://practical-scheme.net/gauche/man/?l=en&p=list-ref">list-ref</a> info 1)))
+<a name="dictionary.scm:217"></a>
+<a name="dictionary.scm:218"></a>      (<a href="http://practical-scheme.net/gauche/man/?l=en&p=cond">cond</a> ((<a href="http://practical-scheme.net/gauche/man/?l=en&p=not">not</a> (<a href="http://practical-scheme.net/gauche/man/?l=en&p=symbol?">symbol?</a> name)) #t)
+<a name="dictionary.scm:219"></a>            ((<a href="dictionary.scm.html#dictionary.scm:141">dictionary-get</a> name)
+<a name="dictionary.scm:220"></a>             <a href="http://practical-scheme.net/gauche/man/?l=en&p==>">=></a>
+<a name="dictionary.scm:221"></a>             (<a href="http://practical-scheme.net/gauche/man/?l=en&p=lambda">lambda</a> (entry)
+<a name="dictionary.scm:222"></a>               (<a href="http://practical-scheme.net/gauche/man/?l=en&p=cond">cond</a> ((<a href="http://practical-scheme.net/gauche/man/?l=en&p=and">and</a> (<a href="http://practical-scheme.net/gauche/man/?l=en&p=string=?">string=?</a> file (file-of entry))
+<a name="dictionary.scm:223"></a>                           (<a href="http://practical-scheme.net/gauche/man/?l=en&p==">=</a> line line (line-of entry)))
+<a name="dictionary.scm:224"></a>                      'we-already-have-it)
+<a name="dictionary.scm:225"></a>                     ((<a href="http://practical-scheme.net/gauche/man/?l=en&p=and">and</a> (<a href="http://practical-scheme.net/gauche/man/?l=en&p=eq?">eq?</a> type 'define-method)
+<a name="dictionary.scm:226"></a>                           (<a href="http://practical-scheme.net/gauche/man/?l=en&p=eq?">eq?</a> (type-of entry) 'define-method))
+<a name="dictionary.scm:227"></a>                      ;; XXX
+<a name="dictionary.scm:228"></a>                      (<a href="dictionary.scm.html#dictionary.scm:144">dictionary-put!</a> name type file line))
+<a name="dictionary.scm:229"></a>                     (<a href="http://practical-scheme.net/gauche/man/?l=en&p=else">else</a>
+<a name="dictionary.scm:230"></a>                      (<a href="http://practical-scheme.net/gauche/man/?l=en&p=display">display</a> #"Duplicate definition of ~|name| as ~|type| found at ~|file|:~|line|. \
                           \nPrevisous definition: (~(type-of entry) ~(name-of entry) ...) \
                              at ~(file-of entry):~(line-of entry).\n"
-                          (<a href="http://practical-scheme.net/gauche/man/?l=en&p=current-error-port">current-error-port</a>)))
-               (<a href="dictionary.scm.html#dictionary.scm:134">dictionary-put!</a> name (<a href="dictionary.scm.html#dictionary.scm:154">make-entry</a> name type file line))))
-            (<a href="http://practical-scheme.net/gauche/man/?l=en&p=else">else</a>
-             (<a href="dictionary.scm.html#dictionary.scm:134">dictionary-put!</a> name (<a href="dictionary.scm.html#dictionary.scm:154">make-entry</a> name type file line))))
-
-      (<a href="http://practical-scheme.net/gauche/man/?l=en&p=cond">cond</a> ((<a href="http://practical-scheme.net/gauche/man/?l=en&p=eq?">eq?</a> type 'define-module)
-             (<a href="http://practical-scheme.net/gauche/man/?l=en&p=for-each">for-each</a> (<a href="http://practical-scheme.net/gauche/man/?l=en&p=lambda">lambda</a> (<a href="http://practical-scheme.net/gauche/man/?l=en&p=exp">exp</a>)
-                         (<a href="http://practical-scheme.net/gauche/man/?l=en&p=if">if</a> (use-documented-module? <a href="http://practical-scheme.net/gauche/man/?l=en&p=exp">exp</a>) (useit! <a href="http://practical-scheme.net/gauche/man/?l=en&p=exp">exp</a>)))
-                       <a href="http://practical-scheme.net/gauche/man/?l=en&p=exp">exp</a>)))
-      ))
-
-  (<a href="http://practical-scheme.net/gauche/man/?l=en&p=define">define</a> (use-documented-module? <a href="http://practical-scheme.net/gauche/man/?l=en&p=exp">exp</a>)
-    (<a href="http://practical-scheme.net/gauche/man/?l=en&p=and">and</a> (<a href="http://practical-scheme.net/gauche/man/?l=en&p=pair?">pair?</a> <a href="http://practical-scheme.net/gauche/man/?l=en&p=exp">exp</a>)
-         (<a href="http://practical-scheme.net/gauche/man/?l=en&p=eq?">eq?</a> (<a href="http://practical-scheme.net/gauche/man/?l=en&p=car">car</a> <a href="http://practical-scheme.net/gauche/man/?l=en&p=exp">exp</a>) 'use)
-         (<a href="http://practical-scheme.net/gauche/man/?l=en&p=memq">memq</a> (<a href="http://practical-scheme.net/gauche/man/?l=en&p=cadr">cadr</a> <a href="http://practical-scheme.net/gauche/man/?l=en&p=exp">exp</a>) <a href="dictionary.scm.html#dictionary.scm:6">documented-modules</a>)))
-
-  (<a href="http://practical-scheme.net/gauche/man/?l=en&p=define">define</a> (useit! <a href="http://practical-scheme.net/gauche/man/?l=en&p=exp">exp</a>)
-    (<a href="http://practical-scheme.net/gauche/man/?l=en&p=eval">eval</a> <a href="http://practical-scheme.net/gauche/man/?l=en&p=exp">exp</a> (<a href="http://practical-scheme.net/gauche/man/?l=en&p=find-module">find-module</a> 'scmxref.used-modules)))
-
-  (<a href="http://practical-scheme.net/gauche/man/?l=en&p=port-for-each">port-for-each</a>
-   (<a href="http://practical-scheme.net/gauche/man/?l=en&p=lambda">lambda</a> (<a href="http://practical-scheme.net/gauche/man/?l=en&p=exp">exp</a>)
-     (<a href="http://practical-scheme.net/gauche/man/?l=en&p=cond">cond</a> ((definition?            <a href="http://practical-scheme.net/gauche/man/?l=en&p=exp">exp</a>) (putit! <a href="http://practical-scheme.net/gauche/man/?l=en&p=exp">exp</a>))
-           ((use-documented-module? <a href="http://practical-scheme.net/gauche/man/?l=en&p=exp">exp</a>) (useit! <a href="http://practical-scheme.net/gauche/man/?l=en&p=exp">exp</a>))))
-   <a href="http://practical-scheme.net/gauche/man/?l=en&p=read">read</a>))
-
-<a name="dictionary.scm:240"></a>(<a href="http://practical-scheme.net/gauche/man/?l=en&p=define">define</a> (<a href="dictionary.scm.html#dictionary.scm:240">build-dictionary</a> files)
-  (<a href="http://practical-scheme.net/gauche/man/?l=en&p=for-each">for-each</a> (<a href="http://practical-scheme.net/gauche/man/?l=en&p=lambda">lambda</a> (file)
-              (<a href="http://practical-scheme.net/gauche/man/?l=en&p=with-input-from-file">with-input-from-file</a> file <a href="dictionary.scm.html#dictionary.scm:182">read-source-file</a>))
-            files))
-
-<a name="dictionary.scm:245"></a>(<a href="http://practical-scheme.net/gauche/man/?l=en&p=provide">provide</a> "scmxref/dictionary")
-
+<a name="dictionary.scm:233"></a>                               (<a href="http://practical-scheme.net/gauche/man/?l=en&p=current-error-port">current-error-port</a>))
+<a name="dictionary.scm:234"></a>                      (<a href="dictionary.scm.html#dictionary.scm:144">dictionary-put!</a> name type file line)))))
+<a name="dictionary.scm:235"></a>            (<a href="http://practical-scheme.net/gauche/man/?l=en&p=else">else</a>
+<a name="dictionary.scm:236"></a>             (<a href="dictionary.scm.html#dictionary.scm:144">dictionary-put!</a> name type file line)))
+<a name="dictionary.scm:237"></a>
+<a name="dictionary.scm:238"></a>      (<a href="http://practical-scheme.net/gauche/man/?l=en&p=cond">cond</a> ((<a href="http://practical-scheme.net/gauche/man/?l=en&p=eq?">eq?</a> type 'define-module)
+<a name="dictionary.scm:239"></a>             (<a href="http://practical-scheme.net/gauche/man/?l=en&p=for-each">for-each</a> (<a href="http://practical-scheme.net/gauche/man/?l=en&p=lambda">lambda</a> (<a href="http://practical-scheme.net/gauche/man/?l=en&p=exp">exp</a>)
+<a name="dictionary.scm:240"></a>                         (<a href="http://practical-scheme.net/gauche/man/?l=en&p=if">if</a> (use-documented-module? <a href="http://practical-scheme.net/gauche/man/?l=en&p=exp">exp</a>) (useit! <a href="http://practical-scheme.net/gauche/man/?l=en&p=exp">exp</a>)))
+<a name="dictionary.scm:241"></a>                       <a href="http://practical-scheme.net/gauche/man/?l=en&p=exp">exp</a>)))
+<a name="dictionary.scm:242"></a>      ))
+<a name="dictionary.scm:243"></a>
+<a name="dictionary.scm:244"></a>  (<a href="http://practical-scheme.net/gauche/man/?l=en&p=define">define</a> (use-documented-module? <a href="http://practical-scheme.net/gauche/man/?l=en&p=exp">exp</a>)
+<a name="dictionary.scm:245"></a>    (<a href="http://practical-scheme.net/gauche/man/?l=en&p=and">and</a> (<a href="http://practical-scheme.net/gauche/man/?l=en&p=pair?">pair?</a> <a href="http://practical-scheme.net/gauche/man/?l=en&p=exp">exp</a>)
+<a name="dictionary.scm:246"></a>         (<a href="http://practical-scheme.net/gauche/man/?l=en&p=eq?">eq?</a> (<a href="http://practical-scheme.net/gauche/man/?l=en&p=car">car</a> <a href="http://practical-scheme.net/gauche/man/?l=en&p=exp">exp</a>) 'use)
+<a name="dictionary.scm:247"></a>         (<a href="http://practical-scheme.net/gauche/man/?l=en&p=memq">memq</a> (<a href="http://practical-scheme.net/gauche/man/?l=en&p=cadr">cadr</a> <a href="http://practical-scheme.net/gauche/man/?l=en&p=exp">exp</a>) (<a href="dictionary.scm.html#dictionary.scm:8">documented-modules</a>))))
+<a name="dictionary.scm:248"></a>
+<a name="dictionary.scm:249"></a>  (<a href="http://practical-scheme.net/gauche/man/?l=en&p=define">define</a> (useit! <a href="http://practical-scheme.net/gauche/man/?l=en&p=exp">exp</a>)
+<a name="dictionary.scm:250"></a>    (<a href="http://practical-scheme.net/gauche/man/?l=en&p=eval">eval</a> <a href="http://practical-scheme.net/gauche/man/?l=en&p=exp">exp</a> (<a href="http://practical-scheme.net/gauche/man/?l=en&p=find-module">find-module</a> 'scmxref.used-modules)))
+<a name="dictionary.scm:251"></a>
+<a name="dictionary.scm:252"></a>  (<a href="http://practical-scheme.net/gauche/man/?l=en&p=port-for-each">port-for-each</a>
+<a name="dictionary.scm:253"></a>   (<a href="http://practical-scheme.net/gauche/man/?l=en&p=lambda">lambda</a> (<a href="http://practical-scheme.net/gauche/man/?l=en&p=exp">exp</a>)
+<a name="dictionary.scm:254"></a>     (<a href="http://practical-scheme.net/gauche/man/?l=en&p=cond">cond</a> ((definition?            <a href="http://practical-scheme.net/gauche/man/?l=en&p=exp">exp</a>) (putit! <a href="http://practical-scheme.net/gauche/man/?l=en&p=exp">exp</a>))
+<a name="dictionary.scm:255"></a>           ((use-documented-module? <a href="http://practical-scheme.net/gauche/man/?l=en&p=exp">exp</a>) (useit! <a href="http://practical-scheme.net/gauche/man/?l=en&p=exp">exp</a>))))
+<a name="dictionary.scm:256"></a>   <a href="http://practical-scheme.net/gauche/man/?l=en&p=read">read</a>))
+<a name="dictionary.scm:257"></a>
+<a name="dictionary.scm:258"></a>(<a href="http://practical-scheme.net/gauche/man/?l=en&p=define">define</a> (<a href="dictionary.scm.html#dictionary.scm:258">build-dictionary</a> files)
+<a name="dictionary.scm:259"></a>  (<a href="http://practical-scheme.net/gauche/man/?l=en&p=if">if</a> (<a href="http://practical-scheme.net/gauche/man/?l=en&p=null?">null?</a> (<a href="dictionary.scm.html#dictionary.scm:8">documented-modules</a>))
+<a name="dictionary.scm:260"></a>    (<a href="http://practical-scheme.net/gauche/man/?l=en&p=eval">eval</a> '(<a href="http://practical-scheme.net/gauche/man/?l=en&p=extend">extend</a> null) (<a href="http://practical-scheme.net/gauche/man/?l=en&p=find-module">find-module</a> 'scmxref.used-modules)))
+<a name="dictionary.scm:261"></a>  (<a href="http://practical-scheme.net/gauche/man/?l=en&p=for-each">for-each</a> (<a href="http://practical-scheme.net/gauche/man/?l=en&p=lambda">lambda</a> (file)
+<a name="dictionary.scm:262"></a>              (<a href="http://practical-scheme.net/gauche/man/?l=en&p=with-input-from-file">with-input-from-file</a> file <a href="dictionary.scm.html#dictionary.scm:194">read-source-file</a>))
+<a name="dictionary.scm:263"></a>            files))
+<a name="dictionary.scm:264"></a>
+<a name="dictionary.scm:265"></a>(<a href="http://practical-scheme.net/gauche/man/?l=en&p=provide">provide</a> "scmxref/dictionary")
+<a name="dictionary.scm:266"></a>
 </pre>
 <a href="../scmxref/index.html">index</a>
 </body>
