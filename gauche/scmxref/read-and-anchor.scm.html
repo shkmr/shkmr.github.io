@@ -1,365 +1,409 @@
 <html>
 <body>
-<a href="../scmxref/index.html">index</a>
+<a href="index.html">index</a>
 <pre>
-(<a href="http://practical-scheme.net/gauche/man/?l=en&p=define-module">define-module</a> <a href="read-and-anchor.scm.html#read-and-anchor.scm:1">scmxref.read-and-anchor</a>
-<a name="read-and-anchor.scm:2"></a>  (<a href="http://practical-scheme.net/gauche/man/?l=en&p=use">use</a> <a href="http://practical-scheme.net/gauche/man/?l=en&p=gauche.parameter">gauche.parameter</a>)
-<a name="read-and-anchor.scm:3"></a>  (<a href="http://practical-scheme.net/gauche/man/?l=en&p=use">use</a> <a href="path-util.scm.html#path-util.scm:1">scmxref.path-util</a>)
-<a name="read-and-anchor.scm:4"></a>  (<a href="http://practical-scheme.net/gauche/man/?l=en&p=extend">extend</a> <a href="dictionary.scm.html#dictionary.scm:1">scmxref.dictionary</a>))
-<a name="read-and-anchor.scm:5"></a>(<a href="http://practical-scheme.net/gauche/man/?l=en&p=select-module">select-module</a> <a href="read-and-anchor.scm.html#read-and-anchor.scm:1">scmxref.read-and-anchor</a>)
-<a name="read-and-anchor.scm:6"></a>
-<a name="read-and-anchor.scm:7"></a>;; options
-<a name="read-and-anchor.scm:8"></a>(<a href="http://practical-scheme.net/gauche/man/?l=en&p=define">define</a> <a href="read-and-anchor.scm.html#read-and-anchor.scm:8">anchor-all-lines</a>      (<a href="http://practical-scheme.net/gauche/man/?l=en&p=make-parameter">make-parameter</a> #f))
-<a name="read-and-anchor.scm:9"></a>(<a href="http://practical-scheme.net/gauche/man/?l=en&p=define">define</a> <a href="read-and-anchor.scm.html#read-and-anchor.scm:9">anchor-file-extension</a> (<a href="http://practical-scheme.net/gauche/man/?l=en&p=make-parameter">make-parameter</a> ".html"))
-<a name="read-and-anchor.scm:10"></a>(<a href="http://practical-scheme.net/gauche/man/?l=en&p=define">define</a> <a href="read-and-anchor.scm.html#read-and-anchor.scm:10">place-goto-anchor</a>     (<a href="http://practical-scheme.net/gauche/man/?l=en&p=make-parameter">make-parameter</a> #f))
-<a name="read-and-anchor.scm:11"></a>(<a href="http://practical-scheme.net/gauche/man/?l=en&p=define">define</a> <a href="read-and-anchor.scm.html#read-and-anchor.scm:11">gauche-man-base</a>       (<a href="http://practical-scheme.net/gauche/man/?l=en&p=make-parameter">make-parameter</a> "http://practical-scheme.net/gauche/man/?l=en&amp;p="))
-<a name="read-and-anchor.scm:12"></a>;;;
-<a name="read-and-anchor.scm:13"></a>;;;  read-and-anchor
-<a name="read-and-anchor.scm:14"></a>;;;
-<a name="read-and-anchor.scm:15"></a>(<a href="http://practical-scheme.net/gauche/man/?l=en&p=define">define</a> (<a href="read-and-anchor.scm.html#read-and-anchor.scm:15">disp</a> x)
-<a name="read-and-anchor.scm:16"></a>  (<a href="http://practical-scheme.net/gauche/man/?l=en&p=cond">cond</a> ((<a href="http://practical-scheme.net/gauche/man/?l=en&p=not">not</a> (<a href="http://practical-scheme.net/gauche/man/?l=en&p=char?">char?</a> x))
-<a name="read-and-anchor.scm:17"></a>         (<a href="http://practical-scheme.net/gauche/man/?l=en&p=with-input-from-string">with-input-from-string</a> (<a href="http://practical-scheme.net/gauche/man/?l=en&p=x->string">x->string</a> x)
-<a name="read-and-anchor.scm:18"></a>           (<a href="http://practical-scheme.net/gauche/man/?l=en&p=lambda">lambda</a> ()
-<a name="read-and-anchor.scm:19"></a>             (<a href="http://practical-scheme.net/gauche/man/?l=en&p=port-for-each">port-for-each</a> <a href="read-and-anchor.scm.html#read-and-anchor.scm:15">disp</a> <a href="http://practical-scheme.net/gauche/man/?l=en&p=read-char">read-char</a>))))
-<a name="read-and-anchor.scm:20"></a>        ((<a href="http://practical-scheme.net/gauche/man/?l=en&p=char=?">char=?</a> #\&lt; x)
-<a name="read-and-anchor.scm:21"></a>         (<a href="http://practical-scheme.net/gauche/man/?l=en&p=display">display</a> "&amp;lt;"))
-<a name="read-and-anchor.scm:22"></a>        ((<a href="http://practical-scheme.net/gauche/man/?l=en&p=char=?">char=?</a> #\&gt; x)
-<a name="read-and-anchor.scm:23"></a>         (<a href="http://practical-scheme.net/gauche/man/?l=en&p=display">display</a> "&amp;gt;"))
-<a name="read-and-anchor.scm:24"></a>        ((<a href="http://practical-scheme.net/gauche/man/?l=en&p=char=?">char=?</a> #\&amp; x)
-<a name="read-and-anchor.scm:25"></a>         (<a href="http://practical-scheme.net/gauche/man/?l=en&p=display">display</a> "&amp;amp;"))
-<a name="read-and-anchor.scm:26"></a>        (<a href="http://practical-scheme.net/gauche/man/?l=en&p=else">else</a>
-<a name="read-and-anchor.scm:27"></a>         (<a href="http://practical-scheme.net/gauche/man/?l=en&p=display">display</a> x))))
-<a name="read-and-anchor.scm:28"></a>
-<a name="read-and-anchor.scm:29"></a>(<a href="http://practical-scheme.net/gauche/man/?l=en&p=define">define</a> <a href="read-and-anchor.scm.html#read-and-anchor.scm:29">symbol-initial</a>  #[A-Za-z!$%&amp;*/:&lt;=&gt;?\^~+\-])
-<a name="read-and-anchor.scm:30"></a>(<a href="http://practical-scheme.net/gauche/man/?l=en&p=define">define</a> <a href="read-and-anchor.scm.html#read-and-anchor.scm:30">symbol-char-set</a> #[\w!$%&amp;*/:&lt;=&gt;?\^~+\-@.])
-<a name="read-and-anchor.scm:31"></a>
-<a name="read-and-anchor.scm:32"></a>(<a href="http://practical-scheme.net/gauche/man/?l=en&p=define">define</a> (<a href="read-and-anchor.scm.html#read-and-anchor.scm:32">read-string-w/o-escape</a> ch lis)
-<a name="read-and-anchor.scm:33"></a>  (<a href="http://practical-scheme.net/gauche/man/?l=en&p=cond">cond</a> ((<a href="http://practical-scheme.net/gauche/man/?l=en&p=eof-object?">eof-object?</a> ch) (<a href="http://practical-scheme.net/gauche/man/?l=en&p=error">error</a> "EOF inside string"))
-<a name="read-and-anchor.scm:34"></a>        ((<a href="http://practical-scheme.net/gauche/man/?l=en&p=char=?">char=?</a> #\"  ch) (<a href="http://practical-scheme.net/gauche/man/?l=en&p=apply">apply</a> <a href="http://practical-scheme.net/gauche/man/?l=en&p=string">string</a> (<a href="http://practical-scheme.net/gauche/man/?l=en&p=reverse">reverse</a> lis)))
-<a name="read-and-anchor.scm:35"></a>        ((<a href="http://practical-scheme.net/gauche/man/?l=en&p=char=?">char=?</a> #\\  ch)
-<a name="read-and-anchor.scm:36"></a>         (<a href="http://practical-scheme.net/gauche/man/?l=en&p=let">let</a> ((x (<a href="http://practical-scheme.net/gauche/man/?l=en&p=read-char">read-char</a>)))
-<a name="read-and-anchor.scm:37"></a>           (<a href="read-and-anchor.scm.html#read-and-anchor.scm:32">read-string-w/o-escape</a> (<a href="http://practical-scheme.net/gauche/man/?l=en&p=read-char">read-char</a>)
-<a name="read-and-anchor.scm:38"></a>                                   (<a href="http://practical-scheme.net/gauche/man/?l=en&p=cons">cons</a> x (<a href="http://practical-scheme.net/gauche/man/?l=en&p=cons">cons</a> ch lis)))))
-<a name="read-and-anchor.scm:39"></a>        (<a href="http://practical-scheme.net/gauche/man/?l=en&p=else">else</a>
-<a name="read-and-anchor.scm:40"></a>         (<a href="read-and-anchor.scm.html#read-and-anchor.scm:32">read-string-w/o-escape</a> (<a href="http://practical-scheme.net/gauche/man/?l=en&p=read-char">read-char</a>)
-<a name="read-and-anchor.scm:41"></a>                                 (<a href="http://practical-scheme.net/gauche/man/?l=en&p=cons">cons</a> ch lis)))))
-<a name="read-and-anchor.scm:42"></a>
-<a name="read-and-anchor.scm:43"></a>(<a href="http://practical-scheme.net/gauche/man/?l=en&p=define">define</a> (<a href="read-and-anchor.scm.html#read-and-anchor.scm:43">read-symbol</a> ch lis)
-<a name="read-and-anchor.scm:44"></a>
-<a name="read-and-anchor.scm:45"></a>  (<a href="http://practical-scheme.net/gauche/man/?l=en&p=define">define</a> (list-&gt;symbol lis)
-<a name="read-and-anchor.scm:46"></a>    (<a href="http://practical-scheme.net/gauche/man/?l=en&p=string->symbol">string->symbol</a> (<a href="http://practical-scheme.net/gauche/man/?l=en&p=apply">apply</a> <a href="http://practical-scheme.net/gauche/man/?l=en&p=string">string</a> (<a href="http://practical-scheme.net/gauche/man/?l=en&p=reverse">reverse</a> lis))))
-<a name="read-and-anchor.scm:47"></a>
-<a name="read-and-anchor.scm:48"></a>  (<a href="http://practical-scheme.net/gauche/man/?l=en&p=cond">cond</a> ((<a href="http://practical-scheme.net/gauche/man/?l=en&p=eof-object?">eof-object?</a> ch) (list-&gt;symbol lis))
-<a name="read-and-anchor.scm:49"></a>        ((<a href="http://practical-scheme.net/gauche/man/?l=en&p=char-set-contains?">char-set-contains?</a> <a href="read-and-anchor.scm.html#read-and-anchor.scm:30">symbol-char-set</a> ch)
-<a name="read-and-anchor.scm:50"></a>         (<a href="http://practical-scheme.net/gauche/man/?l=en&p=read-char">read-char</a>)
-<a name="read-and-anchor.scm:51"></a>         (<a href="read-and-anchor.scm.html#read-and-anchor.scm:43">read-symbol</a> (<a href="http://practical-scheme.net/gauche/man/?l=en&p=peek-char">peek-char</a>) (<a href="http://practical-scheme.net/gauche/man/?l=en&p=cons">cons</a> ch lis)))
-<a name="read-and-anchor.scm:52"></a>        (<a href="http://practical-scheme.net/gauche/man/?l=en&p=else">else</a>
-<a name="read-and-anchor.scm:53"></a>         (list-&gt;symbol lis))))
-<a name="read-and-anchor.scm:54"></a>
-<a name="read-and-anchor.scm:55"></a>(<a href="http://practical-scheme.net/gauche/man/?l=en&p=define">define</a> (<a href="read-and-anchor.scm.html#read-and-anchor.scm:55">do-newline</a>)
-<a name="read-and-anchor.scm:56"></a>  (<a href="http://practical-scheme.net/gauche/man/?l=en&p=newline">newline</a>)
-<a name="read-and-anchor.scm:57"></a>  (<a href="http://practical-scheme.net/gauche/man/?l=en&p=if">if</a> (<a href="read-and-anchor.scm.html#read-and-anchor.scm:8">anchor-all-lines</a>)
-<a name="read-and-anchor.scm:58"></a>    (<a href="read-and-anchor.scm.html#read-and-anchor.scm:241">anchor-line</a>))
-<a name="read-and-anchor.scm:59"></a>  'newline)
-<a name="read-and-anchor.scm:60"></a>
-<a name="read-and-anchor.scm:61"></a>(<a href="http://practical-scheme.net/gauche/man/?l=en&p=define">define</a> (<a href="read-and-anchor.scm.html#read-and-anchor.scm:61">do-sharp</a> lvl)
-<a name="read-and-anchor.scm:62"></a>
-<a name="read-and-anchor.scm:63"></a>  (<a href="http://practical-scheme.net/gauche/man/?l=en&p=define">define</a> (do-debug)
-<a name="read-and-anchor.scm:64"></a>    (<a href="read-and-anchor.scm.html#read-and-anchor.scm:15">disp</a> (<a href="http://practical-scheme.net/gauche/man/?l=en&p=read-char">read-char</a>)) ; #\?
-<a name="read-and-anchor.scm:65"></a>    (<a href="read-and-anchor.scm.html#read-and-anchor.scm:15">disp</a> (<a href="http://practical-scheme.net/gauche/man/?l=en&p=read-char">read-char</a>)) ; must be '='
-<a name="read-and-anchor.scm:66"></a>    'debug-print)
-<a name="read-and-anchor.scm:67"></a>
-<a name="read-and-anchor.scm:68"></a>  (<a href="http://practical-scheme.net/gauche/man/?l=en&p=define">define</a> (do-vector)
-<a name="read-and-anchor.scm:69"></a>    ;; read as a list!
-<a name="read-and-anchor.scm:70"></a>    (<a href="read-and-anchor.scm.html#read-and-anchor.scm:254">read-and-anchor</a> lvl) ; #\( is passed
-<a name="read-and-anchor.scm:71"></a>    'venctor)
-<a name="read-and-anchor.scm:72"></a>
-<a name="read-and-anchor.scm:73"></a>  (<a href="http://practical-scheme.net/gauche/man/?l=en&p=define">define</a> (do-regexp)
-<a name="read-and-anchor.scm:74"></a>    (<a href="read-and-anchor.scm.html#read-and-anchor.scm:15">disp</a> (<a href="http://practical-scheme.net/gauche/man/?l=en&p=read-char">read-char</a>)) ; #\/
-<a name="read-and-anchor.scm:75"></a>    (<a href="http://practical-scheme.net/gauche/man/?l=en&p=let">let</a> lp ((ch (<a href="http://practical-scheme.net/gauche/man/?l=en&p=read-char">read-char</a>)))
-<a name="read-and-anchor.scm:76"></a>      (<a href="http://practical-scheme.net/gauche/man/?l=en&p=cond">cond</a> ((<a href="http://practical-scheme.net/gauche/man/?l=en&p=eof-object?">eof-object?</a> ch) (<a href="http://practical-scheme.net/gauche/man/?l=en&p=error">error</a> "EOF inside regexp"))
-<a name="read-and-anchor.scm:77"></a>            ((<a href="http://practical-scheme.net/gauche/man/?l=en&p=char=?">char=?</a> #\/ ch)  (<a href="read-and-anchor.scm.html#read-and-anchor.scm:15">disp</a> ch) 'regexp)
-<a name="read-and-anchor.scm:78"></a>            ((<a href="http://practical-scheme.net/gauche/man/?l=en&p=char=?">char=?</a> #\\ ch)
-<a name="read-and-anchor.scm:79"></a>             (<a href="read-and-anchor.scm.html#read-and-anchor.scm:15">disp</a> ch)
-<a name="read-and-anchor.scm:80"></a>             (<a href="read-and-anchor.scm.html#read-and-anchor.scm:15">disp</a> (<a href="http://practical-scheme.net/gauche/man/?l=en&p=read-char">read-char</a>))
-<a name="read-and-anchor.scm:81"></a>             (lp (<a href="http://practical-scheme.net/gauche/man/?l=en&p=read-char">read-char</a>)))
-<a name="read-and-anchor.scm:82"></a>            (<a href="http://practical-scheme.net/gauche/man/?l=en&p=else">else</a>
-<a name="read-and-anchor.scm:83"></a>             (<a href="read-and-anchor.scm.html#read-and-anchor.scm:15">disp</a> ch)
-<a name="read-and-anchor.scm:84"></a>             (lp (<a href="http://practical-scheme.net/gauche/man/?l=en&p=read-char">read-char</a>))))))
-<a name="read-and-anchor.scm:85"></a>
-<a name="read-and-anchor.scm:86"></a>  (<a href="http://practical-scheme.net/gauche/man/?l=en&p=define">define</a> (do-char-set)
-<a name="read-and-anchor.scm:87"></a>    (<a href="read-and-anchor.scm.html#read-and-anchor.scm:15">disp</a> (<a href="http://practical-scheme.net/gauche/man/?l=en&p=read-char">read-char</a>)) ; #\[
-<a name="read-and-anchor.scm:88"></a>    (<a href="http://practical-scheme.net/gauche/man/?l=en&p=let">let</a> lp ((ch (<a href="http://practical-scheme.net/gauche/man/?l=en&p=read-char">read-char</a>)))
-<a name="read-and-anchor.scm:89"></a>      (<a href="http://practical-scheme.net/gauche/man/?l=en&p=cond">cond</a> ((<a href="http://practical-scheme.net/gauche/man/?l=en&p=eof-object?">eof-object?</a> ch) (<a href="http://practical-scheme.net/gauche/man/?l=en&p=error">error</a> "EOF inside char-set"))
-<a name="read-and-anchor.scm:90"></a>            ((<a href="http://practical-scheme.net/gauche/man/?l=en&p=char=?">char=?</a> #\] ch)  (<a href="read-and-anchor.scm.html#read-and-anchor.scm:15">disp</a> ch) 'char-set)
-<a name="read-and-anchor.scm:91"></a>            ((<a href="http://practical-scheme.net/gauche/man/?l=en&p=char=?">char=?</a> #\\ ch)
-<a name="read-and-anchor.scm:92"></a>             (<a href="read-and-anchor.scm.html#read-and-anchor.scm:15">disp</a> ch)
-<a name="read-and-anchor.scm:93"></a>             (<a href="read-and-anchor.scm.html#read-and-anchor.scm:15">disp</a> (<a href="http://practical-scheme.net/gauche/man/?l=en&p=read-char">read-char</a>))
-<a name="read-and-anchor.scm:94"></a>             (lp (<a href="http://practical-scheme.net/gauche/man/?l=en&p=read-char">read-char</a>)))
-<a name="read-and-anchor.scm:95"></a>            (<a href="http://practical-scheme.net/gauche/man/?l=en&p=else">else</a>
-<a name="read-and-anchor.scm:96"></a>             (<a href="read-and-anchor.scm.html#read-and-anchor.scm:15">disp</a> ch)
-<a name="read-and-anchor.scm:97"></a>             (lp (<a href="http://practical-scheme.net/gauche/man/?l=en&p=read-char">read-char</a>))))))
-<a name="read-and-anchor.scm:98"></a>
-<a name="read-and-anchor.scm:99"></a>  (<a href="http://practical-scheme.net/gauche/man/?l=en&p=define">define</a> (do-multiline-comment)
-<a name="read-and-anchor.scm:100"></a>    (<a href="read-and-anchor.scm.html#read-and-anchor.scm:15">disp</a> (<a href="http://practical-scheme.net/gauche/man/?l=en&p=read-char">read-char</a>)) ; #\|
-<a name="read-and-anchor.scm:101"></a>    (<a href="http://practical-scheme.net/gauche/man/?l=en&p=let">let</a> lp ((ch (<a href="http://practical-scheme.net/gauche/man/?l=en&p=read-char">read-char</a>))
-<a name="read-and-anchor.scm:102"></a>             (n 0))
-<a name="read-and-anchor.scm:103"></a>      (<a href="http://practical-scheme.net/gauche/man/?l=en&p=cond">cond</a> ((<a href="http://practical-scheme.net/gauche/man/?l=en&p=eof-object?">eof-object?</a> ch) (<a href="http://practical-scheme.net/gauche/man/?l=en&p=error">error</a> "EOF inside comment"))
-<a name="read-and-anchor.scm:104"></a>            ((<a href="http://practical-scheme.net/gauche/man/?l=en&p=char=?">char=?</a> #\| ch)
-<a name="read-and-anchor.scm:105"></a>             (<a href="read-and-anchor.scm.html#read-and-anchor.scm:15">disp</a> ch)
-<a name="read-and-anchor.scm:106"></a>             (<a href="http://practical-scheme.net/gauche/man/?l=en&p=let">let</a> ((ch (<a href="http://practical-scheme.net/gauche/man/?l=en&p=read-char">read-char</a>)))
-<a name="read-and-anchor.scm:107"></a>               (<a href="http://practical-scheme.net/gauche/man/?l=en&p=cond">cond</a> ((<a href="http://practical-scheme.net/gauche/man/?l=en&p=char=?">char=?</a> #\# ch)
-<a name="read-and-anchor.scm:108"></a>                      (<a href="read-and-anchor.scm.html#read-and-anchor.scm:15">disp</a> ch)
-<a name="read-and-anchor.scm:109"></a>                      (<a href="http://practical-scheme.net/gauche/man/?l=en&p=if">if</a> (<a href="http://practical-scheme.net/gauche/man/?l=en&p==">=</a> n 0)
-<a name="read-and-anchor.scm:110"></a>                        'multiline-comment
-<a name="read-and-anchor.scm:111"></a>                        (lp (<a href="http://practical-scheme.net/gauche/man/?l=en&p=read-char">read-char</a>) (<a href="http://practical-scheme.net/gauche/man/?l=en&p=-">-</a> n 1))))
-<a name="read-and-anchor.scm:112"></a>                     (<a href="http://practical-scheme.net/gauche/man/?l=en&p=else">else</a>
-<a name="read-and-anchor.scm:113"></a>                      (<a href="read-and-anchor.scm.html#read-and-anchor.scm:15">disp</a> ch)
-<a name="read-and-anchor.scm:114"></a>                      (lp (<a href="http://practical-scheme.net/gauche/man/?l=en&p=read-char">read-char</a>) n)))))
-<a name="read-and-anchor.scm:115"></a>            ((<a href="http://practical-scheme.net/gauche/man/?l=en&p=char=?">char=?</a> #\# ch)
-<a name="read-and-anchor.scm:116"></a>             (<a href="read-and-anchor.scm.html#read-and-anchor.scm:15">disp</a> ch)
-<a name="read-and-anchor.scm:117"></a>             (<a href="http://practical-scheme.net/gauche/man/?l=en&p=let">let</a> ((ch (<a href="http://practical-scheme.net/gauche/man/?l=en&p=read-char">read-char</a>)))
-<a name="read-and-anchor.scm:118"></a>               (<a href="http://practical-scheme.net/gauche/man/?l=en&p=cond">cond</a> ((<a href="http://practical-scheme.net/gauche/man/?l=en&p=eof-object?">eof-object?</a> ch) (<a href="http://practical-scheme.net/gauche/man/?l=en&p=error">error</a> "EOF inside comment"))
-<a name="read-and-anchor.scm:119"></a>                     ((<a href="http://practical-scheme.net/gauche/man/?l=en&p=char=?">char=?</a> #\| ch)
-<a name="read-and-anchor.scm:120"></a>                      (<a href="read-and-anchor.scm.html#read-and-anchor.scm:15">disp</a> ch)
-<a name="read-and-anchor.scm:121"></a>                      (lp (<a href="http://practical-scheme.net/gauche/man/?l=en&p=read-char">read-char</a>) (<a href="http://practical-scheme.net/gauche/man/?l=en&p=+">+</a> n 1)))
-<a name="read-and-anchor.scm:122"></a>                     (<a href="http://practical-scheme.net/gauche/man/?l=en&p=else">else</a>
-<a name="read-and-anchor.scm:123"></a>                      (<a href="read-and-anchor.scm.html#read-and-anchor.scm:15">disp</a> ch)
-<a name="read-and-anchor.scm:124"></a>                      (lp (<a href="http://practical-scheme.net/gauche/man/?l=en&p=read-char">read-char</a>) n)))))
-<a name="read-and-anchor.scm:125"></a>            (<a href="http://practical-scheme.net/gauche/man/?l=en&p=else">else</a>
-<a name="read-and-anchor.scm:126"></a>             (<a href="read-and-anchor.scm.html#read-and-anchor.scm:15">disp</a> ch)
-<a name="read-and-anchor.scm:127"></a>             (lp (<a href="http://practical-scheme.net/gauche/man/?l=en&p=read-char">read-char</a>) n)))))
-<a name="read-and-anchor.scm:128"></a>
-<a name="read-and-anchor.scm:129"></a>  (<a href="http://practical-scheme.net/gauche/man/?l=en&p=define">define</a> (do-string-interpolation)
-<a name="read-and-anchor.scm:130"></a>    (<a href="http://practical-scheme.net/gauche/man/?l=en&p=read-char">read-char</a>) ; #\"
-<a name="read-and-anchor.scm:131"></a>    (<a href="http://practical-scheme.net/gauche/man/?l=en&p=let">let</a> ((str (<a href="read-and-anchor.scm.html#read-and-anchor.scm:32">read-string-w/o-escape</a> (<a href="http://practical-scheme.net/gauche/man/?l=en&p=read-char">read-char</a>) '())))
-<a name="read-and-anchor.scm:132"></a>      (<a href="read-and-anchor.scm.html#read-and-anchor.scm:15">disp</a> #\") ; (disp #\-)  (print "BEGIN") (display str) (print "\nEND")
-<a name="read-and-anchor.scm:133"></a>      (<a href="http://practical-scheme.net/gauche/man/?l=en&p=with-input-from-string">with-input-from-string</a> str
-<a name="read-and-anchor.scm:134"></a>        (<a href="http://practical-scheme.net/gauche/man/?l=en&p=lambda">lambda</a> ()
-<a name="read-and-anchor.scm:135"></a>          (<a href="http://practical-scheme.net/gauche/man/?l=en&p=let">let</a> lp ((ch (<a href="http://practical-scheme.net/gauche/man/?l=en&p=read-char">read-char</a>)))
-<a name="read-and-anchor.scm:136"></a>            (<a href="http://practical-scheme.net/gauche/man/?l=en&p=cond">cond</a> ((<a href="http://practical-scheme.net/gauche/man/?l=en&p=eof-object?">eof-object?</a> ch) #t)
-<a name="read-and-anchor.scm:137"></a>                  ((<a href="http://practical-scheme.net/gauche/man/?l=en&p=char=?">char=?</a> #\~ ch)
-<a name="read-and-anchor.scm:138"></a>                   (<a href="read-and-anchor.scm.html#read-and-anchor.scm:15">disp</a> ch)
-<a name="read-and-anchor.scm:139"></a>                   (<a href="http://practical-scheme.net/gauche/man/?l=en&p=cond">cond</a> ((<a href="http://practical-scheme.net/gauche/man/?l=en&p=char=?">char=?</a> (<a href="http://practical-scheme.net/gauche/man/?l=en&p=peek-char">peek-char</a>) #\~)
-<a name="read-and-anchor.scm:140"></a>                          (<a href="read-and-anchor.scm.html#read-and-anchor.scm:15">disp</a> (<a href="http://practical-scheme.net/gauche/man/?l=en&p=read-char">read-char</a>))
-<a name="read-and-anchor.scm:141"></a>                          (lp (<a href="http://practical-scheme.net/gauche/man/?l=en&p=read-char">read-char</a>)))
-<a name="read-and-anchor.scm:142"></a>                         (<a href="http://practical-scheme.net/gauche/man/?l=en&p=else">else</a>
-<a name="read-and-anchor.scm:143"></a>                          (<a href="read-and-anchor.scm.html#read-and-anchor.scm:254">read-and-anchor</a> lvl)
-<a name="read-and-anchor.scm:144"></a>                          (lp (<a href="http://practical-scheme.net/gauche/man/?l=en&p=read-char">read-char</a>)))))
-<a name="read-and-anchor.scm:145"></a>                  (<a href="http://practical-scheme.net/gauche/man/?l=en&p=else">else</a>
-<a name="read-and-anchor.scm:146"></a>                   (<a href="read-and-anchor.scm.html#read-and-anchor.scm:15">disp</a> ch)
-<a name="read-and-anchor.scm:147"></a>                   (lp (<a href="http://practical-scheme.net/gauche/man/?l=en&p=read-char">read-char</a>)))))))
-<a name="read-and-anchor.scm:148"></a>      (<a href="read-and-anchor.scm.html#read-and-anchor.scm:15">disp</a> #\")
-<a name="read-and-anchor.scm:149"></a>      'int-string))
-<a name="read-and-anchor.scm:150"></a>
-<a name="read-and-anchor.scm:151"></a>  (<a href="http://practical-scheme.net/gauche/man/?l=en&p=define">define</a> (do-char)
-<a name="read-and-anchor.scm:152"></a>    ;; this works as long as ewline of #\newline
-<a name="read-and-anchor.scm:153"></a>    ;; has no manual entry, for example.
-<a name="read-and-anchor.scm:154"></a>    (<a href="read-and-anchor.scm.html#read-and-anchor.scm:15">disp</a> (<a href="http://practical-scheme.net/gauche/man/?l=en&p=read-char">read-char</a>)) ; #\\
-<a name="read-and-anchor.scm:155"></a>    (<a href="read-and-anchor.scm.html#read-and-anchor.scm:15">disp</a> (<a href="http://practical-scheme.net/gauche/man/?l=en&p=read-char">read-char</a>))
-<a name="read-and-anchor.scm:156"></a>    'character)
-<a name="read-and-anchor.scm:157"></a>
-<a name="read-and-anchor.scm:158"></a>  (<a href="read-and-anchor.scm.html#read-and-anchor.scm:15">disp</a> #\#)
-<a name="read-and-anchor.scm:159"></a>  (<a href="http://practical-scheme.net/gauche/man/?l=en&p=let">let</a> ((ch (<a href="http://practical-scheme.net/gauche/man/?l=en&p=peek-char">peek-char</a>)))
-<a name="read-and-anchor.scm:160"></a>    (<a href="http://practical-scheme.net/gauche/man/?l=en&p=cond">cond</a> ((<a href="http://practical-scheme.net/gauche/man/?l=en&p=eof-object?">eof-object?</a> ch) (<a href="http://practical-scheme.net/gauche/man/?l=en&p=error">error</a> "Unexpected EOF"))
-<a name="read-and-anchor.scm:161"></a>          ((<a href="http://practical-scheme.net/gauche/man/?l=en&p=char=?">char=?</a> #\? ch)  (do-debug))
-<a name="read-and-anchor.scm:162"></a>          ((<a href="http://practical-scheme.net/gauche/man/?l=en&p=char=?">char=?</a> #\( ch)  (do-vector))
-<a name="read-and-anchor.scm:163"></a>          ((<a href="http://practical-scheme.net/gauche/man/?l=en&p=char=?">char=?</a> #\/ ch)  (do-regexp))
-<a name="read-and-anchor.scm:164"></a>          ((<a href="http://practical-scheme.net/gauche/man/?l=en&p=char=?">char=?</a> #\[ ch)  (do-char-set))
-<a name="read-and-anchor.scm:165"></a>          ((<a href="http://practical-scheme.net/gauche/man/?l=en&p=char=?">char=?</a> #\| ch)  (do-multiline-comment))
-<a name="read-and-anchor.scm:166"></a>          ((<a href="http://practical-scheme.net/gauche/man/?l=en&p=char=?">char=?</a> #\" ch)  (do-string-interpolation))
-<a name="read-and-anchor.scm:167"></a>          ((<a href="http://practical-scheme.net/gauche/man/?l=en&p=char=?">char=?</a> #\\ ch)  (do-char))
-<a name="read-and-anchor.scm:168"></a>          (<a href="http://practical-scheme.net/gauche/man/?l=en&p=else">else</a>
-<a name="read-and-anchor.scm:169"></a>           (<a href="http://practical-scheme.net/gauche/man/?l=en&p=read-char">read-char</a>)
-<a name="read-and-anchor.scm:170"></a>           (<a href="read-and-anchor.scm.html#read-and-anchor.scm:15">disp</a> ch)
-<a name="read-and-anchor.scm:171"></a>           'ignored))))
-<a name="read-and-anchor.scm:172"></a>
-<a name="read-and-anchor.scm:173"></a>(<a href="http://practical-scheme.net/gauche/man/?l=en&p=define">define</a> (<a href="read-and-anchor.scm.html#read-and-anchor.scm:173">do-bar</a>)
-<a name="read-and-anchor.scm:174"></a>  ;; we do not anchor this type of symbol.
-<a name="read-and-anchor.scm:175"></a>  (<a href="read-and-anchor.scm.html#read-and-anchor.scm:15">disp</a> #\|)
-<a name="read-and-anchor.scm:176"></a>  (<a href="http://practical-scheme.net/gauche/man/?l=en&p=let">let</a> lp ((ch (<a href="http://practical-scheme.net/gauche/man/?l=en&p=read-char">read-char</a>)))
-<a name="read-and-anchor.scm:177"></a>    (<a href="http://practical-scheme.net/gauche/man/?l=en&p=cond">cond</a> ((<a href="http://practical-scheme.net/gauche/man/?l=en&p=eof-object?">eof-object?</a> ch) (<a href="http://practical-scheme.net/gauche/man/?l=en&p=error">error</a> "EOF inside |"))
-<a name="read-and-anchor.scm:178"></a>          ((<a href="http://practical-scheme.net/gauche/man/?l=en&p=char=?">char=?</a> #\| ch)  (<a href="read-and-anchor.scm.html#read-and-anchor.scm:15">disp</a> ch) 'symbol)
-<a name="read-and-anchor.scm:179"></a>          ((<a href="http://practical-scheme.net/gauche/man/?l=en&p=char=?">char=?</a> #\\ ch)
-<a name="read-and-anchor.scm:180"></a>           (<a href="read-and-anchor.scm.html#read-and-anchor.scm:15">disp</a> ch)
-<a name="read-and-anchor.scm:181"></a>           (<a href="read-and-anchor.scm.html#read-and-anchor.scm:15">disp</a> (<a href="http://practical-scheme.net/gauche/man/?l=en&p=read-char">read-char</a>))
-<a name="read-and-anchor.scm:182"></a>           (lp (<a href="http://practical-scheme.net/gauche/man/?l=en&p=read-char">read-char</a>)))
-<a name="read-and-anchor.scm:183"></a>          (<a href="http://practical-scheme.net/gauche/man/?l=en&p=else">else</a>
-<a name="read-and-anchor.scm:184"></a>           (<a href="read-and-anchor.scm.html#read-and-anchor.scm:15">disp</a> ch)
-<a name="read-and-anchor.scm:185"></a>           (lp (<a href="http://practical-scheme.net/gauche/man/?l=en&p=read-char">read-char</a>))))))
-<a name="read-and-anchor.scm:186"></a>
-<a name="read-and-anchor.scm:187"></a>(<a href="http://practical-scheme.net/gauche/man/?l=en&p=define">define</a> (<a href="read-and-anchor.scm.html#read-and-anchor.scm:187">do-string</a>)
-<a name="read-and-anchor.scm:188"></a>  (<a href="http://practical-scheme.net/gauche/man/?l=en&p=let">let</a> ((str (<a href="read-and-anchor.scm.html#read-and-anchor.scm:32">read-string-w/o-escape</a> (<a href="http://practical-scheme.net/gauche/man/?l=en&p=read-char">read-char</a>) '())))
-<a name="read-and-anchor.scm:189"></a>    (<a href="read-and-anchor.scm.html#read-and-anchor.scm:15">disp</a> #\") (<a href="read-and-anchor.scm.html#read-and-anchor.scm:15">disp</a> str) (<a href="read-and-anchor.scm.html#read-and-anchor.scm:15">disp</a> #\")
-<a name="read-and-anchor.scm:190"></a>    'string))
-<a name="read-and-anchor.scm:191"></a>
-<a name="read-and-anchor.scm:192"></a>(<a href="http://practical-scheme.net/gauche/man/?l=en&p=define">define</a> (<a href="read-and-anchor.scm.html#read-and-anchor.scm:192">do-quote</a> lvl)
-<a name="read-and-anchor.scm:193"></a>  (<a href="read-and-anchor.scm.html#read-and-anchor.scm:15">disp</a> #\')
-<a name="read-and-anchor.scm:194"></a>  (<a href="read-and-anchor.scm.html#read-and-anchor.scm:306">read-w/o-anchor</a> lvl))
-<a name="read-and-anchor.scm:195"></a>
-<a name="read-and-anchor.scm:196"></a>(<a href="http://practical-scheme.net/gauche/man/?l=en&p=define">define</a> (<a href="read-and-anchor.scm.html#read-and-anchor.scm:196">do-quasi-quote</a> lvl)
-<a name="read-and-anchor.scm:197"></a>  (<a href="read-and-anchor.scm.html#read-and-anchor.scm:15">disp</a> #\`)
-<a name="read-and-anchor.scm:198"></a>  (<a href="read-and-anchor.scm.html#read-and-anchor.scm:306">read-w/o-anchor</a> lvl))
-<a name="read-and-anchor.scm:199"></a>
-<a name="read-and-anchor.scm:200"></a>(<a href="http://practical-scheme.net/gauche/man/?l=en&p=define">define</a> (<a href="read-and-anchor.scm.html#read-and-anchor.scm:200">do-comment</a>)
-<a name="read-and-anchor.scm:201"></a>  (<a href="read-and-anchor.scm.html#read-and-anchor.scm:15">disp</a> #\;)
-<a name="read-and-anchor.scm:202"></a>  (<a href="read-and-anchor.scm.html#read-and-anchor.scm:205">skip-until-newline</a>)
-<a name="read-and-anchor.scm:203"></a>  'comment)
-<a name="read-and-anchor.scm:204"></a>
-<a name="read-and-anchor.scm:205"></a>(<a href="http://practical-scheme.net/gauche/man/?l=en&p=define">define</a> (<a href="read-and-anchor.scm.html#read-and-anchor.scm:205">skip-until-newline</a>)
-<a name="read-and-anchor.scm:206"></a>  (<a href="http://practical-scheme.net/gauche/man/?l=en&p=let">let</a> ((ch (<a href="http://practical-scheme.net/gauche/man/?l=en&p=read-char">read-char</a>)))
-<a name="read-and-anchor.scm:207"></a>    (<a href="http://practical-scheme.net/gauche/man/?l=en&p=cond">cond</a> ((<a href="http://practical-scheme.net/gauche/man/?l=en&p=eof-object?">eof-object?</a> ch) ch)
-<a name="read-and-anchor.scm:208"></a>          ((<a href="http://practical-scheme.net/gauche/man/?l=en&p=char=?">char=?</a> #\newline ch)
-<a name="read-and-anchor.scm:209"></a>           (<a href="read-and-anchor.scm.html#read-and-anchor.scm:55">do-newline</a>))
-<a name="read-and-anchor.scm:210"></a>          (<a href="http://practical-scheme.net/gauche/man/?l=en&p=else">else</a>
-<a name="read-and-anchor.scm:211"></a>           (<a href="read-and-anchor.scm.html#read-and-anchor.scm:15">disp</a> ch)
-<a name="read-and-anchor.scm:212"></a>           (<a href="read-and-anchor.scm.html#read-and-anchor.scm:205">skip-until-newline</a>)))))
-<a name="read-and-anchor.scm:213"></a>
-<a name="read-and-anchor.scm:214"></a>(<a href="http://practical-scheme.net/gauche/man/?l=en&p=define">define</a> (<a href="read-and-anchor.scm.html#read-and-anchor.scm:214">anchor</a> entry filename lineno)
-<a name="read-and-anchor.scm:215"></a>
-<a name="read-and-anchor.scm:216"></a>  (<a href="http://practical-scheme.net/gauche/man/?l=en&p=define">define</a> (has-source? entry) (<a href="http://practical-scheme.net/gauche/man/?l=en&p=string?">string?</a> (file-of entry)))
-<a name="read-and-anchor.scm:217"></a>
-<a name="read-and-anchor.scm:218"></a>  (<a href="http://practical-scheme.net/gauche/man/?l=en&p=define">define</a> (self? entry)
-<a name="read-and-anchor.scm:219"></a>    (<a href="http://practical-scheme.net/gauche/man/?l=en&p=and">and</a> (<a href="read-and-anchor.scm.html#read-and-anchor.scm:10">place-goto-anchor</a>)
-<a name="read-and-anchor.scm:220"></a>         (<a href="http://practical-scheme.net/gauche/man/?l=en&p==">=</a> lineno (line-of entry))
-<a name="read-and-anchor.scm:221"></a>         (<a href="http://practical-scheme.net/gauche/man/?l=en&p=string=?">string=?</a> filename
-<a name="read-and-anchor.scm:222"></a>                   (file-of entry))))
-<a name="read-and-anchor.scm:223"></a>
-<a name="read-and-anchor.scm:224"></a>  (<a href="http://practical-scheme.net/gauche/man/?l=en&p=cond">cond</a> ((self? entry)
-<a name="read-and-anchor.scm:225"></a>         (<a href="http://practical-scheme.net/gauche/man/?l=en&p=display">display</a> #"&lt;a href=\"~(<a href="path-util.scm.html#path-util.scm:45">path-to-top</a> (file-of entry))../goto?file=~(file-of entry)&amp;line=~(line-of entry)\"&gt;")
-<a name="read-and-anchor.scm:226"></a>         (<a href="read-and-anchor.scm.html#read-and-anchor.scm:15">disp</a> (name-of entry))
-<a name="read-and-anchor.scm:227"></a>         (<a href="http://practical-scheme.net/gauche/man/?l=en&p=display">display</a> "&lt;/a&gt;"))
-<a name="read-and-anchor.scm:228"></a>
-<a name="read-and-anchor.scm:229"></a>        ((has-source? entry)
-<a name="read-and-anchor.scm:230"></a>         (<a href="dictionary.scm.html#dictionary.scm:165">entry-ref-push!</a> entry filename lineno)
-<a name="read-and-anchor.scm:231"></a>         (<a href="http://practical-scheme.net/gauche/man/?l=en&p=format">format</a> #t "&lt;a href=\"~a#~a:~a\"&gt;"
-<a name="read-and-anchor.scm:232"></a>                 (<a href="path-util.scm.html#path-util.scm:80">relative-path</a> filename #"~(file-of entry)~(<a href="read-and-anchor.scm.html#read-and-anchor.scm:9">anchor-file-extension</a>)")
-<a name="read-and-anchor.scm:233"></a>                 (file-of entry)
-<a name="read-and-anchor.scm:234"></a>                 (line-of entry))
-<a name="read-and-anchor.scm:235"></a>         (<a href="read-and-anchor.scm.html#read-and-anchor.scm:15">disp</a> (name-of entry))
-<a name="read-and-anchor.scm:236"></a>         (<a href="http://practical-scheme.net/gauche/man/?l=en&p=display">display</a> "&lt;/a&gt;"))
-<a name="read-and-anchor.scm:237"></a>
-<a name="read-and-anchor.scm:238"></a>        (<a href="http://practical-scheme.net/gauche/man/?l=en&p=else">else</a>
-<a name="read-and-anchor.scm:239"></a>         (<a href="read-and-anchor.scm.html#read-and-anchor.scm:15">disp</a> (name-of entry)))))
-<a name="read-and-anchor.scm:240"></a>
-<a name="read-and-anchor.scm:241"></a>(<a href="http://practical-scheme.net/gauche/man/?l=en&p=define">define</a> (<a href="read-and-anchor.scm.html#read-and-anchor.scm:241">anchor-line</a>)
-<a name="read-and-anchor.scm:242"></a>  (<a href="http://practical-scheme.net/gauche/man/?l=en&p=format">format</a> #t "&lt;a name=\"~a:~a\"&gt;&lt;/a&gt;"
-<a name="read-and-anchor.scm:243"></a>          (<a href="http://practical-scheme.net/gauche/man/?l=en&p=port-name">port-name</a> (<a href="http://practical-scheme.net/gauche/man/?l=en&p=current-input-port">current-input-port</a>))
-<a name="read-and-anchor.scm:244"></a>          (<a href="http://practical-scheme.net/gauche/man/?l=en&p=port-current-line">port-current-line</a> (<a href="http://practical-scheme.net/gauche/man/?l=en&p=current-input-port">current-input-port</a>))))
-<a name="read-and-anchor.scm:245"></a>
-<a name="read-and-anchor.scm:246"></a>(<a href="http://practical-scheme.net/gauche/man/?l=en&p=define">define</a> (<a href="read-and-anchor.scm.html#read-and-anchor.scm:246">has-document?</a> sym)
-<a name="read-and-anchor.scm:247"></a>  (<a href="http://practical-scheme.net/gauche/man/?l=en&p=or">or</a>
-<a name="read-and-anchor.scm:248"></a>   ;; we assume all exported binding has manual entry.
-<a name="read-and-anchor.scm:249"></a>   (<a href="http://practical-scheme.net/gauche/man/?l=en&p=global-variable-bound?">global-variable-bound?</a> (<a href="http://practical-scheme.net/gauche/man/?l=en&p=find-module">find-module</a> 'scmxref.used-modules)
-<a name="read-and-anchor.scm:250"></a>                           sym)
-<a name="read-and-anchor.scm:251"></a>   ;; or in case sym is name of a module which has manual entry
-<a name="read-and-anchor.scm:252"></a>   (<a href="http://practical-scheme.net/gauche/man/?l=en&p=memq">memq</a> sym (<a href="dictionary.scm.html#dictionary.scm:8">documented-modules</a>))))
-<a name="read-and-anchor.scm:253"></a>
-<a name="read-and-anchor.scm:254"></a>(<a href="http://practical-scheme.net/gauche/man/?l=en&p=define">define</a> (<a href="read-and-anchor.scm.html#read-and-anchor.scm:254">read-and-anchor</a> lvl)
-<a name="read-and-anchor.scm:255"></a>  (<a href="http://practical-scheme.net/gauche/man/?l=en&p=let">let</a> lp ((ch (<a href="http://practical-scheme.net/gauche/man/?l=en&p=read-char">read-char</a>)))
-<a name="read-and-anchor.scm:256"></a>    (<a href="http://practical-scheme.net/gauche/man/?l=en&p=cond">cond</a> ((<a href="http://practical-scheme.net/gauche/man/?l=en&p=eof-object?">eof-object?</a> ch) ch)
-<a name="read-and-anchor.scm:257"></a>
-<a name="read-and-anchor.scm:258"></a>          ((<a href="http://practical-scheme.net/gauche/man/?l=en&p=char=?">char=?</a> #\nl ch) (<a href="read-and-anchor.scm.html#read-and-anchor.scm:55">do-newline</a>))
-<a name="read-and-anchor.scm:259"></a>          ((<a href="http://practical-scheme.net/gauche/man/?l=en&p=char=?">char=?</a> #\|  ch) (<a href="read-and-anchor.scm.html#read-and-anchor.scm:173">do-bar</a>))
-<a name="read-and-anchor.scm:260"></a>          ((<a href="http://practical-scheme.net/gauche/man/?l=en&p=char=?">char=?</a> #\"  ch) (<a href="read-and-anchor.scm.html#read-and-anchor.scm:187">do-string</a>))
-<a name="read-and-anchor.scm:261"></a>          ((<a href="http://practical-scheme.net/gauche/man/?l=en&p=char=?">char=?</a> #\;  ch) (<a href="read-and-anchor.scm.html#read-and-anchor.scm:200">do-comment</a>))
-<a name="read-and-anchor.scm:262"></a>          ((<a href="http://practical-scheme.net/gauche/man/?l=en&p=char=?">char=?</a> #\'  ch) (<a href="read-and-anchor.scm.html#read-and-anchor.scm:192">do-quote</a> lvl))
-<a name="read-and-anchor.scm:263"></a>          ((<a href="http://practical-scheme.net/gauche/man/?l=en&p=char=?">char=?</a> #\`  ch) (<a href="read-and-anchor.scm.html#read-and-anchor.scm:196">do-quasi-quote</a> lvl))
-<a name="read-and-anchor.scm:264"></a>          ((<a href="http://practical-scheme.net/gauche/man/?l=en&p=char=?">char=?</a> #\#  ch) (<a href="read-and-anchor.scm.html#read-and-anchor.scm:61">do-sharp</a> lvl))
-<a name="read-and-anchor.scm:265"></a>
-<a name="read-and-anchor.scm:266"></a>          ;; FIXME not quite correct but it is needed
-<a name="read-and-anchor.scm:267"></a>          ;; to process string interpolation
-<a name="read-and-anchor.scm:268"></a>          ((<a href="http://practical-scheme.net/gauche/man/?l=en&p=char=?">char=?</a> #\\  ch)
-<a name="read-and-anchor.scm:269"></a>           (<a href="read-and-anchor.scm.html#read-and-anchor.scm:15">disp</a> ch)
-<a name="read-and-anchor.scm:270"></a>           (<a href="read-and-anchor.scm.html#read-and-anchor.scm:15">disp</a> (<a href="http://practical-scheme.net/gauche/man/?l=en&p=read-char">read-char</a>))
-<a name="read-and-anchor.scm:271"></a>           (lp (<a href="http://practical-scheme.net/gauche/man/?l=en&p=read-char">read-char</a>)))
-<a name="read-and-anchor.scm:272"></a>
-<a name="read-and-anchor.scm:273"></a>          ((<a href="http://practical-scheme.net/gauche/man/?l=en&p=char=?">char=?</a> #\)  ch)
-<a name="read-and-anchor.scm:274"></a>           (<a href="http://practical-scheme.net/gauche/man/?l=en&p=if">if</a> (<a href="http://practical-scheme.net/gauche/man/?l=en&p=zero?">zero?</a> lvl) (<a href="http://practical-scheme.net/gauche/man/?l=en&p=error">error</a> "Extra close parenthesis"))
-<a name="read-and-anchor.scm:275"></a>           (<a href="read-and-anchor.scm.html#read-and-anchor.scm:15">disp</a> ch)
-<a name="read-and-anchor.scm:276"></a>           'close-paren)
-<a name="read-and-anchor.scm:277"></a>
-<a name="read-and-anchor.scm:278"></a>          ((<a href="http://practical-scheme.net/gauche/man/?l=en&p=char=?">char=?</a> #\( ch)
-<a name="read-and-anchor.scm:279"></a>           (<a href="http://practical-scheme.net/gauche/man/?l=en&p=if">if</a> (<a href="http://practical-scheme.net/gauche/man/?l=en&p=and">and</a> (<a href="http://practical-scheme.net/gauche/man/?l=en&p=zero?">zero?</a> lvl) (<a href="http://practical-scheme.net/gauche/man/?l=en&p=not">not</a> (<a href="read-and-anchor.scm.html#read-and-anchor.scm:8">anchor-all-lines</a>)))
-<a name="read-and-anchor.scm:280"></a>             (<a href="read-and-anchor.scm.html#read-and-anchor.scm:241">anchor-line</a>))
-<a name="read-and-anchor.scm:281"></a>           (<a href="read-and-anchor.scm.html#read-and-anchor.scm:15">disp</a> #\()
-<a name="read-and-anchor.scm:282"></a>           (<a href="http://practical-scheme.net/gauche/man/?l=en&p=let">let</a> lp ()
-<a name="read-and-anchor.scm:283"></a>             (<a href="http://practical-scheme.net/gauche/man/?l=en&p=let">let</a> ((x (<a href="read-and-anchor.scm.html#read-and-anchor.scm:254">read-and-anchor</a> (<a href="http://practical-scheme.net/gauche/man/?l=en&p=+">+</a> lvl 1))))
-<a name="read-and-anchor.scm:284"></a>               (<a href="http://practical-scheme.net/gauche/man/?l=en&p=cond">cond</a> ((<a href="http://practical-scheme.net/gauche/man/?l=en&p=eof-object?">eof-object?</a> x) (<a href="http://practical-scheme.net/gauche/man/?l=en&p=error">error</a> "unexpected EOF"))
-<a name="read-and-anchor.scm:285"></a>                     ((<a href="http://practical-scheme.net/gauche/man/?l=en&p=eq?">eq?</a> x 'close-paren) 'list)
-<a name="read-and-anchor.scm:286"></a>                     (<a href="http://practical-scheme.net/gauche/man/?l=en&p=else">else</a> (lp))))))
-<a name="read-and-anchor.scm:287"></a>
-<a name="read-and-anchor.scm:288"></a>          ((<a href="http://practical-scheme.net/gauche/man/?l=en&p=char-set-contains?">char-set-contains?</a> <a href="read-and-anchor.scm.html#read-and-anchor.scm:29">symbol-initial</a> ch)
-<a name="read-and-anchor.scm:289"></a>           ;; Here we use let* to make sure filename and lineno
-<a name="read-and-anchor.scm:290"></a>           ;; are set before calling read-symbol.
-<a name="read-and-anchor.scm:291"></a>           (<a href="http://practical-scheme.net/gauche/man/?l=en&p=let*">let*</a> ((filename (<a href="http://practical-scheme.net/gauche/man/?l=en&p=port-name">port-name</a> (<a href="http://practical-scheme.net/gauche/man/?l=en&p=current-input-port">current-input-port</a>)))
-<a name="read-and-anchor.scm:292"></a>                  (lineno   (<a href="http://practical-scheme.net/gauche/man/?l=en&p=port-current-line">port-current-line</a> (<a href="http://practical-scheme.net/gauche/man/?l=en&p=current-input-port">current-input-port</a>)))
-<a name="read-and-anchor.scm:293"></a>                  (sym      (<a href="read-and-anchor.scm.html#read-and-anchor.scm:43">read-symbol</a> (<a href="http://practical-scheme.net/gauche/man/?l=en&p=peek-char">peek-char</a>) (<a href="http://practical-scheme.net/gauche/man/?l=en&p=list">list</a> ch))))
-<a name="read-and-anchor.scm:294"></a>             (<a href="http://practical-scheme.net/gauche/man/?l=en&p=cond">cond</a> ((<a href="dictionary.scm.html#dictionary.scm:141">dictionary-get</a> sym)
-<a name="read-and-anchor.scm:295"></a>                    <a href="http://practical-scheme.net/gauche/man/?l=en&p==>">=></a>
-<a name="read-and-anchor.scm:296"></a>                    (<a href="http://practical-scheme.net/gauche/man/?l=en&p=lambda">lambda</a> (entry)
-<a name="read-and-anchor.scm:297"></a>                      (<a href="read-and-anchor.scm.html#read-and-anchor.scm:214">anchor</a> entry filename lineno)))
-<a name="read-and-anchor.scm:298"></a>                   ((<a href="read-and-anchor.scm.html#read-and-anchor.scm:246">has-document?</a>  sym)
-<a name="read-and-anchor.scm:299"></a>                    (<a href="http://practical-scheme.net/gauche/man/?l=en&p=display">display</a> #"&lt;a href=\"~(<a href="read-and-anchor.scm.html#read-and-anchor.scm:11">gauche-man-base</a>)~|sym|\"&gt;~|sym|&lt;/a&gt;"))
-<a name="read-and-anchor.scm:300"></a>                   (<a href="http://practical-scheme.net/gauche/man/?l=en&p=else">else</a> (<a href="read-and-anchor.scm.html#read-and-anchor.scm:15">disp</a> sym))))
-<a name="read-and-anchor.scm:301"></a>           'symbol)
-<a name="read-and-anchor.scm:302"></a>          (<a href="http://practical-scheme.net/gauche/man/?l=en&p=else">else</a> ; #\. #\[ #\]
-<a name="read-and-anchor.scm:303"></a>           (<a href="read-and-anchor.scm.html#read-and-anchor.scm:15">disp</a> ch)
-<a name="read-and-anchor.scm:304"></a>           (lp (<a href="http://practical-scheme.net/gauche/man/?l=en&p=read-char">read-char</a>))))))
-<a name="read-and-anchor.scm:305"></a>
-<a name="read-and-anchor.scm:306"></a>(<a href="http://practical-scheme.net/gauche/man/?l=en&p=define">define</a> (<a href="read-and-anchor.scm.html#read-and-anchor.scm:306">read-w/o-anchor</a> lvl) ; in quote
-<a name="read-and-anchor.scm:307"></a>
-<a name="read-and-anchor.scm:308"></a>  (<a href="http://practical-scheme.net/gauche/man/?l=en&p=define">define</a> (do-unquote)
-<a name="read-and-anchor.scm:309"></a>    (<a href="read-and-anchor.scm.html#read-and-anchor.scm:15">disp</a> #\,)
-<a name="read-and-anchor.scm:310"></a>    (<a href="http://practical-scheme.net/gauche/man/?l=en&p=if">if</a> (<a href="http://practical-scheme.net/gauche/man/?l=en&p=char=?">char=?</a> (<a href="http://practical-scheme.net/gauche/man/?l=en&p=peek-char">peek-char</a>) #\@)
-<a name="read-and-anchor.scm:311"></a>      (<a href="read-and-anchor.scm.html#read-and-anchor.scm:15">disp</a> (<a href="http://practical-scheme.net/gauche/man/?l=en&p=read-char">read-char</a>)))
-<a name="read-and-anchor.scm:312"></a>    (<a href="read-and-anchor.scm.html#read-and-anchor.scm:254">read-and-anchor</a> lvl))
-<a name="read-and-anchor.scm:313"></a>
-<a name="read-and-anchor.scm:314"></a>  (<a href="http://practical-scheme.net/gauche/man/?l=en&p=let">let</a> lp ((ch (<a href="http://practical-scheme.net/gauche/man/?l=en&p=read-char">read-char</a>)))
-<a name="read-and-anchor.scm:315"></a>    (<a href="http://practical-scheme.net/gauche/man/?l=en&p=cond">cond</a> ((<a href="http://practical-scheme.net/gauche/man/?l=en&p=eof-object?">eof-object?</a> ch) ch)
-<a name="read-and-anchor.scm:316"></a>
-<a name="read-and-anchor.scm:317"></a>          ((<a href="http://practical-scheme.net/gauche/man/?l=en&p=char=?">char=?</a> #\nl ch) (<a href="read-and-anchor.scm.html#read-and-anchor.scm:55">do-newline</a>))
-<a name="read-and-anchor.scm:318"></a>          ((<a href="http://practical-scheme.net/gauche/man/?l=en&p=char=?">char=?</a> #\|  ch) (<a href="read-and-anchor.scm.html#read-and-anchor.scm:173">do-bar</a>))
-<a name="read-and-anchor.scm:319"></a>          ((<a href="http://practical-scheme.net/gauche/man/?l=en&p=char=?">char=?</a> #\"  ch) (<a href="read-and-anchor.scm.html#read-and-anchor.scm:187">do-string</a>))
-<a name="read-and-anchor.scm:320"></a>          ((<a href="http://practical-scheme.net/gauche/man/?l=en&p=char=?">char=?</a> #\;  ch) (<a href="read-and-anchor.scm.html#read-and-anchor.scm:200">do-comment</a>))
-<a name="read-and-anchor.scm:321"></a>          ((<a href="http://practical-scheme.net/gauche/man/?l=en&p=char=?">char=?</a> #\'  ch) (<a href="read-and-anchor.scm.html#read-and-anchor.scm:192">do-quote</a> lvl))
-<a name="read-and-anchor.scm:322"></a>          ((<a href="http://practical-scheme.net/gauche/man/?l=en&p=char=?">char=?</a> #\`  ch) (<a href="read-and-anchor.scm.html#read-and-anchor.scm:196">do-quasi-quote</a> lvl))
-<a name="read-and-anchor.scm:323"></a>          ((<a href="http://practical-scheme.net/gauche/man/?l=en&p=char=?">char=?</a> #\#  ch) (<a href="read-and-anchor.scm.html#read-and-anchor.scm:61">do-sharp</a> lvl))
-<a name="read-and-anchor.scm:324"></a>          ((<a href="http://practical-scheme.net/gauche/man/?l=en&p=char=?">char=?</a> #\,  ch) (do-unquote))
-<a name="read-and-anchor.scm:325"></a>
-<a name="read-and-anchor.scm:326"></a>          ;; FIXME not quite correct but it is needed
-<a name="read-and-anchor.scm:327"></a>          ;; to process string interpolation
-<a name="read-and-anchor.scm:328"></a>          ((<a href="http://practical-scheme.net/gauche/man/?l=en&p=char=?">char=?</a> #\\  ch)
-<a name="read-and-anchor.scm:329"></a>           (<a href="read-and-anchor.scm.html#read-and-anchor.scm:15">disp</a> ch)
-<a name="read-and-anchor.scm:330"></a>           (<a href="read-and-anchor.scm.html#read-and-anchor.scm:15">disp</a> (<a href="http://practical-scheme.net/gauche/man/?l=en&p=read-char">read-char</a>))
-<a name="read-and-anchor.scm:331"></a>           (lp (<a href="http://practical-scheme.net/gauche/man/?l=en&p=read-char">read-char</a>)))
-<a name="read-and-anchor.scm:332"></a>
-<a name="read-and-anchor.scm:333"></a>          ((<a href="http://practical-scheme.net/gauche/man/?l=en&p=char=?">char=?</a> #\)  ch)
-<a name="read-and-anchor.scm:334"></a>           (<a href="http://practical-scheme.net/gauche/man/?l=en&p=if">if</a> (<a href="http://practical-scheme.net/gauche/man/?l=en&p=zero?">zero?</a> lvl) (<a href="http://practical-scheme.net/gauche/man/?l=en&p=error">error</a> "Extra close parenthesis"))
-<a name="read-and-anchor.scm:335"></a>           (<a href="read-and-anchor.scm.html#read-and-anchor.scm:15">disp</a> ch)
-<a name="read-and-anchor.scm:336"></a>           'close-paren)
-<a name="read-and-anchor.scm:337"></a>
-<a name="read-and-anchor.scm:338"></a>          ((<a href="http://practical-scheme.net/gauche/man/?l=en&p=char=?">char=?</a> #\( ch)
-<a name="read-and-anchor.scm:339"></a>           (<a href="http://practical-scheme.net/gauche/man/?l=en&p=if">if</a> (<a href="http://practical-scheme.net/gauche/man/?l=en&p=and">and</a> (<a href="http://practical-scheme.net/gauche/man/?l=en&p=zero?">zero?</a> lvl) (<a href="http://practical-scheme.net/gauche/man/?l=en&p=not">not</a> (<a href="read-and-anchor.scm.html#read-and-anchor.scm:8">anchor-all-lines</a>)))
-<a name="read-and-anchor.scm:340"></a>             (<a href="read-and-anchor.scm.html#read-and-anchor.scm:241">anchor-line</a>))
-<a name="read-and-anchor.scm:341"></a>           (<a href="read-and-anchor.scm.html#read-and-anchor.scm:15">disp</a> #\()
-<a name="read-and-anchor.scm:342"></a>           (<a href="http://practical-scheme.net/gauche/man/?l=en&p=let">let</a> lp ()
-<a name="read-and-anchor.scm:343"></a>             (<a href="http://practical-scheme.net/gauche/man/?l=en&p=let">let</a> ((x (<a href="read-and-anchor.scm.html#read-and-anchor.scm:254">read-and-anchor</a> (<a href="http://practical-scheme.net/gauche/man/?l=en&p=+">+</a> lvl 1))))
-<a name="read-and-anchor.scm:344"></a>               (<a href="http://practical-scheme.net/gauche/man/?l=en&p=cond">cond</a> ((<a href="http://practical-scheme.net/gauche/man/?l=en&p=eof-object?">eof-object?</a> x) (<a href="http://practical-scheme.net/gauche/man/?l=en&p=error">error</a> "unexpected EOF"))
-<a name="read-and-anchor.scm:345"></a>                     ((<a href="http://practical-scheme.net/gauche/man/?l=en&p=eq?">eq?</a> x 'close-paren) 'list)
-<a name="read-and-anchor.scm:346"></a>                     (<a href="http://practical-scheme.net/gauche/man/?l=en&p=else">else</a> (lp))))))
-<a name="read-and-anchor.scm:347"></a>
-<a name="read-and-anchor.scm:348"></a>          ((<a href="http://practical-scheme.net/gauche/man/?l=en&p=char-set-contains?">char-set-contains?</a> <a href="read-and-anchor.scm.html#read-and-anchor.scm:29">symbol-initial</a> ch)
-<a name="read-and-anchor.scm:349"></a>           (<a href="http://practical-scheme.net/gauche/man/?l=en&p=let">let</a> ((sym (<a href="read-and-anchor.scm.html#read-and-anchor.scm:43">read-symbol</a> (<a href="http://practical-scheme.net/gauche/man/?l=en&p=peek-char">peek-char</a>) (<a href="http://practical-scheme.net/gauche/man/?l=en&p=list">list</a> ch))))
-<a name="read-and-anchor.scm:350"></a>             (<a href="read-and-anchor.scm.html#read-and-anchor.scm:15">disp</a> sym)
-<a name="read-and-anchor.scm:351"></a>             ch))
-<a name="read-and-anchor.scm:352"></a>          (<a href="http://practical-scheme.net/gauche/man/?l=en&p=else">else</a>
-<a name="read-and-anchor.scm:353"></a>           (<a href="read-and-anchor.scm.html#read-and-anchor.scm:15">disp</a> ch)
-<a name="read-and-anchor.scm:354"></a>           (lp (<a href="http://practical-scheme.net/gauche/man/?l=en&p=read-char">read-char</a>))))))
-<a name="read-and-anchor.scm:355"></a>
-<a name="read-and-anchor.scm:356"></a>(<a href="http://practical-scheme.net/gauche/man/?l=en&p=provide">provide</a> "scmxref/read-and-anchor")
-<a name="read-and-anchor.scm:357"></a>
+0001: (<a href="http://practical-scheme.net/gauche/man/?l=en&p=define-module">define-module</a> <a href="read-and-anchor.scm.html#read-and-anchor.scm:1">scmxref.read-and-anchor</a>
+0002: <a name="read-and-anchor.scm:2"></a>  (<a href="http://practical-scheme.net/gauche/man/?l=en&p=use">use</a> <a href="http://practical-scheme.net/gauche/man/?l=en&p=gauche.parameter">gauche.parameter</a>)
+0003: <a name="read-and-anchor.scm:3"></a>  (<a href="http://practical-scheme.net/gauche/man/?l=en&p=use">use</a> <a href="path-util.scm.html#path-util.scm:1">scmxref.path-util</a>)
+0004: <a name="read-and-anchor.scm:4"></a>  (<a href="http://practical-scheme.net/gauche/man/?l=en&p=extend">extend</a> <a href="dictionary.scm.html#dictionary.scm:1">scmxref.dictionary</a>))
+0005: <a name="read-and-anchor.scm:5"></a>(<a href="http://practical-scheme.net/gauche/man/?l=en&p=select-module">select-module</a> <a href="read-and-anchor.scm.html#read-and-anchor.scm:1">scmxref.read-and-anchor</a>)
+0006: <a name="read-and-anchor.scm:6"></a>
+0007: <a name="read-and-anchor.scm:7"></a>;; options
+0008: <a name="read-and-anchor.scm:8"></a>(<a href="http://practical-scheme.net/gauche/man/?l=en&p=define">define</a> <a href="read-and-anchor.scm.html#read-and-anchor.scm:8">anchor-all-lines</a>      (<a href="http://practical-scheme.net/gauche/man/?l=en&p=make-parameter">make-parameter</a> #f))
+0009: <a name="read-and-anchor.scm:9"></a>(<a href="http://practical-scheme.net/gauche/man/?l=en&p=define">define</a> <a href="read-and-anchor.scm.html#read-and-anchor.scm:9">anchor-file-extension</a> (<a href="http://practical-scheme.net/gauche/man/?l=en&p=make-parameter">make-parameter</a> ".html"))
+0010: <a name="read-and-anchor.scm:10"></a>(<a href="http://practical-scheme.net/gauche/man/?l=en&p=define">define</a> <a href="read-and-anchor.scm.html#read-and-anchor.scm:10">place-goto-anchor</a>     (<a href="http://practical-scheme.net/gauche/man/?l=en&p=make-parameter">make-parameter</a> #f))
+0011: <a name="read-and-anchor.scm:11"></a>(<a href="http://practical-scheme.net/gauche/man/?l=en&p=define">define</a> <a href="read-and-anchor.scm.html#read-and-anchor.scm:11">gauche-man-base</a>       (<a href="http://practical-scheme.net/gauche/man/?l=en&p=make-parameter">make-parameter</a> "http://practical-scheme.net/gauche/man/?l=en&amp;p="))
+0012: <a name="read-and-anchor.scm:12"></a>;;;
+0013: <a name="read-and-anchor.scm:13"></a>;;;  read-and-anchor
+0014: <a name="read-and-anchor.scm:14"></a>;;;
+0015: <a name="read-and-anchor.scm:15"></a>(<a href="http://practical-scheme.net/gauche/man/?l=en&p=define">define</a> (<a href="read-and-anchor.scm.html#read-and-anchor.scm:15">disp</a> x)
+0016: <a name="read-and-anchor.scm:16"></a>  (<a href="http://practical-scheme.net/gauche/man/?l=en&p=cond">cond</a> ((<a href="http://practical-scheme.net/gauche/man/?l=en&p=not">not</a> (<a href="http://practical-scheme.net/gauche/man/?l=en&p=char?">char?</a> x))
+0017: <a name="read-and-anchor.scm:17"></a>         (<a href="http://practical-scheme.net/gauche/man/?l=en&p=with-input-from-string">with-input-from-string</a> (<a href="http://practical-scheme.net/gauche/man/?l=en&p=x->string">x-&gt;string</a> x)
+0018: <a name="read-and-anchor.scm:18"></a>           (<a href="http://practical-scheme.net/gauche/man/?l=en&p=lambda">lambda</a> ()
+0019: <a name="read-and-anchor.scm:19"></a>             (<a href="http://practical-scheme.net/gauche/man/?l=en&p=port-for-each">port-for-each</a> <a href="read-and-anchor.scm.html#read-and-anchor.scm:15">disp</a> <a href="http://practical-scheme.net/gauche/man/?l=en&p=read-char">read-char</a>))))
+0020: <a name="read-and-anchor.scm:20"></a>        ((<a href="http://practical-scheme.net/gauche/man/?l=en&p=char=?">char=?</a> #\&lt; x)
+0021: <a name="read-and-anchor.scm:21"></a>         (<a href="http://practical-scheme.net/gauche/man/?l=en&p=display">display</a> "&amp;lt;"))
+0022: <a name="read-and-anchor.scm:22"></a>        ((<a href="http://practical-scheme.net/gauche/man/?l=en&p=char=?">char=?</a> #\&gt; x)
+0023: <a name="read-and-anchor.scm:23"></a>         (<a href="http://practical-scheme.net/gauche/man/?l=en&p=display">display</a> "&amp;gt;"))
+0024: <a name="read-and-anchor.scm:24"></a>        ((<a href="http://practical-scheme.net/gauche/man/?l=en&p=char=?">char=?</a> #\&amp; x)
+0025: <a name="read-and-anchor.scm:25"></a>         (<a href="http://practical-scheme.net/gauche/man/?l=en&p=display">display</a> "&amp;amp;"))
+0026: <a name="read-and-anchor.scm:26"></a>        (<a href="http://practical-scheme.net/gauche/man/?l=en&p=else">else</a>
+0027: <a name="read-and-anchor.scm:27"></a>         (<a href="http://practical-scheme.net/gauche/man/?l=en&p=display">display</a> x))))
+0028: <a name="read-and-anchor.scm:28"></a>
+0029: <a name="read-and-anchor.scm:29"></a>(<a href="http://practical-scheme.net/gauche/man/?l=en&p=define">define</a> <a href="read-and-anchor.scm.html#read-and-anchor.scm:29">symbol-initial</a>  #[A-Za-z!$%&amp;*/:&lt;=&gt;?\^~+\-])
+0030: <a name="read-and-anchor.scm:30"></a>(<a href="http://practical-scheme.net/gauche/man/?l=en&p=define">define</a> <a href="read-and-anchor.scm.html#read-and-anchor.scm:30">symbol-char-set</a> #[\w!$%&amp;*/:&lt;=&gt;?\^~+\-@.])
+0031: <a name="read-and-anchor.scm:31"></a>
+0032: <a name="read-and-anchor.scm:32"></a>(<a href="http://practical-scheme.net/gauche/man/?l=en&p=define">define</a> (<a href="read-and-anchor.scm.html#read-and-anchor.scm:32">read-string-w/o-escape</a> ch lis)
+0033: <a name="read-and-anchor.scm:33"></a>  (<a href="http://practical-scheme.net/gauche/man/?l=en&p=cond">cond</a> ((<a href="http://practical-scheme.net/gauche/man/?l=en&p=eof-object?">eof-object?</a> ch) (<a href="http://practical-scheme.net/gauche/man/?l=en&p=error">error</a> "EOF inside string"))
+0034: <a name="read-and-anchor.scm:34"></a>        ((<a href="http://practical-scheme.net/gauche/man/?l=en&p=char=?">char=?</a> #\"  ch) (<a href="http://practical-scheme.net/gauche/man/?l=en&p=apply">apply</a> <a href="http://practical-scheme.net/gauche/man/?l=en&p=string">string</a> (<a href="http://practical-scheme.net/gauche/man/?l=en&p=reverse">reverse</a> lis)))
+0035: <a name="read-and-anchor.scm:35"></a>        ((<a href="http://practical-scheme.net/gauche/man/?l=en&p=char=?">char=?</a> #\\  ch)
+0036: <a name="read-and-anchor.scm:36"></a>         (<a href="http://practical-scheme.net/gauche/man/?l=en&p=let">let</a> ((x (<a href="http://practical-scheme.net/gauche/man/?l=en&p=read-char">read-char</a>)))
+0037: <a name="read-and-anchor.scm:37"></a>           (<a href="read-and-anchor.scm.html#read-and-anchor.scm:32">read-string-w/o-escape</a> (<a href="http://practical-scheme.net/gauche/man/?l=en&p=read-char">read-char</a>)
+0038: <a name="read-and-anchor.scm:38"></a>                                   (<a href="http://practical-scheme.net/gauche/man/?l=en&p=cons">cons</a> x (<a href="http://practical-scheme.net/gauche/man/?l=en&p=cons">cons</a> ch lis)))))
+0039: <a name="read-and-anchor.scm:39"></a>        (<a href="http://practical-scheme.net/gauche/man/?l=en&p=else">else</a>
+0040: <a name="read-and-anchor.scm:40"></a>         (<a href="read-and-anchor.scm.html#read-and-anchor.scm:32">read-string-w/o-escape</a> (<a href="http://practical-scheme.net/gauche/man/?l=en&p=read-char">read-char</a>)
+0041: <a name="read-and-anchor.scm:41"></a>                                 (<a href="http://practical-scheme.net/gauche/man/?l=en&p=cons">cons</a> ch lis)))))
+0042: <a name="read-and-anchor.scm:42"></a>
+0043: <a name="read-and-anchor.scm:43"></a>(<a href="http://practical-scheme.net/gauche/man/?l=en&p=define">define</a> (<a href="read-and-anchor.scm.html#read-and-anchor.scm:43">read-symbol</a> ch lis)
+0044: <a name="read-and-anchor.scm:44"></a>
+0045: <a name="read-and-anchor.scm:45"></a>  (<a href="http://practical-scheme.net/gauche/man/?l=en&p=define">define</a> (list-&gt;symbol lis)
+0046: <a name="read-and-anchor.scm:46"></a>    (<a href="http://practical-scheme.net/gauche/man/?l=en&p=string->symbol">string-&gt;symbol</a> (<a href="http://practical-scheme.net/gauche/man/?l=en&p=apply">apply</a> <a href="http://practical-scheme.net/gauche/man/?l=en&p=string">string</a> (<a href="http://practical-scheme.net/gauche/man/?l=en&p=reverse">reverse</a> lis))))
+0047: <a name="read-and-anchor.scm:47"></a>
+0048: <a name="read-and-anchor.scm:48"></a>  (<a href="http://practical-scheme.net/gauche/man/?l=en&p=cond">cond</a> ((<a href="http://practical-scheme.net/gauche/man/?l=en&p=eof-object?">eof-object?</a> ch) (list-&gt;symbol lis))
+0049: <a name="read-and-anchor.scm:49"></a>        ((<a href="http://practical-scheme.net/gauche/man/?l=en&p=char-set-contains?">char-set-contains?</a> <a href="read-and-anchor.scm.html#read-and-anchor.scm:30">symbol-char-set</a> ch)
+0050: <a name="read-and-anchor.scm:50"></a>         (<a href="http://practical-scheme.net/gauche/man/?l=en&p=read-char">read-char</a>)
+0051: <a name="read-and-anchor.scm:51"></a>         (<a href="read-and-anchor.scm.html#read-and-anchor.scm:43">read-symbol</a> (<a href="http://practical-scheme.net/gauche/man/?l=en&p=peek-char">peek-char</a>) (<a href="http://practical-scheme.net/gauche/man/?l=en&p=cons">cons</a> ch lis)))
+0052: <a name="read-and-anchor.scm:52"></a>        (<a href="http://practical-scheme.net/gauche/man/?l=en&p=else">else</a>
+0053: <a name="read-and-anchor.scm:53"></a>         (list-&gt;symbol lis))))
+0054: <a name="read-and-anchor.scm:54"></a>
+0055: <a name="read-and-anchor.scm:55"></a>(<a href="http://practical-scheme.net/gauche/man/?l=en&p=define">define</a> (<a href="read-and-anchor.scm.html#read-and-anchor.scm:55">do-newline</a>)
+0056: <a name="read-and-anchor.scm:56"></a>  (<a href="http://practical-scheme.net/gauche/man/?l=en&p=newline">newline</a>)
+0057: <a name="read-and-anchor.scm:57"></a>  (<a href="http://practical-scheme.net/gauche/man/?l=en&p=if">if</a> (<a href="read-and-anchor.scm.html#read-and-anchor.scm:8">anchor-all-lines</a>)
+0058: <a name="read-and-anchor.scm:58"></a>    (<a href="read-and-anchor.scm.html#read-and-anchor.scm:252">anchor-line</a>))
+0059: <a name="read-and-anchor.scm:59"></a>  'newline)
+0060: <a name="read-and-anchor.scm:60"></a>
+0061: <a name="read-and-anchor.scm:61"></a>(<a href="http://practical-scheme.net/gauche/man/?l=en&p=define">define</a> (<a href="read-and-anchor.scm.html#read-and-anchor.scm:61">do-sharp</a> lvl)
+0062: <a name="read-and-anchor.scm:62"></a>
+0063: <a name="read-and-anchor.scm:63"></a>  (<a href="http://practical-scheme.net/gauche/man/?l=en&p=define">define</a> (do-debug)
+0064: <a name="read-and-anchor.scm:64"></a>    (<a href="read-and-anchor.scm.html#read-and-anchor.scm:15">disp</a> (<a href="http://practical-scheme.net/gauche/man/?l=en&p=read-char">read-char</a>)) ; #\?
+0065: <a name="read-and-anchor.scm:65"></a>    (<a href="read-and-anchor.scm.html#read-and-anchor.scm:15">disp</a> (<a href="http://practical-scheme.net/gauche/man/?l=en&p=read-char">read-char</a>)) ; must be '='
+0066: <a name="read-and-anchor.scm:66"></a>    'debug-print)
+0067: <a name="read-and-anchor.scm:67"></a>
+0068: <a name="read-and-anchor.scm:68"></a>  (<a href="http://practical-scheme.net/gauche/man/?l=en&p=define">define</a> (do-vector)
+0069: <a name="read-and-anchor.scm:69"></a>    ;; read as a list!
+0070: <a name="read-and-anchor.scm:70"></a>    (<a href="read-and-anchor.scm.html#read-and-anchor.scm:292">read-and-anchor</a> lvl) ; #\( is passed
+0071: <a name="read-and-anchor.scm:71"></a>    'venctor)
+0072: <a name="read-and-anchor.scm:72"></a>
+0073: <a name="read-and-anchor.scm:73"></a>  (<a href="http://practical-scheme.net/gauche/man/?l=en&p=define">define</a> (do-regexp)
+0074: <a name="read-and-anchor.scm:74"></a>    (<a href="read-and-anchor.scm.html#read-and-anchor.scm:15">disp</a> (<a href="http://practical-scheme.net/gauche/man/?l=en&p=read-char">read-char</a>)) ; #\/
+0075: <a name="read-and-anchor.scm:75"></a>    (<a href="http://practical-scheme.net/gauche/man/?l=en&p=let">let</a> lp ((ch (<a href="http://practical-scheme.net/gauche/man/?l=en&p=read-char">read-char</a>)))
+0076: <a name="read-and-anchor.scm:76"></a>      (<a href="http://practical-scheme.net/gauche/man/?l=en&p=cond">cond</a> ((<a href="http://practical-scheme.net/gauche/man/?l=en&p=eof-object?">eof-object?</a> ch) (<a href="http://practical-scheme.net/gauche/man/?l=en&p=error">error</a> "EOF inside regexp"))
+0077: <a name="read-and-anchor.scm:77"></a>            ((<a href="http://practical-scheme.net/gauche/man/?l=en&p=char=?">char=?</a> #\/ ch)  (<a href="read-and-anchor.scm.html#read-and-anchor.scm:15">disp</a> ch) 'regexp)
+0078: <a name="read-and-anchor.scm:78"></a>            ((<a href="http://practical-scheme.net/gauche/man/?l=en&p=char=?">char=?</a> #\\ ch)
+0079: <a name="read-and-anchor.scm:79"></a>             (<a href="read-and-anchor.scm.html#read-and-anchor.scm:15">disp</a> ch)
+0080: <a name="read-and-anchor.scm:80"></a>             (<a href="read-and-anchor.scm.html#read-and-anchor.scm:15">disp</a> (<a href="http://practical-scheme.net/gauche/man/?l=en&p=read-char">read-char</a>))
+0081: <a name="read-and-anchor.scm:81"></a>             (lp (<a href="http://practical-scheme.net/gauche/man/?l=en&p=read-char">read-char</a>)))
+0082: <a name="read-and-anchor.scm:82"></a>            (<a href="http://practical-scheme.net/gauche/man/?l=en&p=else">else</a>
+0083: <a name="read-and-anchor.scm:83"></a>             (<a href="read-and-anchor.scm.html#read-and-anchor.scm:15">disp</a> ch)
+0084: <a name="read-and-anchor.scm:84"></a>             (lp (<a href="http://practical-scheme.net/gauche/man/?l=en&p=read-char">read-char</a>))))))
+0085: <a name="read-and-anchor.scm:85"></a>
+0086: <a name="read-and-anchor.scm:86"></a>  (<a href="http://practical-scheme.net/gauche/man/?l=en&p=define">define</a> (do-char-set)
+0087: <a name="read-and-anchor.scm:87"></a>    (<a href="read-and-anchor.scm.html#read-and-anchor.scm:15">disp</a> (<a href="http://practical-scheme.net/gauche/man/?l=en&p=read-char">read-char</a>)) ; #\[
+0088: <a name="read-and-anchor.scm:88"></a>    (<a href="http://practical-scheme.net/gauche/man/?l=en&p=let">let</a> lp ((ch (<a href="http://practical-scheme.net/gauche/man/?l=en&p=read-char">read-char</a>)))
+0089: <a name="read-and-anchor.scm:89"></a>      (<a href="http://practical-scheme.net/gauche/man/?l=en&p=cond">cond</a> ((<a href="http://practical-scheme.net/gauche/man/?l=en&p=eof-object?">eof-object?</a> ch) (<a href="http://practical-scheme.net/gauche/man/?l=en&p=error">error</a> "EOF inside char-set"))
+0090: <a name="read-and-anchor.scm:90"></a>            ((<a href="http://practical-scheme.net/gauche/man/?l=en&p=char=?">char=?</a> #\] ch)  (<a href="read-and-anchor.scm.html#read-and-anchor.scm:15">disp</a> ch) 'char-set)
+0091: <a name="read-and-anchor.scm:91"></a>            ((<a href="http://practical-scheme.net/gauche/man/?l=en&p=char=?">char=?</a> #\\ ch)
+0092: <a name="read-and-anchor.scm:92"></a>             (<a href="read-and-anchor.scm.html#read-and-anchor.scm:15">disp</a> ch)
+0093: <a name="read-and-anchor.scm:93"></a>             (<a href="read-and-anchor.scm.html#read-and-anchor.scm:15">disp</a> (<a href="http://practical-scheme.net/gauche/man/?l=en&p=read-char">read-char</a>))
+0094: <a name="read-and-anchor.scm:94"></a>             (lp (<a href="http://practical-scheme.net/gauche/man/?l=en&p=read-char">read-char</a>)))
+0095: <a name="read-and-anchor.scm:95"></a>            (<a href="http://practical-scheme.net/gauche/man/?l=en&p=else">else</a>
+0096: <a name="read-and-anchor.scm:96"></a>             (<a href="read-and-anchor.scm.html#read-and-anchor.scm:15">disp</a> ch)
+0097: <a name="read-and-anchor.scm:97"></a>             (lp (<a href="http://practical-scheme.net/gauche/man/?l=en&p=read-char">read-char</a>))))))
+0098: <a name="read-and-anchor.scm:98"></a>
+0099: <a name="read-and-anchor.scm:99"></a>  (<a href="http://practical-scheme.net/gauche/man/?l=en&p=define">define</a> (do-multiline-comment)
+0100: <a name="read-and-anchor.scm:100"></a>    (<a href="read-and-anchor.scm.html#read-and-anchor.scm:15">disp</a> (<a href="http://practical-scheme.net/gauche/man/?l=en&p=read-char">read-char</a>)) ; #\|
+0101: <a name="read-and-anchor.scm:101"></a>    (<a href="http://practical-scheme.net/gauche/man/?l=en&p=let">let</a> lp ((ch (<a href="http://practical-scheme.net/gauche/man/?l=en&p=read-char">read-char</a>))
+0102: <a name="read-and-anchor.scm:102"></a>             (n 0))
+0103: <a name="read-and-anchor.scm:103"></a>      (<a href="http://practical-scheme.net/gauche/man/?l=en&p=cond">cond</a> ((<a href="http://practical-scheme.net/gauche/man/?l=en&p=eof-object?">eof-object?</a> ch) (<a href="http://practical-scheme.net/gauche/man/?l=en&p=error">error</a> "EOF inside comment"))
+0104: <a name="read-and-anchor.scm:104"></a>            ((<a href="http://practical-scheme.net/gauche/man/?l=en&p=char=?">char=?</a> #\| ch)
+0105: <a name="read-and-anchor.scm:105"></a>             (<a href="read-and-anchor.scm.html#read-and-anchor.scm:15">disp</a> ch)
+0106: <a name="read-and-anchor.scm:106"></a>             (<a href="http://practical-scheme.net/gauche/man/?l=en&p=let">let</a> ((ch (<a href="http://practical-scheme.net/gauche/man/?l=en&p=read-char">read-char</a>)))
+0107: <a name="read-and-anchor.scm:107"></a>               (<a href="http://practical-scheme.net/gauche/man/?l=en&p=cond">cond</a> ((<a href="http://practical-scheme.net/gauche/man/?l=en&p=char=?">char=?</a> #\# ch)
+0108: <a name="read-and-anchor.scm:108"></a>                      (<a href="read-and-anchor.scm.html#read-and-anchor.scm:15">disp</a> ch)
+0109: <a name="read-and-anchor.scm:109"></a>                      (<a href="http://practical-scheme.net/gauche/man/?l=en&p=if">if</a> (<a href="http://practical-scheme.net/gauche/man/?l=en&p==">=</a> n 0)
+0110: <a name="read-and-anchor.scm:110"></a>                        'multiline-comment
+0111: <a name="read-and-anchor.scm:111"></a>                        (lp (<a href="http://practical-scheme.net/gauche/man/?l=en&p=read-char">read-char</a>) (<a href="http://practical-scheme.net/gauche/man/?l=en&p=-">-</a> n 1))))
+0112: <a name="read-and-anchor.scm:112"></a>                     (<a href="http://practical-scheme.net/gauche/man/?l=en&p=else">else</a>
+0113: <a name="read-and-anchor.scm:113"></a>                      (<a href="read-and-anchor.scm.html#read-and-anchor.scm:15">disp</a> ch)
+0114: <a name="read-and-anchor.scm:114"></a>                      (lp (<a href="http://practical-scheme.net/gauche/man/?l=en&p=read-char">read-char</a>) n)))))
+0115: <a name="read-and-anchor.scm:115"></a>            ((<a href="http://practical-scheme.net/gauche/man/?l=en&p=char=?">char=?</a> #\# ch)
+0116: <a name="read-and-anchor.scm:116"></a>             (<a href="read-and-anchor.scm.html#read-and-anchor.scm:15">disp</a> ch)
+0117: <a name="read-and-anchor.scm:117"></a>             (<a href="http://practical-scheme.net/gauche/man/?l=en&p=let">let</a> ((ch (<a href="http://practical-scheme.net/gauche/man/?l=en&p=read-char">read-char</a>)))
+0118: <a name="read-and-anchor.scm:118"></a>               (<a href="http://practical-scheme.net/gauche/man/?l=en&p=cond">cond</a> ((<a href="http://practical-scheme.net/gauche/man/?l=en&p=eof-object?">eof-object?</a> ch) (<a href="http://practical-scheme.net/gauche/man/?l=en&p=error">error</a> "EOF inside comment"))
+0119: <a name="read-and-anchor.scm:119"></a>                     ((<a href="http://practical-scheme.net/gauche/man/?l=en&p=char=?">char=?</a> #\| ch)
+0120: <a name="read-and-anchor.scm:120"></a>                      (<a href="read-and-anchor.scm.html#read-and-anchor.scm:15">disp</a> ch)
+0121: <a name="read-and-anchor.scm:121"></a>                      (lp (<a href="http://practical-scheme.net/gauche/man/?l=en&p=read-char">read-char</a>) (<a href="http://practical-scheme.net/gauche/man/?l=en&p=+">+</a> n 1)))
+0122: <a name="read-and-anchor.scm:122"></a>                     (<a href="http://practical-scheme.net/gauche/man/?l=en&p=else">else</a>
+0123: <a name="read-and-anchor.scm:123"></a>                      (<a href="read-and-anchor.scm.html#read-and-anchor.scm:15">disp</a> ch)
+0124: <a name="read-and-anchor.scm:124"></a>                      (lp (<a href="http://practical-scheme.net/gauche/man/?l=en&p=read-char">read-char</a>) n)))))
+0125: <a name="read-and-anchor.scm:125"></a>            (<a href="http://practical-scheme.net/gauche/man/?l=en&p=else">else</a>
+0126: <a name="read-and-anchor.scm:126"></a>             (<a href="read-and-anchor.scm.html#read-and-anchor.scm:15">disp</a> ch)
+0127: <a name="read-and-anchor.scm:127"></a>             (lp (<a href="http://practical-scheme.net/gauche/man/?l=en&p=read-char">read-char</a>) n)))))
+0128: <a name="read-and-anchor.scm:128"></a>
+0129: <a name="read-and-anchor.scm:129"></a>  (<a href="http://practical-scheme.net/gauche/man/?l=en&p=define">define</a> (do-string-interpolation)
+0130: <a name="read-and-anchor.scm:130"></a>    (<a href="http://practical-scheme.net/gauche/man/?l=en&p=when">when</a> (<a href="http://practical-scheme.net/gauche/man/?l=en&p=not">not</a> (<a href="read-and-anchor.scm.html#read-and-anchor.scm:285">in-string-interp</a>))
+0131: <a name="read-and-anchor.scm:131"></a>      (<a href="read-and-anchor.scm.html#read-and-anchor.scm:285">in-string-interp</a> (<a href="http://practical-scheme.net/gauche/man/?l=en&p=cons">cons</a> (<a href="http://practical-scheme.net/gauche/man/?l=en&p=port-name">port-name</a> (<a href="http://practical-scheme.net/gauche/man/?l=en&p=current-input-port">current-input-port</a>))
+0132: <a name="read-and-anchor.scm:132"></a>                              (<a href="http://practical-scheme.net/gauche/man/?l=en&p=port-current-line">port-current-line</a> (<a href="http://practical-scheme.net/gauche/man/?l=en&p=current-input-port">current-input-port</a>)))))
+0133: <a name="read-and-anchor.scm:133"></a>    (<a href="http://practical-scheme.net/gauche/man/?l=en&p=read-char">read-char</a>) ; #\"
+0134: <a name="read-and-anchor.scm:134"></a>    (<a href="http://practical-scheme.net/gauche/man/?l=en&p=let">let</a> ((str (<a href="read-and-anchor.scm.html#read-and-anchor.scm:32">read-string-w/o-escape</a> (<a href="http://practical-scheme.net/gauche/man/?l=en&p=read-char">read-char</a>) '())))
+0135: <a name="read-and-anchor.scm:135"></a>      (<a href="read-and-anchor.scm.html#read-and-anchor.scm:15">disp</a> #\") ; (disp #\-)  (print "BEGIN") (display str) (print "\nEND")
+0136: <a name="read-and-anchor.scm:136"></a>      (<a href="http://practical-scheme.net/gauche/man/?l=en&p=with-input-from-string">with-input-from-string</a> str
+0137: <a name="read-and-anchor.scm:137"></a>        (<a href="http://practical-scheme.net/gauche/man/?l=en&p=lambda">lambda</a> ()
+0138: <a name="read-and-anchor.scm:138"></a>          (<a href="http://practical-scheme.net/gauche/man/?l=en&p=let">let</a> lp ((ch (<a href="http://practical-scheme.net/gauche/man/?l=en&p=read-char">read-char</a>)))
+0139: <a name="read-and-anchor.scm:139"></a>            (<a href="http://practical-scheme.net/gauche/man/?l=en&p=cond">cond</a> ((<a href="http://practical-scheme.net/gauche/man/?l=en&p=eof-object?">eof-object?</a> ch) #t)
+0140: <a name="read-and-anchor.scm:140"></a>                  ((<a href="http://practical-scheme.net/gauche/man/?l=en&p=char=?">char=?</a> #\~ ch)
+0141: <a name="read-and-anchor.scm:141"></a>                   (<a href="read-and-anchor.scm.html#read-and-anchor.scm:15">disp</a> ch)
+0142: <a name="read-and-anchor.scm:142"></a>                   (<a href="http://practical-scheme.net/gauche/man/?l=en&p=cond">cond</a> ((<a href="http://practical-scheme.net/gauche/man/?l=en&p=char=?">char=?</a> (<a href="http://practical-scheme.net/gauche/man/?l=en&p=peek-char">peek-char</a>) #\~)
+0143: <a name="read-and-anchor.scm:143"></a>                          (<a href="read-and-anchor.scm.html#read-and-anchor.scm:15">disp</a> (<a href="http://practical-scheme.net/gauche/man/?l=en&p=read-char">read-char</a>))
+0144: <a name="read-and-anchor.scm:144"></a>                          (lp (<a href="http://practical-scheme.net/gauche/man/?l=en&p=read-char">read-char</a>)))
+0145: <a name="read-and-anchor.scm:145"></a>                         (<a href="http://practical-scheme.net/gauche/man/?l=en&p=else">else</a>
+0146: <a name="read-and-anchor.scm:146"></a>                          (<a href="read-and-anchor.scm.html#read-and-anchor.scm:292">read-and-anchor</a> lvl)
+0147: <a name="read-and-anchor.scm:147"></a>                          (lp (<a href="http://practical-scheme.net/gauche/man/?l=en&p=read-char">read-char</a>)))))
+0148: <a name="read-and-anchor.scm:148"></a>                  ((<a href="http://practical-scheme.net/gauche/man/?l=en&p=char=?">char=?</a> #\newline ch)
+0149: <a name="read-and-anchor.scm:149"></a>                   ;; FIXME! This gives wrong line number in case
+0150: <a name="read-and-anchor.scm:150"></a>                   ;; there are newlines in (read-and-anchor).
+0151: <a name="read-and-anchor.scm:151"></a>                   ;; We need to count number of lines in (read-and-anchor).
+0152: <a name="read-and-anchor.scm:152"></a>                   (<a href="http://practical-scheme.net/gauche/man/?l=en&p=inc!">inc!</a> (<a href="http://practical-scheme.net/gauche/man/?l=en&p=cdr">cdr</a> (<a href="read-and-anchor.scm.html#read-and-anchor.scm:285">in-string-interp</a>)))
+0153: <a name="read-and-anchor.scm:153"></a>                   (<a href="read-and-anchor.scm.html#read-and-anchor.scm:55">do-newline</a>)
+0154: <a name="read-and-anchor.scm:154"></a>                   (lp (<a href="http://practical-scheme.net/gauche/man/?l=en&p=read-char">read-char</a>)))
+0155: <a name="read-and-anchor.scm:155"></a>                  (<a href="http://practical-scheme.net/gauche/man/?l=en&p=else">else</a>
+0156: <a name="read-and-anchor.scm:156"></a>                   (<a href="read-and-anchor.scm.html#read-and-anchor.scm:15">disp</a> ch)
+0157: <a name="read-and-anchor.scm:157"></a>                   (lp (<a href="http://practical-scheme.net/gauche/man/?l=en&p=read-char">read-char</a>)))))))
+0158: <a name="read-and-anchor.scm:158"></a>      (<a href="read-and-anchor.scm.html#read-and-anchor.scm:15">disp</a> #\")
+0159: <a name="read-and-anchor.scm:159"></a>      (<a href="read-and-anchor.scm.html#read-and-anchor.scm:285">in-string-interp</a> #f)
+0160: <a name="read-and-anchor.scm:160"></a>      'int-string))
+0161: <a name="read-and-anchor.scm:161"></a>
+0162: <a name="read-and-anchor.scm:162"></a>  (<a href="http://practical-scheme.net/gauche/man/?l=en&p=define">define</a> (do-char)
+0163: <a name="read-and-anchor.scm:163"></a>    ;; this works as long as ewline of #\newline
+0164: <a name="read-and-anchor.scm:164"></a>    ;; has no manual entry, for example.
+0165: <a name="read-and-anchor.scm:165"></a>    (<a href="read-and-anchor.scm.html#read-and-anchor.scm:15">disp</a> (<a href="http://practical-scheme.net/gauche/man/?l=en&p=read-char">read-char</a>)) ; #\\
+0166: <a name="read-and-anchor.scm:166"></a>    (<a href="read-and-anchor.scm.html#read-and-anchor.scm:15">disp</a> (<a href="http://practical-scheme.net/gauche/man/?l=en&p=read-char">read-char</a>))
+0167: <a name="read-and-anchor.scm:167"></a>    'character)
+0168: <a name="read-and-anchor.scm:168"></a>
+0169: <a name="read-and-anchor.scm:169"></a>  (<a href="read-and-anchor.scm.html#read-and-anchor.scm:15">disp</a> #\#)
+0170: <a name="read-and-anchor.scm:170"></a>  (<a href="http://practical-scheme.net/gauche/man/?l=en&p=let">let</a> ((ch (<a href="http://practical-scheme.net/gauche/man/?l=en&p=peek-char">peek-char</a>)))
+0171: <a name="read-and-anchor.scm:171"></a>    (<a href="http://practical-scheme.net/gauche/man/?l=en&p=cond">cond</a> ((<a href="http://practical-scheme.net/gauche/man/?l=en&p=eof-object?">eof-object?</a> ch) (<a href="http://practical-scheme.net/gauche/man/?l=en&p=error">error</a> "Unexpected EOF"))
+0172: <a name="read-and-anchor.scm:172"></a>          ((<a href="http://practical-scheme.net/gauche/man/?l=en&p=char=?">char=?</a> #\? ch)  (do-debug))
+0173: <a name="read-and-anchor.scm:173"></a>          ((<a href="http://practical-scheme.net/gauche/man/?l=en&p=char=?">char=?</a> #\( ch)  (do-vector))
+0174: <a name="read-and-anchor.scm:174"></a>          ((<a href="http://practical-scheme.net/gauche/man/?l=en&p=char=?">char=?</a> #\/ ch)  (do-regexp))
+0175: <a name="read-and-anchor.scm:175"></a>          ((<a href="http://practical-scheme.net/gauche/man/?l=en&p=char=?">char=?</a> #\[ ch)  (do-char-set))
+0176: <a name="read-and-anchor.scm:176"></a>          ((<a href="http://practical-scheme.net/gauche/man/?l=en&p=char=?">char=?</a> #\| ch)  (do-multiline-comment))
+0177: <a name="read-and-anchor.scm:177"></a>          ((<a href="http://practical-scheme.net/gauche/man/?l=en&p=char=?">char=?</a> #\" ch)  (do-string-interpolation))
+0178: <a name="read-and-anchor.scm:178"></a>          ((<a href="http://practical-scheme.net/gauche/man/?l=en&p=char=?">char=?</a> #\\ ch)  (do-char))
+0179: <a name="read-and-anchor.scm:179"></a>          (<a href="http://practical-scheme.net/gauche/man/?l=en&p=else">else</a>
+0180: <a name="read-and-anchor.scm:180"></a>           (<a href="http://practical-scheme.net/gauche/man/?l=en&p=read-char">read-char</a>)
+0181: <a name="read-and-anchor.scm:181"></a>           (<a href="read-and-anchor.scm.html#read-and-anchor.scm:15">disp</a> ch)
+0182: <a name="read-and-anchor.scm:182"></a>           'ignored))))
+0183: <a name="read-and-anchor.scm:183"></a>
+0184: <a name="read-and-anchor.scm:184"></a>(<a href="http://practical-scheme.net/gauche/man/?l=en&p=define">define</a> (<a href="read-and-anchor.scm.html#read-and-anchor.scm:184">do-bar</a>)
+0185: <a name="read-and-anchor.scm:185"></a>  ;; we do not anchor this type of symbol.
+0186: <a name="read-and-anchor.scm:186"></a>  (<a href="read-and-anchor.scm.html#read-and-anchor.scm:15">disp</a> #\|)
+0187: <a name="read-and-anchor.scm:187"></a>  (<a href="http://practical-scheme.net/gauche/man/?l=en&p=let">let</a> lp ((ch (<a href="http://practical-scheme.net/gauche/man/?l=en&p=read-char">read-char</a>)))
+0188: <a name="read-and-anchor.scm:188"></a>    (<a href="http://practical-scheme.net/gauche/man/?l=en&p=cond">cond</a> ((<a href="http://practical-scheme.net/gauche/man/?l=en&p=eof-object?">eof-object?</a> ch) (<a href="http://practical-scheme.net/gauche/man/?l=en&p=error">error</a> "EOF inside |"))
+0189: <a name="read-and-anchor.scm:189"></a>          ((<a href="http://practical-scheme.net/gauche/man/?l=en&p=char=?">char=?</a> #\| ch)  (<a href="read-and-anchor.scm.html#read-and-anchor.scm:15">disp</a> ch) 'symbol)
+0190: <a name="read-and-anchor.scm:190"></a>          ((<a href="http://practical-scheme.net/gauche/man/?l=en&p=char=?">char=?</a> #\\ ch)
+0191: <a name="read-and-anchor.scm:191"></a>           (<a href="read-and-anchor.scm.html#read-and-anchor.scm:15">disp</a> ch)
+0192: <a name="read-and-anchor.scm:192"></a>           (<a href="read-and-anchor.scm.html#read-and-anchor.scm:15">disp</a> (<a href="http://practical-scheme.net/gauche/man/?l=en&p=read-char">read-char</a>))
+0193: <a name="read-and-anchor.scm:193"></a>           (lp (<a href="http://practical-scheme.net/gauche/man/?l=en&p=read-char">read-char</a>)))
+0194: <a name="read-and-anchor.scm:194"></a>          (<a href="http://practical-scheme.net/gauche/man/?l=en&p=else">else</a>
+0195: <a name="read-and-anchor.scm:195"></a>           (<a href="read-and-anchor.scm.html#read-and-anchor.scm:15">disp</a> ch)
+0196: <a name="read-and-anchor.scm:196"></a>           (lp (<a href="http://practical-scheme.net/gauche/man/?l=en&p=read-char">read-char</a>))))))
+0197: <a name="read-and-anchor.scm:197"></a>
+0198: <a name="read-and-anchor.scm:198"></a>(<a href="http://practical-scheme.net/gauche/man/?l=en&p=define">define</a> (<a href="read-and-anchor.scm.html#read-and-anchor.scm:198">do-string</a>)
+0199: <a name="read-and-anchor.scm:199"></a>  (<a href="http://practical-scheme.net/gauche/man/?l=en&p=let">let</a> ((str (<a href="read-and-anchor.scm.html#read-and-anchor.scm:32">read-string-w/o-escape</a> (<a href="http://practical-scheme.net/gauche/man/?l=en&p=read-char">read-char</a>) '())))
+0200: <a name="read-and-anchor.scm:200"></a>    (<a href="read-and-anchor.scm.html#read-and-anchor.scm:15">disp</a> #\") (<a href="read-and-anchor.scm.html#read-and-anchor.scm:15">disp</a> str) (<a href="read-and-anchor.scm.html#read-and-anchor.scm:15">disp</a> #\")
+0201: <a name="read-and-anchor.scm:201"></a>    'string))
+0202: <a name="read-and-anchor.scm:202"></a>
+0203: <a name="read-and-anchor.scm:203"></a>(<a href="http://practical-scheme.net/gauche/man/?l=en&p=define">define</a> (<a href="read-and-anchor.scm.html#read-and-anchor.scm:203">do-quote</a> lvl)
+0204: <a name="read-and-anchor.scm:204"></a>  (<a href="read-and-anchor.scm.html#read-and-anchor.scm:15">disp</a> #\')
+0205: <a name="read-and-anchor.scm:205"></a>  (<a href="read-and-anchor.scm.html#read-and-anchor.scm:347">read-w/o-anchor</a> lvl))
+0206: <a name="read-and-anchor.scm:206"></a>
+0207: <a name="read-and-anchor.scm:207"></a>(<a href="http://practical-scheme.net/gauche/man/?l=en&p=define">define</a> (<a href="read-and-anchor.scm.html#read-and-anchor.scm:207">do-quasi-quote</a> lvl)
+0208: <a name="read-and-anchor.scm:208"></a>  (<a href="read-and-anchor.scm.html#read-and-anchor.scm:15">disp</a> #\`)
+0209: <a name="read-and-anchor.scm:209"></a>  (<a href="read-and-anchor.scm.html#read-and-anchor.scm:347">read-w/o-anchor</a> lvl))
+0210: <a name="read-and-anchor.scm:210"></a>
+0211: <a name="read-and-anchor.scm:211"></a>(<a href="http://practical-scheme.net/gauche/man/?l=en&p=define">define</a> (<a href="read-and-anchor.scm.html#read-and-anchor.scm:211">do-comment</a>)
+0212: <a name="read-and-anchor.scm:212"></a>  (<a href="read-and-anchor.scm.html#read-and-anchor.scm:15">disp</a> #\;)
+0213: <a name="read-and-anchor.scm:213"></a>  (<a href="read-and-anchor.scm.html#read-and-anchor.scm:216">skip-until-newline</a>)
+0214: <a name="read-and-anchor.scm:214"></a>  'comment)
+0215: <a name="read-and-anchor.scm:215"></a>
+0216: <a name="read-and-anchor.scm:216"></a>(<a href="http://practical-scheme.net/gauche/man/?l=en&p=define">define</a> (<a href="read-and-anchor.scm.html#read-and-anchor.scm:216">skip-until-newline</a>)
+0217: <a name="read-and-anchor.scm:217"></a>  (<a href="http://practical-scheme.net/gauche/man/?l=en&p=let">let</a> ((ch (<a href="http://practical-scheme.net/gauche/man/?l=en&p=read-char">read-char</a>)))
+0218: <a name="read-and-anchor.scm:218"></a>    (<a href="http://practical-scheme.net/gauche/man/?l=en&p=cond">cond</a> ((<a href="http://practical-scheme.net/gauche/man/?l=en&p=eof-object?">eof-object?</a> ch) ch)
+0219: <a name="read-and-anchor.scm:219"></a>          ((<a href="http://practical-scheme.net/gauche/man/?l=en&p=char=?">char=?</a> #\newline ch)
+0220: <a name="read-and-anchor.scm:220"></a>           (<a href="read-and-anchor.scm.html#read-and-anchor.scm:55">do-newline</a>))
+0221: <a name="read-and-anchor.scm:221"></a>          (<a href="http://practical-scheme.net/gauche/man/?l=en&p=else">else</a>
+0222: <a name="read-and-anchor.scm:222"></a>           (<a href="read-and-anchor.scm.html#read-and-anchor.scm:15">disp</a> ch)
+0223: <a name="read-and-anchor.scm:223"></a>           (<a href="read-and-anchor.scm.html#read-and-anchor.scm:216">skip-until-newline</a>)))))
+0224: <a name="read-and-anchor.scm:224"></a>
+0225: <a name="read-and-anchor.scm:225"></a>(<a href="http://practical-scheme.net/gauche/man/?l=en&p=define">define</a> (<a href="read-and-anchor.scm.html#read-and-anchor.scm:225">anchor</a> entry filename lineno)
+0226: <a name="read-and-anchor.scm:226"></a>
+0227: <a name="read-and-anchor.scm:227"></a>  (<a href="http://practical-scheme.net/gauche/man/?l=en&p=define">define</a> (has-source? entry) (<a href="http://practical-scheme.net/gauche/man/?l=en&p=string?">string?</a> (file-of entry)))
+0228: <a name="read-and-anchor.scm:228"></a>
+0229: <a name="read-and-anchor.scm:229"></a>  (<a href="http://practical-scheme.net/gauche/man/?l=en&p=define">define</a> (self? entry)
+0230: <a name="read-and-anchor.scm:230"></a>    (<a href="http://practical-scheme.net/gauche/man/?l=en&p=and">and</a> (<a href="read-and-anchor.scm.html#read-and-anchor.scm:10">place-goto-anchor</a>)
+0231: <a name="read-and-anchor.scm:231"></a>         (<a href="http://practical-scheme.net/gauche/man/?l=en&p==">=</a> lineno (line-of entry))
+0232: <a name="read-and-anchor.scm:232"></a>         (<a href="http://practical-scheme.net/gauche/man/?l=en&p=string=?">string=?</a> filename
+0233: <a name="read-and-anchor.scm:233"></a>                   (file-of entry))))
+0234: <a name="read-and-anchor.scm:234"></a>
+0235: <a name="read-and-anchor.scm:235"></a>  (<a href="http://practical-scheme.net/gauche/man/?l=en&p=cond">cond</a> ((self? entry)
+0236: <a name="read-and-anchor.scm:236"></a>         (<a href="http://practical-scheme.net/gauche/man/?l=en&p=display">display</a> #"&lt;a class=\"entry\" href=\"~(<a href="path-util.scm.html#path-util.scm:45">path-to-top</a> (file-of entry))../goto?file=~(file-of entry)&amp;line=~(line-of entry)\"&gt;")
+0237: <a name="read-and-anchor.scm:237"></a>         (<a href="read-and-anchor.scm.html#read-and-anchor.scm:15">disp</a> (name-of entry))
+0238: <a name="read-and-anchor.scm:238"></a>         (<a href="http://practical-scheme.net/gauche/man/?l=en&p=display">display</a> "&lt;/a&gt;"))
+0239: <a name="read-and-anchor.scm:239"></a>
+0240: <a name="read-and-anchor.scm:240"></a>        ((has-source? entry)
+0241: <a name="read-and-anchor.scm:241"></a>         (<a href="dictionary.scm.html#dictionary.scm:165">entry-ref-push!</a> entry filename lineno)
+0242: <a name="read-and-anchor.scm:242"></a>         (<a href="http://practical-scheme.net/gauche/man/?l=en&p=format">format</a> #t "&lt;a class=\"entry\" href=\"~a#~a:~a\"&gt;"
+0243: <a name="read-and-anchor.scm:243"></a>                 (<a href="path-util.scm.html#path-util.scm:80">relative-path</a> filename #"~(file-of entry)~(<a href="read-and-anchor.scm.html#read-and-anchor.scm:9">anchor-file-extension</a>)")
+0244: <a name="read-and-anchor.scm:244"></a>                 (file-of entry)
+0245: <a name="read-and-anchor.scm:245"></a>                 (line-of entry))
+0246: <a name="read-and-anchor.scm:246"></a>         (<a href="read-and-anchor.scm.html#read-and-anchor.scm:15">disp</a> (name-of entry))
+0247: <a name="read-and-anchor.scm:247"></a>         (<a href="http://practical-scheme.net/gauche/man/?l=en&p=display">display</a> "&lt;/a&gt;"))
+0248: <a name="read-and-anchor.scm:248"></a>
+0249: <a name="read-and-anchor.scm:249"></a>        (<a href="http://practical-scheme.net/gauche/man/?l=en&p=else">else</a>
+0250: <a name="read-and-anchor.scm:250"></a>         (<a href="read-and-anchor.scm.html#read-and-anchor.scm:15">disp</a> (name-of entry)))))
+0251: <a name="read-and-anchor.scm:251"></a>
+0252: <a name="read-and-anchor.scm:252"></a>(<a href="http://practical-scheme.net/gauche/man/?l=en&p=define">define</a> (<a href="read-and-anchor.scm.html#read-and-anchor.scm:252">anchor-line</a>)
+0253: <a name="read-and-anchor.scm:253"></a>  (<a href="http://practical-scheme.net/gauche/man/?l=en&p=let">let</a> ((fl (<a href="read-and-anchor.scm.html#read-and-anchor.scm:287">get-file-and-lineno</a>)))
+0254: <a name="read-and-anchor.scm:254"></a>    (<a href="http://practical-scheme.net/gauche/man/?l=en&p=format">format</a> #t "&lt;a name=\"~a:~a\"&gt;&lt;/a&gt;"
+0255: <a name="read-and-anchor.scm:255"></a>            (<a href="http://practical-scheme.net/gauche/man/?l=en&p=car">car</a> fl) (<a href="http://practical-scheme.net/gauche/man/?l=en&p=cdr">cdr</a> fl))))
+0256: <a name="read-and-anchor.scm:256"></a>
+0257: <a name="read-and-anchor.scm:257"></a>(<a href="http://practical-scheme.net/gauche/man/?l=en&p=define">define</a> (<a href="read-and-anchor.scm.html#read-and-anchor.scm:257">has-document?</a> sym)
+0258: <a name="read-and-anchor.scm:258"></a>  (<a href="http://practical-scheme.net/gauche/man/?l=en&p=or">or</a>
+0259: <a name="read-and-anchor.scm:259"></a>   ;; we assume all exported binding has manual entry.
+0260: <a name="read-and-anchor.scm:260"></a>   (<a href="http://practical-scheme.net/gauche/man/?l=en&p=global-variable-bound?">global-variable-bound?</a> (<a href="http://practical-scheme.net/gauche/man/?l=en&p=find-module">find-module</a> 'scmxref.used-modules)
+0261: <a name="read-and-anchor.scm:261"></a>                           sym)
+0262: <a name="read-and-anchor.scm:262"></a>   ;; or in case sym is name of a module which has manual entry
+0263: <a name="read-and-anchor.scm:263"></a>   (<a href="http://practical-scheme.net/gauche/man/?l=en&p=memq">memq</a> sym (<a href="dictionary.scm.html#dictionary.scm:8">documented-modules</a>))))
+0264: <a name="read-and-anchor.scm:264"></a>
+0265: <a name="read-and-anchor.scm:265"></a>(<a href="http://practical-scheme.net/gauche/man/?l=en&p=define">define</a> (<a href="read-and-anchor.scm.html#read-and-anchor.scm:265">file-&gt;anchored-string</a> file)
+0266: <a name="read-and-anchor.scm:266"></a>  (<a href="http://practical-scheme.net/gauche/man/?l=en&p=with-output-to-string">with-output-to-string</a>
+0267: <a name="read-and-anchor.scm:267"></a>    (<a href="http://practical-scheme.net/gauche/man/?l=en&p=lambda">lambda</a> ()
+0268: <a name="read-and-anchor.scm:268"></a>      (<a href="http://practical-scheme.net/gauche/man/?l=en&p=guard">guard</a> (e (<a href="http://practical-scheme.net/gauche/man/?l=en&p=else">else</a> (<a href="http://practical-scheme.net/gauche/man/?l=en&p=get-output-string">get-output-string</a> (<a href="http://practical-scheme.net/gauche/man/?l=en&p=current-output-port">current-output-port</a>))))
+0269: <a name="read-and-anchor.scm:269"></a>        (<a href="read-and-anchor.scm.html#read-and-anchor.scm:271">read-and-anchor-file</a> file)))))
+0270: <a name="read-and-anchor.scm:270"></a>
+0271: <a name="read-and-anchor.scm:271"></a>(<a href="http://practical-scheme.net/gauche/man/?l=en&p=define">define</a> (<a href="read-and-anchor.scm.html#read-and-anchor.scm:271">read-and-anchor-file</a> file)
+0272: <a name="read-and-anchor.scm:272"></a>  (<a href="http://practical-scheme.net/gauche/man/?l=en&p=with-input-from-file">with-input-from-file</a> file
+0273: <a name="read-and-anchor.scm:273"></a>    (<a href="http://practical-scheme.net/gauche/man/?l=en&p=lambda">lambda</a> ()
+0274: <a name="read-and-anchor.scm:274"></a>      (<a href="http://practical-scheme.net/gauche/man/?l=en&p=guard">guard</a> (e ((<a href="http://practical-scheme.net/gauche/man/?l=en&p=is-a?">is-a?</a> e <a href="http://practical-scheme.net/gauche/man/?l=en&p=<error>">&lt;error&gt;</a>)
+0275: <a name="read-and-anchor.scm:275"></a>                 ;; FIXME raise more specific condition in read-and-anchor
+0276: <a name="read-and-anchor.scm:276"></a>                 ;; or check message slot.
+0277: <a name="read-and-anchor.scm:277"></a>                 (<a href="http://practical-scheme.net/gauche/man/?l=en&p=display">display</a> #"read-and-anchor: ~(<a href="http://practical-scheme.net/gauche/man/?l=en&p=~">~</a> e 'message)\n"
+0278: <a name="read-and-anchor.scm:278"></a>                          (<a href="http://practical-scheme.net/gauche/man/?l=en&p=current-error-port">current-error-port</a>))
+0279: <a name="read-and-anchor.scm:279"></a>                 (<a href="http://practical-scheme.net/gauche/man/?l=en&p=copy-port">copy-port</a> (<a href="http://practical-scheme.net/gauche/man/?l=en&p=current-input-port">current-input-port</a>)
+0280: <a name="read-and-anchor.scm:280"></a>                            (<a href="http://practical-scheme.net/gauche/man/?l=en&p=current-output-port">current-output-port</a>))
+0281: <a name="read-and-anchor.scm:281"></a>                 (<a href="http://practical-scheme.net/gauche/man/?l=en&p=raise">raise</a> e))
+0282: <a name="read-and-anchor.scm:282"></a>                (<a href="http://practical-scheme.net/gauche/man/?l=en&p=else">else</a> (<a href="http://practical-scheme.net/gauche/man/?l=en&p=raise">raise</a> e)))
+0283: <a name="read-and-anchor.scm:283"></a>        (<a href="http://practical-scheme.net/gauche/man/?l=en&p=until">until</a> (<a href="http://practical-scheme.net/gauche/man/?l=en&p=eof-object?">eof-object?</a> (<a href="read-and-anchor.scm.html#read-and-anchor.scm:292">read-and-anchor</a> 0)))))))
+0284: <a name="read-and-anchor.scm:284"></a>
+0285: <a name="read-and-anchor.scm:285"></a>(<a href="http://practical-scheme.net/gauche/man/?l=en&p=define">define</a> <a href="read-and-anchor.scm.html#read-and-anchor.scm:285">in-string-interp</a> (<a href="http://practical-scheme.net/gauche/man/?l=en&p=make-parameter">make-parameter</a> #f))
+0286: <a name="read-and-anchor.scm:286"></a>
+0287: <a name="read-and-anchor.scm:287"></a>(<a href="http://practical-scheme.net/gauche/man/?l=en&p=define">define</a> (<a href="read-and-anchor.scm.html#read-and-anchor.scm:287">get-file-and-lineno</a>)
+0288: <a name="read-and-anchor.scm:288"></a>  (<a href="http://practical-scheme.net/gauche/man/?l=en&p=cond">cond</a> ((<a href="read-and-anchor.scm.html#read-and-anchor.scm:285">in-string-interp</a>) <a href="http://practical-scheme.net/gauche/man/?l=en&p==>">=&gt;</a> (<a href="http://practical-scheme.net/gauche/man/?l=en&p=lambda">lambda</a> (x) x))
+0289: <a name="read-and-anchor.scm:289"></a>        (<a href="http://practical-scheme.net/gauche/man/?l=en&p=else">else</a> (<a href="http://practical-scheme.net/gauche/man/?l=en&p=cons">cons</a> (<a href="http://practical-scheme.net/gauche/man/?l=en&p=port-name">port-name</a> (<a href="http://practical-scheme.net/gauche/man/?l=en&p=current-input-port">current-input-port</a>))
+0290: <a name="read-and-anchor.scm:290"></a>                    (<a href="http://practical-scheme.net/gauche/man/?l=en&p=port-current-line">port-current-line</a> (<a href="http://practical-scheme.net/gauche/man/?l=en&p=current-input-port">current-input-port</a>))))))
+0291: <a name="read-and-anchor.scm:291"></a>
+0292: <a name="read-and-anchor.scm:292"></a>(<a href="http://practical-scheme.net/gauche/man/?l=en&p=define">define</a> (<a href="read-and-anchor.scm.html#read-and-anchor.scm:292">read-and-anchor</a> lvl)
+0293: <a name="read-and-anchor.scm:293"></a>  (<a href="http://practical-scheme.net/gauche/man/?l=en&p=let">let</a> lp ((ch (<a href="http://practical-scheme.net/gauche/man/?l=en&p=read-char">read-char</a>)))
+0294: <a name="read-and-anchor.scm:294"></a>    (<a href="http://practical-scheme.net/gauche/man/?l=en&p=cond">cond</a> ((<a href="http://practical-scheme.net/gauche/man/?l=en&p=eof-object?">eof-object?</a> ch) ch)
+0295: <a name="read-and-anchor.scm:295"></a>
+0296: <a name="read-and-anchor.scm:296"></a>          ((<a href="http://practical-scheme.net/gauche/man/?l=en&p=char=?">char=?</a> #\nl ch) (<a href="read-and-anchor.scm.html#read-and-anchor.scm:55">do-newline</a>))
+0297: <a name="read-and-anchor.scm:297"></a>          ((<a href="http://practical-scheme.net/gauche/man/?l=en&p=char=?">char=?</a> #\|  ch) (<a href="read-and-anchor.scm.html#read-and-anchor.scm:184">do-bar</a>))
+0298: <a name="read-and-anchor.scm:298"></a>          ((<a href="http://practical-scheme.net/gauche/man/?l=en&p=char=?">char=?</a> #\"  ch) (<a href="read-and-anchor.scm.html#read-and-anchor.scm:198">do-string</a>))
+0299: <a name="read-and-anchor.scm:299"></a>          ((<a href="http://practical-scheme.net/gauche/man/?l=en&p=char=?">char=?</a> #\;  ch) (<a href="read-and-anchor.scm.html#read-and-anchor.scm:211">do-comment</a>))
+0300: <a name="read-and-anchor.scm:300"></a>          ((<a href="http://practical-scheme.net/gauche/man/?l=en&p=char=?">char=?</a> #\'  ch) (<a href="read-and-anchor.scm.html#read-and-anchor.scm:203">do-quote</a> lvl))
+0301: <a name="read-and-anchor.scm:301"></a>          ((<a href="http://practical-scheme.net/gauche/man/?l=en&p=char=?">char=?</a> #\`  ch) (<a href="read-and-anchor.scm.html#read-and-anchor.scm:207">do-quasi-quote</a> lvl))
+0302: <a name="read-and-anchor.scm:302"></a>          ((<a href="http://practical-scheme.net/gauche/man/?l=en&p=char=?">char=?</a> #\#  ch) (<a href="read-and-anchor.scm.html#read-and-anchor.scm:61">do-sharp</a> lvl))
+0303: <a name="read-and-anchor.scm:303"></a>
+0304: <a name="read-and-anchor.scm:304"></a>          ;; FIXME not quite correct but it is needed
+0305: <a name="read-and-anchor.scm:305"></a>          ;; to process string interpolation
+0306: <a name="read-and-anchor.scm:306"></a>          ((<a href="http://practical-scheme.net/gauche/man/?l=en&p=char=?">char=?</a> #\\  ch)
+0307: <a name="read-and-anchor.scm:307"></a>           (<a href="read-and-anchor.scm.html#read-and-anchor.scm:15">disp</a> ch)
+0308: <a name="read-and-anchor.scm:308"></a>           (<a href="read-and-anchor.scm.html#read-and-anchor.scm:15">disp</a> (<a href="http://practical-scheme.net/gauche/man/?l=en&p=read-char">read-char</a>))
+0309: <a name="read-and-anchor.scm:309"></a>           (lp (<a href="http://practical-scheme.net/gauche/man/?l=en&p=read-char">read-char</a>)))
+0310: <a name="read-and-anchor.scm:310"></a>
+0311: <a name="read-and-anchor.scm:311"></a>          ((<a href="http://practical-scheme.net/gauche/man/?l=en&p=char=?">char=?</a> #\)  ch)
+0312: <a name="read-and-anchor.scm:312"></a>           (<a href="http://practical-scheme.net/gauche/man/?l=en&p=when">when</a> (<a href="http://practical-scheme.net/gauche/man/?l=en&p=zero?">zero?</a> lvl)
+0313: <a name="read-and-anchor.scm:313"></a>             (<a href="read-and-anchor.scm.html#read-and-anchor.scm:15">disp</a> ch)
+0314: <a name="read-and-anchor.scm:314"></a>             (<a href="http://practical-scheme.net/gauche/man/?l=en&p=error">error</a> "Extra close parenthesis"))
+0315: <a name="read-and-anchor.scm:315"></a>           (<a href="read-and-anchor.scm.html#read-and-anchor.scm:15">disp</a> ch)
+0316: <a name="read-and-anchor.scm:316"></a>           'close-paren)
+0317: <a name="read-and-anchor.scm:317"></a>
+0318: <a name="read-and-anchor.scm:318"></a>          ((<a href="http://practical-scheme.net/gauche/man/?l=en&p=char=?">char=?</a> #\( ch)
+0319: <a name="read-and-anchor.scm:319"></a>           (<a href="http://practical-scheme.net/gauche/man/?l=en&p=if">if</a> (<a href="http://practical-scheme.net/gauche/man/?l=en&p=and">and</a> (<a href="http://practical-scheme.net/gauche/man/?l=en&p=zero?">zero?</a> lvl) (<a href="http://practical-scheme.net/gauche/man/?l=en&p=not">not</a> (<a href="read-and-anchor.scm.html#read-and-anchor.scm:8">anchor-all-lines</a>)))
+0320: <a name="read-and-anchor.scm:320"></a>             (<a href="read-and-anchor.scm.html#read-and-anchor.scm:252">anchor-line</a>))
+0321: <a name="read-and-anchor.scm:321"></a>           (<a href="read-and-anchor.scm.html#read-and-anchor.scm:15">disp</a> #\()
+0322: <a name="read-and-anchor.scm:322"></a>           (<a href="http://practical-scheme.net/gauche/man/?l=en&p=let">let</a> lp ()
+0323: <a name="read-and-anchor.scm:323"></a>             (<a href="http://practical-scheme.net/gauche/man/?l=en&p=let">let</a> ((x (<a href="read-and-anchor.scm.html#read-and-anchor.scm:292">read-and-anchor</a> (<a href="http://practical-scheme.net/gauche/man/?l=en&p=+">+</a> lvl 1))))
+0324: <a name="read-and-anchor.scm:324"></a>               (<a href="http://practical-scheme.net/gauche/man/?l=en&p=cond">cond</a> ((<a href="http://practical-scheme.net/gauche/man/?l=en&p=eof-object?">eof-object?</a> x) (<a href="http://practical-scheme.net/gauche/man/?l=en&p=error">error</a> "unexpected EOF"))
+0325: <a name="read-and-anchor.scm:325"></a>                     ((<a href="http://practical-scheme.net/gauche/man/?l=en&p=eq?">eq?</a> x 'close-paren) 'list)
+0326: <a name="read-and-anchor.scm:326"></a>                     (<a href="http://practical-scheme.net/gauche/man/?l=en&p=else">else</a> (lp))))))
+0327: <a name="read-and-anchor.scm:327"></a>
+0328: <a name="read-and-anchor.scm:328"></a>          ((<a href="http://practical-scheme.net/gauche/man/?l=en&p=char-set-contains?">char-set-contains?</a> <a href="read-and-anchor.scm.html#read-and-anchor.scm:29">symbol-initial</a> ch)
+0329: <a name="read-and-anchor.scm:329"></a>           (<a href="http://practical-scheme.net/gauche/man/?l=en&p=let*">let*</a> ((fl (<a href="read-and-anchor.scm.html#read-and-anchor.scm:287">get-file-and-lineno</a>))
+0330: <a name="read-and-anchor.scm:330"></a>                  (filename (<a href="http://practical-scheme.net/gauche/man/?l=en&p=car">car</a> fl))
+0331: <a name="read-and-anchor.scm:331"></a>                  (lineno   (<a href="http://practical-scheme.net/gauche/man/?l=en&p=cdr">cdr</a> fl))
+0332: <a name="read-and-anchor.scm:332"></a>                  (sym      (<a href="read-and-anchor.scm.html#read-and-anchor.scm:43">read-symbol</a> (<a href="http://practical-scheme.net/gauche/man/?l=en&p=peek-char">peek-char</a>) (<a href="http://practical-scheme.net/gauche/man/?l=en&p=list">list</a> ch))))
+0333: <a name="read-and-anchor.scm:333"></a>             (<a href="http://practical-scheme.net/gauche/man/?l=en&p=cond">cond</a> ((<a href="dictionary.scm.html#dictionary.scm:141">dictionary-get</a> sym)
+0334: <a name="read-and-anchor.scm:334"></a>                    <a href="http://practical-scheme.net/gauche/man/?l=en&p==>">=&gt;</a>
+0335: <a name="read-and-anchor.scm:335"></a>                    (<a href="http://practical-scheme.net/gauche/man/?l=en&p=lambda">lambda</a> (entry)
+0336: <a name="read-and-anchor.scm:336"></a>                      (<a href="read-and-anchor.scm.html#read-and-anchor.scm:225">anchor</a> entry filename lineno)))
+0337: <a name="read-and-anchor.scm:337"></a>                   ((<a href="read-and-anchor.scm.html#read-and-anchor.scm:257">has-document?</a>  sym)
+0338: <a name="read-and-anchor.scm:338"></a>                    (<a href="http://practical-scheme.net/gauche/man/?l=en&p=display">display</a> #"&lt;a class=\"man\" href=\"~(<a href="read-and-anchor.scm.html#read-and-anchor.scm:11">gauche-man-base</a>)~|sym|\"&gt;")
+0339: <a name="read-and-anchor.scm:339"></a>                    (<a href="read-and-anchor.scm.html#read-and-anchor.scm:15">disp</a> sym)
+0340: <a name="read-and-anchor.scm:340"></a>                    (<a href="http://practical-scheme.net/gauche/man/?l=en&p=display">display</a> "&lt;/a&gt;"))
+0341: <a name="read-and-anchor.scm:341"></a>                   (<a href="http://practical-scheme.net/gauche/man/?l=en&p=else">else</a> (<a href="read-and-anchor.scm.html#read-and-anchor.scm:15">disp</a> sym))))
+0342: <a name="read-and-anchor.scm:342"></a>           'symbol)
+0343: <a name="read-and-anchor.scm:343"></a>          (<a href="http://practical-scheme.net/gauche/man/?l=en&p=else">else</a>                         ; #\. #\[ #\]
+0344: <a name="read-and-anchor.scm:344"></a>           (<a href="read-and-anchor.scm.html#read-and-anchor.scm:15">disp</a> ch)
+0345: <a name="read-and-anchor.scm:345"></a>           (lp (<a href="http://practical-scheme.net/gauche/man/?l=en&p=read-char">read-char</a>))))))
+0346: <a name="read-and-anchor.scm:346"></a>
+0347: <a name="read-and-anchor.scm:347"></a>(<a href="http://practical-scheme.net/gauche/man/?l=en&p=define">define</a> (<a href="read-and-anchor.scm.html#read-and-anchor.scm:347">read-w/o-anchor</a> lvl) ; in quote
+0348: <a name="read-and-anchor.scm:348"></a>
+0349: <a name="read-and-anchor.scm:349"></a>  (<a href="http://practical-scheme.net/gauche/man/?l=en&p=define">define</a> (do-unquote)
+0350: <a name="read-and-anchor.scm:350"></a>    (<a href="read-and-anchor.scm.html#read-and-anchor.scm:15">disp</a> #\,)
+0351: <a name="read-and-anchor.scm:351"></a>    (<a href="http://practical-scheme.net/gauche/man/?l=en&p=if">if</a> (<a href="http://practical-scheme.net/gauche/man/?l=en&p=char=?">char=?</a> (<a href="http://practical-scheme.net/gauche/man/?l=en&p=peek-char">peek-char</a>) #\@)
+0352: <a name="read-and-anchor.scm:352"></a>      (<a href="read-and-anchor.scm.html#read-and-anchor.scm:15">disp</a> (<a href="http://practical-scheme.net/gauche/man/?l=en&p=read-char">read-char</a>)))
+0353: <a name="read-and-anchor.scm:353"></a>    (<a href="read-and-anchor.scm.html#read-and-anchor.scm:292">read-and-anchor</a> lvl))
+0354: <a name="read-and-anchor.scm:354"></a>
+0355: <a name="read-and-anchor.scm:355"></a>  (<a href="http://practical-scheme.net/gauche/man/?l=en&p=let">let</a> lp ((ch (<a href="http://practical-scheme.net/gauche/man/?l=en&p=read-char">read-char</a>)))
+0356: <a name="read-and-anchor.scm:356"></a>    (<a href="http://practical-scheme.net/gauche/man/?l=en&p=cond">cond</a> ((<a href="http://practical-scheme.net/gauche/man/?l=en&p=eof-object?">eof-object?</a> ch) ch)
+0357: <a name="read-and-anchor.scm:357"></a>
+0358: <a name="read-and-anchor.scm:358"></a>          ((<a href="http://practical-scheme.net/gauche/man/?l=en&p=char=?">char=?</a> #\nl ch) (<a href="read-and-anchor.scm.html#read-and-anchor.scm:55">do-newline</a>))
+0359: <a name="read-and-anchor.scm:359"></a>          ((<a href="http://practical-scheme.net/gauche/man/?l=en&p=char=?">char=?</a> #\|  ch) (<a href="read-and-anchor.scm.html#read-and-anchor.scm:184">do-bar</a>))
+0360: <a name="read-and-anchor.scm:360"></a>          ((<a href="http://practical-scheme.net/gauche/man/?l=en&p=char=?">char=?</a> #\"  ch) (<a href="read-and-anchor.scm.html#read-and-anchor.scm:198">do-string</a>))
+0361: <a name="read-and-anchor.scm:361"></a>          ((<a href="http://practical-scheme.net/gauche/man/?l=en&p=char=?">char=?</a> #\;  ch) (<a href="read-and-anchor.scm.html#read-and-anchor.scm:211">do-comment</a>))
+0362: <a name="read-and-anchor.scm:362"></a>          ((<a href="http://practical-scheme.net/gauche/man/?l=en&p=char=?">char=?</a> #\'  ch) (<a href="read-and-anchor.scm.html#read-and-anchor.scm:203">do-quote</a> lvl))
+0363: <a name="read-and-anchor.scm:363"></a>          ((<a href="http://practical-scheme.net/gauche/man/?l=en&p=char=?">char=?</a> #\`  ch) (<a href="read-and-anchor.scm.html#read-and-anchor.scm:207">do-quasi-quote</a> lvl))
+0364: <a name="read-and-anchor.scm:364"></a>          ((<a href="http://practical-scheme.net/gauche/man/?l=en&p=char=?">char=?</a> #\#  ch) (<a href="read-and-anchor.scm.html#read-and-anchor.scm:61">do-sharp</a> lvl))
+0365: <a name="read-and-anchor.scm:365"></a>          ((<a href="http://practical-scheme.net/gauche/man/?l=en&p=char=?">char=?</a> #\,  ch) (do-unquote))
+0366: <a name="read-and-anchor.scm:366"></a>
+0367: <a name="read-and-anchor.scm:367"></a>          ;; FIXME not quite correct but it is needed
+0368: <a name="read-and-anchor.scm:368"></a>          ;; to process string interpolation
+0369: <a name="read-and-anchor.scm:369"></a>          ((<a href="http://practical-scheme.net/gauche/man/?l=en&p=char=?">char=?</a> #\\  ch)
+0370: <a name="read-and-anchor.scm:370"></a>           (<a href="read-and-anchor.scm.html#read-and-anchor.scm:15">disp</a> ch)
+0371: <a name="read-and-anchor.scm:371"></a>           (<a href="read-and-anchor.scm.html#read-and-anchor.scm:15">disp</a> (<a href="http://practical-scheme.net/gauche/man/?l=en&p=read-char">read-char</a>))
+0372: <a name="read-and-anchor.scm:372"></a>           (lp (<a href="http://practical-scheme.net/gauche/man/?l=en&p=read-char">read-char</a>)))
+0373: <a name="read-and-anchor.scm:373"></a>
+0374: <a name="read-and-anchor.scm:374"></a>          ((<a href="http://practical-scheme.net/gauche/man/?l=en&p=char=?">char=?</a> #\)  ch)
+0375: <a name="read-and-anchor.scm:375"></a>           (<a href="http://practical-scheme.net/gauche/man/?l=en&p=when">when</a> (<a href="http://practical-scheme.net/gauche/man/?l=en&p=zero?">zero?</a> lvl)
+0376: <a name="read-and-anchor.scm:376"></a>             (<a href="read-and-anchor.scm.html#read-and-anchor.scm:15">disp</a> ch)
+0377: <a name="read-and-anchor.scm:377"></a>             (<a href="http://practical-scheme.net/gauche/man/?l=en&p=error">error</a> "Extra close parenthesis"))
+0378: <a name="read-and-anchor.scm:378"></a>           (<a href="read-and-anchor.scm.html#read-and-anchor.scm:15">disp</a> ch)
+0379: <a name="read-and-anchor.scm:379"></a>           'close-paren)
+0380: <a name="read-and-anchor.scm:380"></a>
+0381: <a name="read-and-anchor.scm:381"></a>          ((<a href="http://practical-scheme.net/gauche/man/?l=en&p=char=?">char=?</a> #\( ch)
+0382: <a name="read-and-anchor.scm:382"></a>           (<a href="http://practical-scheme.net/gauche/man/?l=en&p=if">if</a> (<a href="http://practical-scheme.net/gauche/man/?l=en&p=and">and</a> (<a href="http://practical-scheme.net/gauche/man/?l=en&p=zero?">zero?</a> lvl) (<a href="http://practical-scheme.net/gauche/man/?l=en&p=not">not</a> (<a href="read-and-anchor.scm.html#read-and-anchor.scm:8">anchor-all-lines</a>)))
+0383: <a name="read-and-anchor.scm:383"></a>             (<a href="read-and-anchor.scm.html#read-and-anchor.scm:252">anchor-line</a>))
+0384: <a name="read-and-anchor.scm:384"></a>           (<a href="read-and-anchor.scm.html#read-and-anchor.scm:15">disp</a> #\()
+0385: <a name="read-and-anchor.scm:385"></a>           (<a href="http://practical-scheme.net/gauche/man/?l=en&p=let">let</a> lp ()
+0386: <a name="read-and-anchor.scm:386"></a>             (<a href="http://practical-scheme.net/gauche/man/?l=en&p=let">let</a> ((x (<a href="read-and-anchor.scm.html#read-and-anchor.scm:292">read-and-anchor</a> (<a href="http://practical-scheme.net/gauche/man/?l=en&p=+">+</a> lvl 1))))
+0387: <a name="read-and-anchor.scm:387"></a>               (<a href="http://practical-scheme.net/gauche/man/?l=en&p=cond">cond</a> ((<a href="http://practical-scheme.net/gauche/man/?l=en&p=eof-object?">eof-object?</a> x) (<a href="http://practical-scheme.net/gauche/man/?l=en&p=error">error</a> "unexpected EOF"))
+0388: <a name="read-and-anchor.scm:388"></a>                     ((<a href="http://practical-scheme.net/gauche/man/?l=en&p=eq?">eq?</a> x 'close-paren) 'list)
+0389: <a name="read-and-anchor.scm:389"></a>                     (<a href="http://practical-scheme.net/gauche/man/?l=en&p=else">else</a> (lp))))))
+0390: <a name="read-and-anchor.scm:390"></a>
+0391: <a name="read-and-anchor.scm:391"></a>          ((<a href="http://practical-scheme.net/gauche/man/?l=en&p=char-set-contains?">char-set-contains?</a> <a href="read-and-anchor.scm.html#read-and-anchor.scm:29">symbol-initial</a> ch)
+0392: <a name="read-and-anchor.scm:392"></a>           (<a href="http://practical-scheme.net/gauche/man/?l=en&p=let">let</a> ((sym (<a href="read-and-anchor.scm.html#read-and-anchor.scm:43">read-symbol</a> (<a href="http://practical-scheme.net/gauche/man/?l=en&p=peek-char">peek-char</a>) (<a href="http://practical-scheme.net/gauche/man/?l=en&p=list">list</a> ch))))
+0393: <a name="read-and-anchor.scm:393"></a>             (<a href="read-and-anchor.scm.html#read-and-anchor.scm:15">disp</a> sym)
+0394: <a name="read-and-anchor.scm:394"></a>             ch))
+0395: <a name="read-and-anchor.scm:395"></a>          (<a href="http://practical-scheme.net/gauche/man/?l=en&p=else">else</a>
+0396: <a name="read-and-anchor.scm:396"></a>           (<a href="read-and-anchor.scm.html#read-and-anchor.scm:15">disp</a> ch)
+0397: <a name="read-and-anchor.scm:397"></a>           (lp (<a href="http://practical-scheme.net/gauche/man/?l=en&p=read-char">read-char</a>))))))
+0398: <a name="read-and-anchor.scm:398"></a>
+0399: <a name="read-and-anchor.scm:399"></a>(<a href="http://practical-scheme.net/gauche/man/?l=en&p=provide">provide</a> "scmxref/read-and-anchor")
+0400: <a name="read-and-anchor.scm:400"></a>
+
 </pre>
-<a href="../scmxref/index.html">index</a>
+<a href="index.html">index</a>
 </body>
 </html>
