@@ -1,0 +1,133 @@
+<html><head><title>scmxref-html</title
+><style>table.index {
+    width: 100%;
+}
+th.index {
+    text-align: left;
+    vertical-align: top;
+    width: 20%;
+}
+
+a {
+  text-decoration: none;
+}
+a.menu {
+  color: navy;
+}
+a.file {
+  color: mediumblue;
+}
+a.remove {
+  color: red;
+}
+a.entry {
+  color: royalblue;
+}
+a.ref {
+  color: green;
+}
+a.lineno {
+  color: dimgray;
+}
+a.man {
+  color: seagreen;
+}
+</style
+></head
+><body><a href="index.html">index</a
+><pre>0001: #!/usr/bin/env gosh
+0002: <a name="scmxref-html:2"></a>; -*- Scheme -*-
+0003: <a name="scmxref-html:3"></a>;;;
+0004: <a name="scmxref-html:4"></a>;;;   scmxref -- generate cross reference for Gauche code in html format
+0005: <a name="scmxref-html:5"></a>;;;
+0006: <a name="scmxref-html:6"></a>(<a class="man" href="http://practical-scheme.net/gauche/man/?l=en&p=use">use</a> <a class="man" href="http://practical-scheme.net/gauche/man/?l=en&p=gauche.parameter">gauche.parameter</a>)
+0007: <a name="scmxref-html:7"></a>(<a class="man" href="http://practical-scheme.net/gauche/man/?l=en&p=use">use</a> <a class="man" href="http://practical-scheme.net/gauche/man/?l=en&p=gauche.parseopt">gauche.parseopt</a>)
+0008: <a name="scmxref-html:8"></a>(<a class="man" href="http://practical-scheme.net/gauche/man/?l=en&p=use">use</a> <a class="man" href="http://practical-scheme.net/gauche/man/?l=en&p=file.util">file.util</a>)
+0009: <a name="scmxref-html:9"></a>(<a class="man" href="http://practical-scheme.net/gauche/man/?l=en&p=use">use</a> <a class="man" href="http://practical-scheme.net/gauche/man/?l=en&p=text.html-lite">text.html-lite</a>)
+0010: <a name="scmxref-html:10"></a>(<a class="man" href="http://practical-scheme.net/gauche/man/?l=en&p=use">use</a> <a class="man" href="http://practical-scheme.net/gauche/man/?l=en&p=text.tree">text.tree</a>)
+0011: <a name="scmxref-html:11"></a>(<a class="man" href="http://practical-scheme.net/gauche/man/?l=en&p=use">use</a> scmxref)
+0012: <a name="scmxref-html:12"></a>(<a class="man" href="http://practical-scheme.net/gauche/man/?l=en&p=use">use</a> <a class="entry" href="scmxref/path-util.scm.html#scmxref/path-util.scm:1">scmxref.path-util</a>)
+0013: <a name="scmxref-html:13"></a>
+0014: <a name="scmxref-html:14"></a>;;;
+0015: <a name="scmxref-html:15"></a>;;;  Customize
+0016: <a name="scmxref-html:16"></a>;;;
+0017: <a name="scmxref-html:17"></a>;;(gauche-man-base "http://practical-scheme.net/wiliki/schemexref.cgi?")
+0018: <a name="scmxref-html:18"></a>;;(gauche-man-base "http://practical-scheme.net/gauche/man/?l=en&amp;p="   )
+0019: <a name="scmxref-html:19"></a>;;(gauche-man-base "http://practical-scheme.net/gauche/man/?l=jp&amp;p="   )
+0020: <a name="scmxref-html:20"></a>;;(documented-modules '()) ; see dictionary.scm
+0021: <a name="scmxref-html:21"></a>(<a class="entry" href="scmxref/read-and-anchor.scm.html#scmxref/read-and-anchor.scm:7">anchor-all-lines</a> #t)
+0022: <a name="scmxref-html:22"></a>
+0023: <a name="scmxref-html:23"></a>;;;
+0024: <a name="scmxref-html:24"></a>;;;
+0025: <a name="scmxref-html:25"></a>;;;
+0026: <a name="scmxref-html:26"></a>(<a class="man" href="http://practical-scheme.net/gauche/man/?l=en&p=define">define</a> <a class="entry" href="scmxref-html.html#scmxref-html:26">force-output</a> (<a class="man" href="http://practical-scheme.net/gauche/man/?l=en&p=make-parameter">make-parameter</a> #f))
+0027: <a name="scmxref-html:27"></a>(<a class="man" href="http://practical-scheme.net/gauche/man/?l=en&p=define">define</a> <a class="entry" href="scmxref-html.html#scmxref-html:27">verbose</a>      (<a class="man" href="http://practical-scheme.net/gauche/man/?l=en&p=make-parameter">make-parameter</a> #t))
+0028: <a name="scmxref-html:28"></a>(<a class="man" href="http://practical-scheme.net/gauche/man/?l=en&p=define">define</a> (<a class="entry" href="scmxref-html.html#scmxref-html:28">message</a> . x)   (<a class="man" href="http://practical-scheme.net/gauche/man/?l=en&p=if">if</a> (<a class="entry" href="scmxref-html.html#scmxref-html:27">verbose</a>) (<a class="man" href="http://practical-scheme.net/gauche/man/?l=en&p=apply">apply</a> <a class="man" href="http://practical-scheme.net/gauche/man/?l=en&p=print">print</a> x)))
+0029: <a name="scmxref-html:29"></a>
+0030: <a name="scmxref-html:30"></a>(<a class="man" href="http://practical-scheme.net/gauche/man/?l=en&p=define">define</a> (<a class="entry" href="scmxref-html.html#scmxref-html:30">file-&gt;list-of-anchored-strings</a> file)
+0031: <a name="scmxref-html:31"></a>  (<a class="man" href="http://practical-scheme.net/gauche/man/?l=en&p=let*">let*</a> ((L (<a class="man" href="http://practical-scheme.net/gauche/man/?l=en&p=string-split">string-split</a> (<a class="entry" href="scmxref/read-and-anchor.scm.html#scmxref/read-and-anchor.scm:265">file-&gt;anchored-string</a> file) #\newline))
+0032: <a name="scmxref-html:32"></a>         (N (<a class="man" href="http://practical-scheme.net/gauche/man/?l=en&p=length">length</a> L)))
+0033: <a name="scmxref-html:33"></a>    (<a class="man" href="http://practical-scheme.net/gauche/man/?l=en&p=map">map</a> (<a class="man" href="http://practical-scheme.net/gauche/man/?l=en&p=lambda">lambda</a> (n l)
+0034: <a name="scmxref-html:34"></a>           (<a class="man" href="http://practical-scheme.net/gauche/man/?l=en&p=list">list</a> (<a class="man" href="http://practical-scheme.net/gauche/man/?l=en&p=format">format</a> "~4,'0d: " n) l "\n"))
+0035: <a name="scmxref-html:35"></a>         (<a class="man" href="http://practical-scheme.net/gauche/man/?l=en&p=iota">iota</a> N 1) L)))
+0036: <a name="scmxref-html:36"></a>
+0037: <a name="scmxref-html:37"></a>(<a class="man" href="http://practical-scheme.net/gauche/man/?l=en&p=define">define</a> (<a class="entry" href="scmxref-html.html#scmxref-html:37">generate-html-files</a> files dest-dir)
+0038: <a name="scmxref-html:38"></a>
+0039: <a name="scmxref-html:39"></a>  (<a class="man" href="http://practical-scheme.net/gauche/man/?l=en&p=if">if</a> (<a class="man" href="http://practical-scheme.net/gauche/man/?l=en&p=and">and</a> (<a class="man" href="http://practical-scheme.net/gauche/man/?l=en&p=not">not</a> (<a class="entry" href="scmxref-html.html#scmxref-html:26">force-output</a>)) (<a class="man" href="http://practical-scheme.net/gauche/man/?l=en&p=file-exists?">file-exists?</a> dest-dir))
+0040: <a name="scmxref-html:40"></a>    (<a class="man" href="http://practical-scheme.net/gauche/man/?l=en&p=error">error</a> #"~|dest-dir| already exists"))
+0041: <a name="scmxref-html:41"></a>
+0042: <a name="scmxref-html:42"></a>  (<a class="man" href="http://practical-scheme.net/gauche/man/?l=en&p=for-each">for-each</a> (<a class="man" href="http://practical-scheme.net/gauche/man/?l=en&p=lambda">lambda</a> (file)
+0043: <a name="scmxref-html:43"></a>              (<a class="man" href="http://practical-scheme.net/gauche/man/?l=en&p=let">let</a> ((outfile #"~|dest-dir|/~(<a class="man" href="http://practical-scheme.net/gauche/man/?l=en&p=string-append">string-append</a> file \".html\")")
+0044: <a name="scmxref-html:44"></a>                    (prefix (<a class="entry" href="scmxref/path-util.scm.html#scmxref/path-util.scm:45">path-to-top</a> file)))
+0045: <a name="scmxref-html:45"></a>                (<a class="man" href="http://practical-scheme.net/gauche/man/?l=en&p=make-directory*">make-directory*</a> (<a class="man" href="http://practical-scheme.net/gauche/man/?l=en&p=sys-dirname">sys-dirname</a> outfile))
+0046: <a name="scmxref-html:46"></a>                (<a class="entry" href="scmxref-html.html#scmxref-html:28">message</a> #"~|file| -&gt; ~|outfile|")
+0047: <a name="scmxref-html:47"></a>                (<a class="man" href="http://practical-scheme.net/gauche/man/?l=en&p=with-output-to-file">with-output-to-file</a> outfile
+0048: <a name="scmxref-html:48"></a>                  (<a class="man" href="http://practical-scheme.net/gauche/man/?l=en&p=lambda">lambda</a> ()
+0049: <a name="scmxref-html:49"></a>                    (<a class="man" href="http://practical-scheme.net/gauche/man/?l=en&p=write-tree">write-tree</a>
+0050: <a name="scmxref-html:50"></a>                     (<a class="man" href="http://practical-scheme.net/gauche/man/?l=en&p=html:html">html:html</a>
+0051: <a name="scmxref-html:51"></a>                      (<a class="man" href="http://practical-scheme.net/gauche/man/?l=en&p=html:head">html:head</a>
+0052: <a name="scmxref-html:52"></a>                       (<a class="man" href="http://practical-scheme.net/gauche/man/?l=en&p=html:title">html:title</a> file)
+0053: <a name="scmxref-html:53"></a>                       (<a class="man" href="http://practical-scheme.net/gauche/man/?l=en&p=html:style">html:style</a> stylesheet))
+0054: <a name="scmxref-html:54"></a>                      (<a class="man" href="http://practical-scheme.net/gauche/man/?l=en&p=html:body">html:body</a>
+0055: <a name="scmxref-html:55"></a>                       (<a class="man" href="http://practical-scheme.net/gauche/man/?l=en&p=html:a">html:a</a> :href #"~|prefix|index.html" "index")
+0056: <a name="scmxref-html:56"></a>                       (<a class="man" href="http://practical-scheme.net/gauche/man/?l=en&p=html:pre">html:pre</a>
+0057: <a name="scmxref-html:57"></a>                        (<a class="entry" href="scmxref-html.html#scmxref-html:30">file-&gt;list-of-anchored-strings</a> file))
+0058: <a name="scmxref-html:58"></a>                       (<a class="man" href="http://practical-scheme.net/gauche/man/?l=en&p=html:a">html:a</a> :href #"~|prefix|index.html" "Index"))))))))
+0059: <a name="scmxref-html:59"></a>            files))
+0060: <a name="scmxref-html:60"></a>
+0061: <a name="scmxref-html:61"></a>(<a class="man" href="http://practical-scheme.net/gauche/man/?l=en&p=define">define</a> (<a class="entry" href="scmxref-html.html#scmxref-html:61">generate-files</a> files dest-dir)
+0062: <a name="scmxref-html:62"></a>  (<a class="entry" href="scmxref-html.html#scmxref-html:37">generate-html-files</a> files dest-dir)
+0063: <a name="scmxref-html:63"></a>  (<a class="man" href="http://practical-scheme.net/gauche/man/?l=en&p=with-output-to-file">with-output-to-file</a> #"~|dest-dir|/index.html" display-index.html))
+0064: <a name="scmxref-html:64"></a>
+0065: <a name="scmxref-html:65"></a>;;;
+0066: <a name="scmxref-html:66"></a>;;;  Main
+0067: <a name="scmxref-html:67"></a>;;;
+0068: <a name="scmxref-html:68"></a>(<a class="man" href="http://practical-scheme.net/gauche/man/?l=en&p=define">define</a> (<a class="entry" href="scmxref-html.html#scmxref-html:68">usage</a> progname)
+0069: <a name="scmxref-html:69"></a>  (<a class="man" href="http://practical-scheme.net/gauche/man/?l=en&p=print">print</a> "\
+0070: usage: " progname " [options] [file ...]
+0071: options:
+0072:         -h          Print this message
+0073:         -q          Quiet mode
+0074:         -d dest     Specify directory where html files are created. Default is html
+0075:         -f          Force output even if dest exists.")
+0076: <a name="scmxref-html:76"></a>  (<a class="man" href="http://practical-scheme.net/gauche/man/?l=en&p=exit">exit</a> 0))
+0077: <a name="scmxref-html:77"></a>
+0078: <a name="scmxref-html:78"></a>(<a class="man" href="http://practical-scheme.net/gauche/man/?l=en&p=define">define</a> (<a class="entry" href="scmxref-html.html#scmxref-html:78">main</a> args)
+0079: <a name="scmxref-html:79"></a>  (<a class="man" href="http://practical-scheme.net/gauche/man/?l=en&p=let-args">let-args</a> (<a class="man" href="http://practical-scheme.net/gauche/man/?l=en&p=cdr">cdr</a> args)
+0080: <a name="scmxref-html:80"></a>      ((#f         "q|quiet"   <a class="man" href="http://practical-scheme.net/gauche/man/?l=en&p==>">=&gt;</a> (<a class="man" href="http://practical-scheme.net/gauche/man/?l=en&p=cut">cut</a> <a class="entry" href="scmxref-html.html#scmxref-html:27">verbose</a> #f))
+0081: <a name="scmxref-html:81"></a>       (#f         "f|force"   <a class="man" href="http://practical-scheme.net/gauche/man/?l=en&p==>">=&gt;</a> (<a class="man" href="http://practical-scheme.net/gauche/man/?l=en&p=cut">cut</a> <a class="entry" href="scmxref-html.html#scmxref-html:26">force-output</a> #t))
+0082: <a name="scmxref-html:82"></a>       (#f         "h|help"    <a class="man" href="http://practical-scheme.net/gauche/man/?l=en&p==>">=&gt;</a> (<a class="man" href="http://practical-scheme.net/gauche/man/?l=en&p=cut">cut</a> <a class="entry" href="scmxref-html.html#scmxref-html:68">usage</a> (<a class="man" href="http://practical-scheme.net/gauche/man/?l=en&p=car">car</a> args)))
+0083: <a name="scmxref-html:83"></a>       (dest-dir   "d|dest=s" "html")
+0084: <a name="scmxref-html:84"></a>       . rest)
+0085: <a name="scmxref-html:85"></a>    (<a class="man" href="http://practical-scheme.net/gauche/man/?l=en&p=unless">unless</a> (<a class="man" href="http://practical-scheme.net/gauche/man/?l=en&p=null?">null?</a> rest)
+0086: <a name="scmxref-html:86"></a>      (<a class="entry" href="scmxref/dictionary.scm.html#scmxref/dictionary.scm:263">build-dictionary</a> rest)
+0087: <a name="scmxref-html:87"></a>      (<a class="entry" href="scmxref-html.html#scmxref-html:61">generate-files</a> rest dest-dir))
+0088: <a name="scmxref-html:88"></a>    0))
+0089: <a name="scmxref-html:89"></a>
+0090: <a name="scmxref-html:90"></a>;;; EOF
+0091: <a name="scmxref-html:91"></a>
+</pre
+><a href="index.html">Index</a
+></body
+></html
+>

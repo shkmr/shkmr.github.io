@@ -1,0 +1,133 @@
+<html><head><title>scmxref/path-util.scm</title
+><style>table.index {
+    width: 100%;
+}
+th.index {
+    text-align: left;
+    vertical-align: top;
+    width: 20%;
+}
+
+a {
+  text-decoration: none;
+}
+a.menu {
+  color: navy;
+}
+a.file {
+  color: mediumblue;
+}
+a.remove {
+  color: red;
+}
+a.entry {
+  color: royalblue;
+}
+a.ref {
+  color: green;
+}
+a.lineno {
+  color: dimgray;
+}
+a.man {
+  color: seagreen;
+}
+</style
+></head
+><body><a href="../index.html">index</a
+><pre>0001: (<a class="man" href="http://practical-scheme.net/gauche/man/?l=en&p=define-module">define-module</a> <a class="entry" href="path-util.scm.html#scmxref/path-util.scm:1">scmxref.path-util</a>
+0002: <a name="scmxref/path-util.scm:2"></a>  (<a class="man" href="http://practical-scheme.net/gauche/man/?l=en&p=use">use</a> <a class="man" href="http://practical-scheme.net/gauche/man/?l=en&p=file.util">file.util</a>)
+0003: <a name="scmxref/path-util.scm:3"></a>  (<a class="man" href="http://practical-scheme.net/gauche/man/?l=en&p=use">use</a> <a class="man" href="http://practical-scheme.net/gauche/man/?l=en&p=srfi-11">srfi-11</a>) ; let-values
+0004: <a name="scmxref/path-util.scm:4"></a>  (<a class="man" href="http://practical-scheme.net/gauche/man/?l=en&p=export">export</a> <a class="entry" href="path-util.scm.html#scmxref/path-util.scm:22">canonical-path</a>
+0005: <a name="scmxref/path-util.scm:5"></a>          <a class="entry" href="path-util.scm.html#scmxref/path-util.scm:80">relative-path</a>
+0006: <a name="scmxref/path-util.scm:6"></a>          <a class="entry" href="path-util.scm.html#scmxref/path-util.scm:45">path-to-top</a>
+0007: <a name="scmxref/path-util.scm:7"></a>          ))
+0008: <a name="scmxref/path-util.scm:8"></a>(<a class="man" href="http://practical-scheme.net/gauche/man/?l=en&p=select-module">select-module</a> <a class="entry" href="path-util.scm.html#scmxref/path-util.scm:1">scmxref.path-util</a>)
+0009: <a name="scmxref/path-util.scm:9"></a>;;
+0010: <a name="scmxref/path-util.scm:10"></a>;; ---  not really belongs to scmxref
+0011: <a name="scmxref/path-util.scm:11"></a>;;
+0012: <a name="scmxref/path-util.scm:12"></a>
+0013: <a name="scmxref/path-util.scm:13"></a>;;;
+0014: <a name="scmxref/path-util.scm:14"></a>;;;  Pathname utilities: canonical-path, relative-path, path-to-top.
+0015: <a name="scmxref/path-util.scm:15"></a>;;;
+0016: <a name="scmxref/path-util.scm:16"></a>
+0017: <a name="scmxref/path-util.scm:17"></a>;;
+0018: <a name="scmxref/path-util.scm:18"></a>;;  Function: &lt;code&gt;canonical-path path&lt;/code&gt;
+0019: <a name="scmxref/path-util.scm:19"></a>;;
+0020: <a name="scmxref/path-util.scm:20"></a>;;    Calculate canonical path of &lt;code&gt;path&lt;/code&gt;.
+0021: <a name="scmxref/path-util.scm:21"></a>;;
+0022: <a name="scmxref/path-util.scm:22"></a>(<a class="man" href="http://practical-scheme.net/gauche/man/?l=en&p=define">define</a> (<a class="entry" href="path-util.scm.html#scmxref/path-util.scm:22">canonical-path</a> path)
+0023: <a name="scmxref/path-util.scm:23"></a>  (<a class="man" href="http://practical-scheme.net/gauche/man/?l=en&p=simplify-path">simplify-path</a>
+0024: <a name="scmxref/path-util.scm:24"></a>   (<a class="man" href="http://practical-scheme.net/gauche/man/?l=en&p=sys-normalize-pathname">sys-normalize-pathname</a>
+0025: <a name="scmxref/path-util.scm:25"></a>    path :absolute #t :canonicalize #t)))
+0026: <a name="scmxref/path-util.scm:26"></a>
+0027: <a name="scmxref/path-util.scm:27"></a>;;
+0028: <a name="scmxref/path-util.scm:28"></a>;; Function: &lt;code&gt;path-to-top path&lt;/code&gt;
+0029: <a name="scmxref/path-util.scm:29"></a>;;
+0030: <a name="scmxref/path-util.scm:30"></a>;;   Calculate path to top directory from dirname of &lt;code&gt;path&lt;/code&gt;.
+0031: <a name="scmxref/path-util.scm:31"></a>;;   An error is raised if &lt;code&gt;path&lt;/code&gt; goes beyond top.
+0032: <a name="scmxref/path-util.scm:32"></a>;;
+0033: <a name="scmxref/path-util.scm:33"></a>;;   Example:
+0034: <a name="scmxref/path-util.scm:34"></a>;;
+0035: <a name="scmxref/path-util.scm:35"></a>;;     (path-to-top "")            =&gt; ""
+0036: <a name="scmxref/path-util.scm:36"></a>;;     (path-to-top "foo")         =&gt; ""
+0037: <a name="scmxref/path-util.scm:37"></a>;;     (path-to-top "foo/")        =&gt; "../"
+0038: <a name="scmxref/path-util.scm:38"></a>;;     (path-to-top "foo/bar")     =&gt; "../"
+0039: <a name="scmxref/path-util.scm:39"></a>;;     (path-to-top "foo/bar/")    =&gt; "../../"
+0040: <a name="scmxref/path-util.scm:40"></a>;;     (path-to-top "foo/../bar")  =&gt; ""
+0041: <a name="scmxref/path-util.scm:41"></a>;;     (path-to-top "foo/../bar/") =&gt; "../"
+0042: <a name="scmxref/path-util.scm:42"></a>;;     (path-to-top "foo/../../")  =&gt; ERROR
+0043: <a name="scmxref/path-util.scm:43"></a>;;     (path-to-top "../")         =&gt; ERROR
+0044: <a name="scmxref/path-util.scm:44"></a>;;
+0045: <a name="scmxref/path-util.scm:45"></a>(<a class="man" href="http://practical-scheme.net/gauche/man/?l=en&p=define">define</a> (<a class="entry" href="path-util.scm.html#scmxref/path-util.scm:45">path-to-top</a> pathname)
+0046: <a name="scmxref/path-util.scm:46"></a>  (<a class="man" href="http://practical-scheme.net/gauche/man/?l=en&p=let">let</a> ((path (<a class="man" href="http://practical-scheme.net/gauche/man/?l=en&p=simplify-path">simplify-path</a>
+0047: <a name="scmxref/path-util.scm:47"></a>               (<a class="man" href="http://practical-scheme.net/gauche/man/?l=en&p=if">if</a> (<a class="man" href="http://practical-scheme.net/gauche/man/?l=en&p=absolute-path?">absolute-path?</a> pathname)
+0048: <a name="scmxref/path-util.scm:48"></a>                 (<a class="man" href="http://practical-scheme.net/gauche/man/?l=en&p=string-copy">string-copy</a> pathname 1 (<a class="man" href="http://practical-scheme.net/gauche/man/?l=en&p=string-length">string-length</a> pathname))
+0049: <a name="scmxref/path-util.scm:49"></a>                 pathname))))
+0050: <a name="scmxref/path-util.scm:50"></a>    (<a class="man" href="http://practical-scheme.net/gauche/man/?l=en&p=let">let</a> lp ((path path)
+0051: <a name="scmxref/path-util.scm:51"></a>             (lis  '()))
+0052: <a name="scmxref/path-util.scm:52"></a>      (<a class="man" href="http://practical-scheme.net/gauche/man/?l=en&p=if">if</a> (<a class="man" href="http://practical-scheme.net/gauche/man/?l=en&p=eq?">eq?</a> (<a class="man" href="http://practical-scheme.net/gauche/man/?l=en&p=string-scan">string-scan</a> path "../") 0)
+0053: <a name="scmxref/path-util.scm:53"></a>        (<a class="man" href="http://practical-scheme.net/gauche/man/?l=en&p=error">error</a> "Invalid path " pathname)
+0054: <a name="scmxref/path-util.scm:54"></a>        (<a class="man" href="http://practical-scheme.net/gauche/man/?l=en&p=cond">cond</a> ((<a class="man" href="http://practical-scheme.net/gauche/man/?l=en&p=string=?">string=?</a> path "/")
+0055: <a name="scmxref/path-util.scm:55"></a>               (<a class="man" href="http://practical-scheme.net/gauche/man/?l=en&p=apply">apply</a> <a class="man" href="http://practical-scheme.net/gauche/man/?l=en&p=string-append">string-append</a> lis))
+0056: <a name="scmxref/path-util.scm:56"></a>              ((<a class="man" href="http://practical-scheme.net/gauche/man/?l=en&p=string-scan">string-scan</a> path #\/ 'after)
+0057: <a name="scmxref/path-util.scm:57"></a>               <a class="man" href="http://practical-scheme.net/gauche/man/?l=en&p==>">=&gt;</a> (<a class="man" href="http://practical-scheme.net/gauche/man/?l=en&p=lambda">lambda</a> (path)
+0058: <a name="scmxref/path-util.scm:58"></a>                    (lp path (<a class="man" href="http://practical-scheme.net/gauche/man/?l=en&p=cons">cons</a> "../" lis))))
+0059: <a name="scmxref/path-util.scm:59"></a>              (<a class="man" href="http://practical-scheme.net/gauche/man/?l=en&p=else">else</a>
+0060: <a name="scmxref/path-util.scm:60"></a>               (<a class="man" href="http://practical-scheme.net/gauche/man/?l=en&p=apply">apply</a> <a class="man" href="http://practical-scheme.net/gauche/man/?l=en&p=string-append">string-append</a> lis)))))))
+0061: <a name="scmxref/path-util.scm:61"></a>
+0062: <a name="scmxref/path-util.scm:62"></a>;;
+0063: <a name="scmxref/path-util.scm:63"></a>;; Function: &lt;code&gt;relative-path from to&lt;/code&gt;
+0064: <a name="scmxref/path-util.scm:64"></a>;;
+0065: <a name="scmxref/path-util.scm:65"></a>;;   Calculate relative path from &lt;code&gt;from&lt;/code&gt; to &lt;code&gt;to&lt;/code&gt;.
+0066: <a name="scmxref/path-util.scm:66"></a>;;
+0067: <a name="scmxref/path-util.scm:67"></a>;;   Example: in case (current-directory) =&gt; "/home/smith"
+0068: <a name="scmxref/path-util.scm:68"></a>;;
+0069: <a name="scmxref/path-util.scm:69"></a>;;     (relative-path "" "")                =&gt; ""
+0070: <a name="scmxref/path-util.scm:70"></a>;;     (relative-path "foo" "")             =&gt; ""
+0071: <a name="scmxref/path-util.scm:71"></a>;;     (relative-path "foo/" "")            =&gt; "../"
+0072: <a name="scmxref/path-util.scm:72"></a>;;     (relative-path "foo/" "foo/bar")     =&gt; "bar"
+0073: <a name="scmxref/path-util.scm:73"></a>;;     (relative-path "foo/" "foo/bar/")    =&gt; "bar/"
+0074: <a name="scmxref/path-util.scm:74"></a>;;     (relative-path "../foo/" "foo/bar/") =&gt; "../smith/foo/bar/"
+0075: <a name="scmxref/path-util.scm:75"></a>;;     (relative-path "" "../..")           =&gt; "../../"
+0076: <a name="scmxref/path-util.scm:76"></a>;;     (relative-path "" "../../..")        =&gt; "../../"  ; parent of root is itself.
+0077: <a name="scmxref/path-util.scm:77"></a>;;
+0078: <a name="scmxref/path-util.scm:78"></a>;;   BUG: the last case does not work as expected.
+0079: <a name="scmxref/path-util.scm:79"></a>;;
+0080: <a name="scmxref/path-util.scm:80"></a>(<a class="man" href="http://practical-scheme.net/gauche/man/?l=en&p=define">define</a> (<a class="entry" href="path-util.scm.html#scmxref/path-util.scm:80">relative-path</a> from to)
+0081: <a name="scmxref/path-util.scm:81"></a>  (<a class="man" href="http://practical-scheme.net/gauche/man/?l=en&p=let">let</a> lp ((f0 (<a class="entry" href="path-util.scm.html#scmxref/path-util.scm:22">canonical-path</a> from))
+0082: <a name="scmxref/path-util.scm:82"></a>           (t0 (<a class="entry" href="path-util.scm.html#scmxref/path-util.scm:22">canonical-path</a> to)))
+0083: <a name="scmxref/path-util.scm:83"></a>    (<a class="man" href="http://practical-scheme.net/gauche/man/?l=en&p=let-values">let-values</a> (((f1 f2) (<a class="man" href="http://practical-scheme.net/gauche/man/?l=en&p=string-scan">string-scan</a> f0 #\/ 'both))
+0084: <a name="scmxref/path-util.scm:84"></a>                 ((t1 t2) (<a class="man" href="http://practical-scheme.net/gauche/man/?l=en&p=string-scan">string-scan</a> t0 #\/ 'both)))
+0085: <a name="scmxref/path-util.scm:85"></a>      (<a class="man" href="http://practical-scheme.net/gauche/man/?l=en&p=cond">cond</a> ((<a class="man" href="http://practical-scheme.net/gauche/man/?l=en&p=and">and</a> f1 t1 (<a class="man" href="http://practical-scheme.net/gauche/man/?l=en&p=string=?">string=?</a> f1 t1))
+0086: <a name="scmxref/path-util.scm:86"></a>             (lp f2 t2))
+0087: <a name="scmxref/path-util.scm:87"></a>            (<a class="man" href="http://practical-scheme.net/gauche/man/?l=en&p=else">else</a>
+0088: <a name="scmxref/path-util.scm:88"></a>             (<a class="man" href="http://practical-scheme.net/gauche/man/?l=en&p=string-append">string-append</a> (<a class="entry" href="path-util.scm.html#scmxref/path-util.scm:45">path-to-top</a> f0) t0))))))
+0089: <a name="scmxref/path-util.scm:89"></a>
+0090: <a name="scmxref/path-util.scm:90"></a>(<a class="man" href="http://practical-scheme.net/gauche/man/?l=en&p=provide">provide</a> "scmxref/path-util")
+0091: <a name="scmxref/path-util.scm:91"></a>
+</pre
+><a href="../index.html">Index</a
+></body
+></html
+>
