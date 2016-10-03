@@ -1,0 +1,47 @@
+9/25/2016 mcHF v0.5 (pre-soldered) -- Copied from paper memo on 10/2/2016.
+
+Vi=-70dBm (-50dBm at miniVNA pro with -20dB PAD)
+Mode: USB 2.5kHz BPF
+
+Vi:            carrier setting of miniVNA -20dB pad.
+Carrier:       mcHF's dBm meter reading.
+S:             Old school S-meter
+                 S9+3 means S9 plus 3 dot.
+                 S20+1 means +20dB plus 1 dot.
+Image:         mcHF's dBm meter reading with 0/0 Setting.
+Bal./Phase:    mcHF's setting for null-audio.
+               (And resulting S-meter reading)
+
+Start : temp sensor 42.0degC
+
+Freq[MHz] Vi[dBm]  Carrier[dBm]  Image[dBm](S)   Bal.    Phase
+ 3.650     -70       -72 (S9+3)   -112 (S4.75)    -11   -9  (S4.0)
+ 3.650     -60       -60 (S20+1)   -96 (S7.5)     -30   -12 (S4.0)
+ 5.250     -70       -69 (S9+3)   -108 (S5.5)     -18   -15 (S4.0)
+ 7.100     -70       -71 (S9+3)   -108 (S5.5)     -25   -15 (S3.5)
+10.100     -70       -70 (S9+3)   -103 (S6.5)     -35   -18 (S3.5)
+14.100     -70       -72 (S9+3)   -103 (S6.5)     -49   -24 (S4.0)
+18.110     -70       -70 (S9+3)   -100 (S7.0)     -67   -34 (S3.0)
+21.200     -70       -72 (S9+3)   -101 (S7.0)     -76   -36 (S3.25)
+24.930     -70       -71 (S9+3)   -101 (S7.0)     -82   -40 (S3.0)
+28.500     -70       -71 (S9+3)    -99 (S7.5)     -85   -56 (S3.0)
+
+End : temp sensor 43.8degC
+
+Observation:
+
+ - Null setting drifts from cold start (~27degC) to settled
+   temp sensor reading (42degC) for about 10 to 20.
+ - Null setting has amplitude dependence. (See 3.650MHz)
+ - After getting null audio, you can still hear the image by
+   changing tuning frequency by 100Hz(*1) or so.
+ - At normal operation, there's no noticeable difference
+   for about plus minus 20 settings. Band has to be crowded
+   to notice some difference.
+ - After 28MHz, I went back 7MHz and 14MHz and got the same
+   results.
+
+*1) My paper memo is unclear if this was 100Hz or 1KHz or 10Hz,
+    And I already forgot what it was....
+
+;; EOF
